@@ -17,4 +17,6 @@ class PfPalette {
     5: Color(0xFF8391A1),
     10: Color(0xFF000000),
   });
+
+  static const Color genericBlack = Color(0xFF000000);
 }
