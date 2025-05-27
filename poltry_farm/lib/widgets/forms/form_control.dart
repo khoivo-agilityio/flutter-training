@@ -19,7 +19,7 @@ BlocSelector<T, V, Z> _baseControl<T extends BlocBase<V>, V, Z>({
 }
 
 class PfFormControls {
-  /// Builds a [WzTextField] widget with a [TextInputFormatter] that depends on
+  /// Builds a [PfTextField] widget with a [TextInputFormatter] that depends on
   /// the value of [selector] in the [Cubit] & [Bloc] state.
   static BlocSelector<T, V, PfPlainTextFormFieldSubState>
       textBloc<T extends BlocBase<V>, V>({
