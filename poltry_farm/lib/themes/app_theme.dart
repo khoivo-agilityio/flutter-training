@@ -112,7 +112,7 @@ class PfTheme {
 
   static final _inputDecorationTheme = InputDecorationTheme(
     filled: true,
-    fillColor: PfPalette.grey[7],
+    fillColor: PfPalette.grey[5],
     prefixIconColor: PfPalette.grey[5],
     suffixIconColor: PfPalette.grey[5],
     constraints: BoxConstraints.tight(
@@ -136,7 +136,7 @@ class PfTheme {
     ),
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(
-        color: PfPalette.grey[7]!,
+        color: PfPalette.grey[5]!,
       ),
       borderRadius: const BorderRadius.all(
         Radius.circular(8),

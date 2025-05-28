@@ -5,15 +5,19 @@ class PfPersonalInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text('This is Setting Personal Info Screen'),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Back to Setting'),
-        ),
-      ],
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('This is Setting Personal Info Screen'),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.maybePop(context);
+            },
+            child: const Text('Back to Setting'),
+          ),
+        ],
+      ),
     );
   }
 }

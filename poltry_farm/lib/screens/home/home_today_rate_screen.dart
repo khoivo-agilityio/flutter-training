@@ -5,11 +5,13 @@ class PfHomeTodayRateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('This is Home - Today Rate Screen'),
-      ],
+    return const Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('This is Home - Today Rate Screen'),
+        ],
+      ),
     );
   }
 }

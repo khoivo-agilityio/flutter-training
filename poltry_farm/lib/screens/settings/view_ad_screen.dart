@@ -5,15 +5,17 @@ class PfMyAdsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text('This is Setting My Ads Screen'),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Back to Setting'),
-        ),
-      ],
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('This is Setting My Ads Screen'),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text('Back to Setting'),
+          ),
+        ],
+      ),
     );
   }
 }
