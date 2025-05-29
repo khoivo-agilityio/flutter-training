@@ -51,12 +51,8 @@ class PfFormControls {
         });
         return PfTextField(
           semanticsLabel: fieldData.semanticsLabel,
-          textInputAction: TextInputAction.done,
           controller: textController,
           keyboardType: fieldData.keyboardType,
-          autovalidateMode:
-              fieldData.autovalidateMode ?? AutovalidateMode.always,
-          required: fieldData.required,
           inputDecoration: InputDecoration(
             constraints: const BoxConstraints(
               minHeight: 40,
@@ -89,19 +85,9 @@ class PfFormControls {
               child: Text(fieldData.placeholder),
             ),
           ),
-          textColor: fieldData.enable
-              ? null
-              : context.colorScheme.onPrimaryFixedVariant,
-          enable: fieldData.enable,
-          placeholder: fieldData.placeholder,
-          inputFormatters: inputFormatters ?? fieldData.inputFormatters,
           validator: PfFormValidators.compose(fieldData.validators ?? []),
           label: fieldData.label,
           focusNode: focusNode ?? fieldData.focusNode,
-          maxLines: fieldData.maxLine,
-          onChanged: onChanged,
-          obscureText: fieldData.obscureText,
-          hasLabelPlaceholder: fieldData.hasLabelPlaceholder,
         );
       },
     );
