@@ -8,19 +8,15 @@ import 'package:poltry_farm/widgets/text_field.dart';
 
 BlocSelector<T, V, Z> _baseControl<T extends BlocBase<V>, V, Z>({
   required Z Function(V state) selector,
-  required Widget Function(BuildContext, Z) controlBuilder,
+  required Widget Function(BuildContext context, Z value) controlBuilder,
 }) {
   return BlocSelector<T, V, Z>(
     selector: selector,
-    builder: (context, Z fieldData) {
-      return controlBuilder(context, fieldData);
-    },
+    builder: (context, value) => controlBuilder(context, value),
   );
 }
 
 class PfFormControls {
-  /// Builds a [PfTextField] widget with a [TextInputFormatter] that depends on
-  /// the value of [selector] in the [Cubit] & [Bloc] state.
   static BlocSelector<T, V, PfPlainTextFormFieldSubState>
       textBloc<T extends BlocBase<V>, V>({
     required PfPlainTextFormFieldSubState Function(V state) selector,
@@ -35,61 +31,64 @@ class PfFormControls {
 
     return _baseControl<T, V, PfPlainTextFormFieldSubState>(
       selector: selector,
-      controlBuilder: (context, PfPlainTextFormFieldSubState fieldData) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (textController.text != fieldData.text) {
-            final currentSelection = fieldData.text.isEmpty
-                ? const TextSelection.collapsed(offset: 0)
-                : TextSelection.collapsed(
-                    offset:
-                        fieldData.text.length.clamp(0, fieldData.text.length),
-                  );
-            textController
-              ..text = fieldData.text
-              ..selection = currentSelection;
-          }
-        });
+      controlBuilder: (context, formState) {
+        _syncControllerWithState(textController, formState);
+
         return PfTextField(
-          semanticsLabel: fieldData.semanticsLabel,
+          semanticsLabel: formState.semanticsLabel,
           controller: textController,
-          keyboardType: fieldData.keyboardType,
-          inputDecoration: InputDecoration(
-            constraints: const BoxConstraints(
-              minHeight: 40,
-            ),
-            isDense: true,
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 12,
-            ),
-            prefix: const SizedBox(width: 12),
-            suffix: const SizedBox(width: 12),
-            errorStyle: context.themeData.textTheme.labelLarge?.copyWith(
-              color: context.colorScheme.onErrorContainer,
-              fontSize: enableErrorMessage
-                  ? context.themeData.textTheme.labelLarge?.fontSize
-                  : 1,
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: context.colorScheme.outline,
-              ),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8),
-              ),
-            ),
-            fillColor: fieldData.enable
-                ? context.colorScheme.primaryContainer
-                : context.colorScheme.outline,
-            label: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text(fieldData.placeholder),
-            ),
-          ),
-          validator: PfFormValidators.compose(fieldData.validators ?? []),
-          label: fieldData.label,
-          focusNode: focusNode ?? fieldData.focusNode,
+          keyboardType: formState.keyboardType,
+          focusNode: focusNode ?? formState.focusNode,
+          validator: PfFormValidators.compose(formState.validators ?? []),
+          label: formState.label,
+          inputDecoration:
+              _buildInputDecoration(context, formState, enableErrorMessage),
         );
       },
+    );
+  }
+
+  static void _syncControllerWithState(TextEditingController controller,
+      PfPlainTextFormFieldSubState formState) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (controller.text != formState.text) {
+        controller
+          ..text = formState.text
+          ..selection = TextSelection.collapsed(
+            offset: formState.text.length.clamp(0, formState.text.length),
+          );
+      }
+    });
+  }
+
+  static InputDecoration _buildInputDecoration(
+    BuildContext context,
+    PfPlainTextFormFieldSubState state,
+    bool enableErrorMessage,
+  ) {
+    final theme = context.themeData.textTheme;
+    final colorScheme = context.colorScheme;
+
+    return InputDecoration(
+      constraints: const BoxConstraints(minHeight: 40),
+      isDense: true,
+      contentPadding: const EdgeInsets.symmetric(vertical: 12),
+      prefix: const SizedBox(width: 12),
+      suffix: const SizedBox(width: 12),
+      label: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Text(state.placeholder),
+      ),
+      errorStyle: theme.labelLarge?.copyWith(
+        color: colorScheme.onErrorContainer,
+        fontSize: enableErrorMessage ? theme.labelLarge?.fontSize : 1,
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: colorScheme.outline),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      ),
+      fillColor:
+          state.enable ? colorScheme.primaryContainer : colorScheme.outline,
     );
   }
 }
