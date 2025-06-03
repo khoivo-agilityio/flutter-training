@@ -1,3 +1,5 @@
 {
-  "cmake.sourceDirectory": "/Users/khoivo/practice/flutter-training/poltry_farm/linux"
+  "cmake.sourceDirectory": "/Users/khoivo/practice/flutter-training/poltry_farm/linux",
+    "dart.flutterSdkPath": "/Users/khoivo/.puro/envs/flutter_practice/flutter",
+    "dart.sdkPath": "/Users/khoivo/.puro/envs/flutter_practice/flutter/bin/cache/dart-sdk"
 }

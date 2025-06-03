@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poltry_farm/screens/auth/login_screen.dart';
 import 'package:poltry_farm/screens/home/home_screen.dart';
 
 class PfRouter {
@@ -9,7 +10,7 @@ class PfRouter {
   static final router = GoRouter(
     observers: [NavigatorObserver()],
     debugLogDiagnostics: kDebugMode,
-    initialLocation: PfPaths.home.path,
+    initialLocation: PfPaths.login.path,
     navigatorKey: rootNavigatorKey,
     routes: [
       GoRoute(
@@ -20,7 +21,7 @@ class PfRouter {
       GoRoute(
         name: PfPaths.login.name,
         path: PfPaths.login.path,
-        builder: (context, state) => const PfHomeScreen(),
+        builder: (context, state) => const PfLoginScreen(),
       ),
       GoRoute(
         name: PfPaths.setting.name,

@@ -4,23 +4,36 @@ class PfElevatedButton extends StatelessWidget {
   const PfElevatedButton({
     super.key,
     required this.semanticsLabel,
-    required this.text,
+    required this.child,
     this.width,
     this.height,
     this.fillColor,
     this.textColor,
+    this.onPressed,
   });
 
   final String semanticsLabel;
-  final String text;
+  final Widget child;
   final double? width;
   final double? height;
   final Color? fillColor;
   final Color? textColor;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Semantics(
+      label: semanticsLabel,
+      button: true,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: fillColor,
+          minimumSize: Size(width ?? double.infinity, height ?? 48),
+        ),
+        child: child,
+      ),
+    );
   }
 }
 

@@ -14,6 +14,18 @@ class PfTheme {
       brightness: Brightness.light,
       textTheme: _textTheme,
       inputDecorationTheme: _inputDecorationTheme,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: PfPalette.yellow[5],
+          foregroundColor: Colors.white,
+          textStyle: _textTheme.labelLarge?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
     );
   }
 

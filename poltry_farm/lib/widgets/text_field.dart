@@ -29,19 +29,29 @@ class PfTextField extends StatelessWidget {
     return Semantics(
       label: semanticsLabel,
       textField: true,
-      child: TextFormField(
-        focusNode: focusNode,
-        controller: controller,
-        obscureText: obscureText,
-        keyboardType: keyboardType,
-        validator: validator,
-        decoration: inputDecoration ??
-            InputDecoration(
-              labelText: label,
-              hintText: hintText ?? label,
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          const SizedBox(height: 8),
+          TextFormField(
+            focusNode: focusNode,
+            controller: controller,
+            obscureText: obscureText,
+            keyboardType: keyboardType,
+            validator: validator,
+            decoration: inputDecoration ??
+                InputDecoration(
+                  labelText: label,
+                  hintText: hintText ?? label,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                ),
+          ),
+        ],
       ),
     );
   }

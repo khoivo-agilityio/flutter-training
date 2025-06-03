@@ -80,15 +80,14 @@ class PfFormControls {
         child: Text(state.placeholder),
       ),
       errorStyle: theme.labelLarge?.copyWith(
-        color: colorScheme.onErrorContainer,
-        fontSize: enableErrorMessage ? theme.labelLarge?.fontSize : 1,
+        color: colorScheme.error,
+        fontSize: enableErrorMessage ? theme.labelLarge?.fontSize : 9,
       ),
       disabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: colorScheme.outline),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
-      fillColor:
-          state.enable ? colorScheme.primaryContainer : colorScheme.outline,
+      fillColor: state.enable ? colorScheme.surface : colorScheme.outline,
     );
   }
 }
