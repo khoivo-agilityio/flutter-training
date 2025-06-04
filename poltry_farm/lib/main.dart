@@ -2,13 +2,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/router.dart';
 import 'package:poltry_farm/themes/app_theme.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   // Initialize the Flutter binding.
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+
+  await Supabase.initialize(
+      url: dotenv.env['SUPABASE_URL'] ?? '',
+      anonKey: dotenv.env['SUPABASE_KEY'] ?? '');
 
   // Set up the preferred orientations.
   await SystemChrome.setPreferredOrientations([

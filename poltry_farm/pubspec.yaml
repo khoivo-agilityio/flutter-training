@@ -30,6 +30,10 @@ dependencies:
 
   intl_utils: ^2.8.10
 
+  supabase_flutter: ^2.9.0
+
+  flutter_dotenv: ^5.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -45,6 +49,7 @@ flutter:
   generate: true
   assets:
     - assets/
+    - .env
 
 flutter_intl:
   enabled: true
