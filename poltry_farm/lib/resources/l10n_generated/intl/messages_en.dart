@@ -25,5 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorInvalidEmailOrPassword": MessageLookupByLibrary.simpleMessage(
       "Invalid email or password",
     ),
+    "loginPageFooter": MessageLookupByLibrary.simpleMessage(
+      "Don\'t have an account? Register Now",
+    ),
+    "loginPageLoginButton": MessageLookupByLibrary.simpleMessage("Login"),
+    "loginPageSubTitle": MessageLookupByLibrary.simpleMessage("Or Login with"),
+    "loginPageTitle": MessageLookupByLibrary.simpleMessage(
+      "Welcome back! Glad to see you, Again!",
+    ),
   };
 }

@@ -85,6 +85,7 @@ class PfPlainTextFormFieldSubState extends Equatable {
         hintText,
         validators,
         hasLabelPlaceholder,
+        focusNode,
       ];
 
   PfPlainTextFormFieldSubState copyWith({

@@ -28,10 +28,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -60,6 +59,46 @@ class S {
     return Intl.message(
       'Invalid email or password',
       name: 'errorInvalidEmailOrPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome back! Glad to see you, Again!`
+  String get loginPageTitle {
+    return Intl.message(
+      'Welcome back! Glad to see you, Again!',
+      name: 'loginPageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Or Login with`
+  String get loginPageSubTitle {
+    return Intl.message(
+      'Or Login with',
+      name: 'loginPageSubTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account? Register Now`
+  String get loginPageFooter {
+    return Intl.message(
+      'Don\'t have an account? Register Now',
+      name: 'loginPageFooter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get loginPageLoginButton {
+    return Intl.message(
+      'Login',
+      name: 'loginPageLoginButton',
       desc: '',
       args: [],
     );

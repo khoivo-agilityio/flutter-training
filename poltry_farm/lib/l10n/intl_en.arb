@@ -1,3 +1,15 @@
 {
-  "errorInvalidEmailOrPassword": "Invalid email or password"
+  "@segmentError": {
+    "---------------------------": "---------------------------",
+    "description": "Store translations that are likely to be error API, validator messages throughout app"
+  },
+  "errorInvalidEmailOrPassword": "Invalid email or password",
+  "@segmentAuth": {
+    "---------------------------": "---------------------------",
+    "description": "Store translations that are likely to be used in authentication flows"
+  },
+  "loginPageTitle": "Welcome back! Glad to see you, Again!",
+  "loginPageSubTitle": "Or Login with",
+  "loginPageFooter": "Don't have an account? Register Now",
+  "loginPageLoginButton": "Login"
 }

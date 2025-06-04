@@ -11,24 +11,38 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginState.initial());
 
   void emailChanged(String? value) {
-    emit(state.copyWith(
-      email: state.email.copyWith(text: value),
-    ));
+    emit(
+      state.copyWith(
+        email: state.email.copyWith(
+          text: value,
+        ),
+      ),
+    );
   }
 
   void passwordChanged(String? value) {
-    emit(state.copyWith(password: state.password.copyWith(text: value)));
+    emit(
+      state.copyWith(
+        password: state.password.copyWith(
+          text: value,
+        ),
+      ),
+    );
   }
 
   Future<void> logInWithCredentials() async {
-    emit(state.copyWith(status: LoginStatus.loading));
+    emit(state.copyWith(
+      status: LoginStatus.loading,
+    ));
 
     // FIXME: Replace with actual authentication logic
     await Future.delayed(const Duration(seconds: 2)); // mock API call
 
     if (state.email.text == 'khoi.vo@asnet.com' &&
         state.password.text == 'abcABC@123') {
-      emit(state.copyWith(status: LoginStatus.success));
+      emit(state.copyWith(
+        status: LoginStatus.success,
+      ));
     } else {
       emit(state.copyWith(
         status: LoginStatus.failure,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:poltry_farm/extensions/context_extension.dart';
+
 import 'package:poltry_farm/shared/form_models.dart';
 import 'package:poltry_farm/widgets/forms/form_validators.dart';
 import 'package:poltry_farm/widgets/text_field.dart';
@@ -41,8 +41,9 @@ class PfFormControls {
           focusNode: focusNode ?? formState.focusNode,
           validator: PfFormValidators.compose(formState.validators ?? []),
           label: formState.label,
-          inputDecoration:
-              _buildInputDecoration(context, formState, enableErrorMessage),
+          hintText: formState.hintText,
+          onChanged: onChanged,
+          textInputAction: formState.textInputAction,
         );
       },
     );
@@ -59,35 +60,5 @@ class PfFormControls {
           );
       }
     });
-  }
-
-  static InputDecoration _buildInputDecoration(
-    BuildContext context,
-    PfPlainTextFormFieldSubState state,
-    bool enableErrorMessage,
-  ) {
-    final theme = context.themeData.textTheme;
-    final colorScheme = context.colorScheme;
-
-    return InputDecoration(
-      constraints: const BoxConstraints(minHeight: 40),
-      isDense: true,
-      contentPadding: const EdgeInsets.symmetric(vertical: 12),
-      prefix: const SizedBox(width: 12),
-      suffix: const SizedBox(width: 12),
-      label: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Text(state.placeholder),
-      ),
-      errorStyle: theme.labelLarge?.copyWith(
-        color: colorScheme.error,
-        fontSize: enableErrorMessage ? theme.labelLarge?.fontSize : 9,
-      ),
-      disabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: colorScheme.outline),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
-      fillColor: state.enable ? colorScheme.surface : colorScheme.outline,
-    );
   }
 }

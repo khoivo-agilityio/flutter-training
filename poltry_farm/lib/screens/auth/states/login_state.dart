@@ -34,6 +34,7 @@ class LoginState extends Equatable {
       email: PfPlainTextFormFieldSubState(
         semanticsLabel: 'Email',
         label: 'Email',
+        hintText: 'Enter your email',
         focusNode: FocusNode(),
         text: '',
         validators: const [
@@ -41,17 +42,21 @@ class LoginState extends Equatable {
           PfFormValidators.email,
         ],
         keyboardType: TextInputType.emailAddress,
+        textInputAction: TextInputAction.next,
       ),
       password: PfPlainTextFormFieldSubState(
-          semanticsLabel: 'Password',
-          label: 'Password',
-          focusNode: FocusNode(),
-          text: '',
-          validators: const [
-            PfFormValidators.required,
-            PfFormValidators.password,
-          ],
-          keyboardType: TextInputType.visiblePassword),
+        semanticsLabel: 'Password',
+        label: 'Password',
+        hintText: 'Enter your password',
+        focusNode: FocusNode(),
+        text: '',
+        validators: const [
+          PfFormValidators.required,
+          PfFormValidators.password,
+        ],
+        keyboardType: TextInputType.visiblePassword,
+        textInputAction: TextInputAction.done,
+      ),
       status: LoginStatus.initial,
     );
   }

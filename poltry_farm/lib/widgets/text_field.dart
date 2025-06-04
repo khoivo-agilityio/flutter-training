@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:poltry_farm/extensions/context_extension.dart';
 
-class PfTextField extends StatelessWidget {
+class PfTextField extends StatefulWidget {
   const PfTextField({
     super.key,
     required this.label,
@@ -12,6 +13,8 @@ class PfTextField extends StatelessWidget {
     this.focusNode,
     this.semanticsLabel,
     this.inputDecoration,
+    this.onChanged,
+    this.textInputAction,
   });
 
   final String label;
@@ -23,33 +26,43 @@ class PfTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final String? semanticsLabel;
   final InputDecoration? inputDecoration;
+  final void Function(String)? onChanged;
+  final TextInputAction? textInputAction;
+
+  @override
+  State<PfTextField> createState() => _PfTextFieldState();
+}
+
+class _PfTextFieldState extends State<PfTextField> {
+  final _fieldKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: semanticsLabel,
+      label: widget.semanticsLabel,
       textField: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            label,
+            widget.label,
             style: Theme.of(context).textTheme.labelLarge,
           ),
           const SizedBox(height: 8),
           TextFormField(
-            focusNode: focusNode,
-            controller: controller,
-            obscureText: obscureText,
-            keyboardType: keyboardType,
-            validator: validator,
-            decoration: inputDecoration ??
-                InputDecoration(
-                  labelText: label,
-                  hintText: hintText ?? label,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                ),
+            key: _fieldKey,
+            focusNode: widget.focusNode,
+            controller: widget.controller,
+            obscureText: widget.obscureText,
+            keyboardType: widget.keyboardType,
+            textInputAction: widget.textInputAction,
+            validator: widget.validator,
+            decoration: widget.inputDecoration,
+            onTapOutside: (event) {
+              widget.focusNode?.unfocus();
+            },
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            onChanged: widget.onChanged,
           ),
         ],
       ),

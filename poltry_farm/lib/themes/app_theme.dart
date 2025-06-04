@@ -124,25 +124,42 @@ class PfTheme {
 
   static final _inputDecorationTheme = InputDecorationTheme(
     filled: true,
-    fillColor: PfPalette.grey[5],
+    fillColor: PfPalette.grey[4],
     prefixIconColor: PfPalette.grey[5],
     suffixIconColor: PfPalette.grey[5],
-    constraints: BoxConstraints.tight(
-      const Size.fromHeight(40),
-    ),
-    contentPadding: const EdgeInsets.symmetric(
-      horizontal: 12,
-      vertical: 4,
+    constraints: const BoxConstraints(minHeight: 40),
+    isDense: true,
+    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+    hintStyle: TextStyle(
+      fontFamily: PfTypography.familyBahnschrift,
+      fontSize: PfTypography.fontSizeLabelLarge,
+      fontWeight: FontWeight.w400,
+      height: 1.14,
+      color: PfPalette.grey[5],
     ),
     labelStyle: TextStyle(
       fontFamily: PfTypography.familyBahnschrift,
       fontSize: PfTypography.fontSizeLabelLarge,
       fontWeight: FontWeight.w400,
       height: 1.14,
-      color: PfPalette.grey[4],
+      color: PfPalette.grey[5],
     ),
-    border: const OutlineInputBorder(
-      borderRadius: BorderRadius.all(
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: PfPalette.grey[2]!,
+      ),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(8),
+      ),
+    ),
+    outlineBorder: BorderSide(
+      color: PfPalette.grey[2]!,
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: PfPalette.grey[2]!,
+      ),
+      borderRadius: const BorderRadius.all(
         Radius.circular(8),
       ),
     ),
