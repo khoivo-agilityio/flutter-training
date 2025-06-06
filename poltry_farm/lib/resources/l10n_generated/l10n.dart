@@ -84,11 +84,21 @@ class S {
     );
   }
 
-  /// `Don't have an account? Register Now`
+  /// `Don't have an account?`
   String get loginPageFooter {
     return Intl.message(
-      'Don\'t have an account? Register Now',
+      'Don\'t have an account?',
       name: 'loginPageFooter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register Now`
+  String get loginPageFooterAction {
+    return Intl.message(
+      'Register Now',
+      name: 'loginPageFooterAction',
       desc: '',
       args: [],
     );

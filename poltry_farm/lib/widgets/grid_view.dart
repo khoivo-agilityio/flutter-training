@@ -21,7 +21,7 @@ class PfLazyLoadGridView<T> extends StatefulWidget {
     this.padding = 8.0,
     this.spacing = 8.0,
     this.pageSize = 20,
-    this.scrollDirection = Axis.vertical, // 👈 NEW
+    this.scrollDirection = Axis.vertical,
   });
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poltry_farm/extensions/context_extension.dart';
 
 class PfElevatedButton extends StatelessWidget {
   const PfElevatedButton({
@@ -28,9 +29,12 @@ class PfElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: fillColor,
-          minimumSize: Size(width ?? double.infinity, height ?? 48),
-        ),
+            backgroundColor: fillColor ?? context.colorScheme.primary,
+            foregroundColor: textColor ?? context.colorScheme.onPrimary,
+            minimumSize: Size(width ?? double.infinity, height ?? 48),
+            textStyle: context.textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            )),
         child: child,
       ),
     );

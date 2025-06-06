@@ -198,6 +198,10 @@ class PfAssets {
       icThreeDots = _PfThreeDotsIcon.new;
   static Widget Function({double? width, double? height, BoxFit? boxfit})
       icProfile = _PfProfileIcon.new;
+  static Widget Function({double? width, double? height, BoxFit? boxfit})
+      imgChickenFarm = _PfChickenImage.new;
+  static Widget Function({double? width, double? height, BoxFit? boxfit})
+      imgHomePoster = _PfHomePosterImage.new;
 }
 
 class _PfCibAppleImage extends StatelessWidget {
@@ -213,6 +217,7 @@ class _PfCibAppleImage extends StatelessWidget {
       path: Assets.cibApple.path,
       width: width ?? 27.35,
       height: height ?? 27.35,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -230,6 +235,7 @@ class _PfFacebookIcon extends StatelessWidget {
       path: Assets.facebookIc.path,
       width: width ?? 27.35,
       height: height ?? 27.35,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -247,6 +253,7 @@ class _PfGoogleIcon extends StatelessWidget {
       path: Assets.googleIc.path,
       width: width ?? 27.35,
       height: height ?? 27.35,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -264,6 +271,7 @@ class _PfBatchesIc extends StatelessWidget {
       path: Assets.icBatches.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -281,6 +289,7 @@ class _PfFeedManagementIcon extends StatelessWidget {
       path: Assets.icFeedManagement.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -298,6 +307,7 @@ class _PfLogoutIcon extends StatelessWidget {
       path: Assets.icLogout.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -315,6 +325,7 @@ class _PfOutlineFileUploadIcon extends StatelessWidget {
       path: Assets.icOutlineFileUpload.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -332,6 +343,7 @@ class _PfPhoneIcon extends StatelessWidget {
       path: Assets.icPhone.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -349,6 +361,7 @@ class _PfSettingIcon extends StatelessWidget {
       path: Assets.icSetting.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -366,6 +379,7 @@ class _PfStoreIcon extends StatelessWidget {
       path: Assets.icStore.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -383,6 +397,7 @@ class _PfSuccessMarkIcon extends StatelessWidget {
       path: Assets.icSuccessMark.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -400,6 +415,7 @@ class _PfThreeDotsIcon extends StatelessWidget {
       path: Assets.icThreeDots.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
     );
   }
 }
@@ -417,6 +433,41 @@ class _PfProfileIcon extends StatelessWidget {
       path: Assets.profile.path,
       width: width ?? 44,
       height: height ?? 44,
+      type: ImageLoaderType.assetSVG,
+    );
+  }
+}
+
+class _PfChickenImage extends StatelessWidget {
+  const _PfChickenImage({this.width, this.height, this.boxfit});
+  final double? height;
+  final double? width;
+  final BoxFit? boxfit;
+
+  @override
+  Widget build(BuildContext context) {
+    return PfAssetImage(
+      boxFit: boxfit,
+      path: Assets.imgChicken.path,
+      width: width ?? 57,
+      height: height ?? 53,
+    );
+  }
+}
+
+class _PfHomePosterImage extends StatelessWidget {
+  const _PfHomePosterImage({this.width, this.height, this.boxfit});
+  final double? height;
+  final double? width;
+  final BoxFit? boxfit;
+
+  @override
+  Widget build(BuildContext context) {
+    return PfAssetImage(
+      boxFit: boxfit,
+      path: Assets.imgHomePoster.path,
+      width: width,
+      height: height,
     );
   }
 }

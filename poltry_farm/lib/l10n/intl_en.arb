@@ -10,6 +10,7 @@
   },
   "loginPageTitle": "Welcome back! Glad to see you, Again!",
   "loginPageSubTitle": "Or Login with",
-  "loginPageFooter": "Don't have an account? Register Now",
+  "loginPageFooter": "Don't have an account?",
+  "loginPageFooterAction": "Register Now",
   "loginPageLoginButton": "Login"
 }

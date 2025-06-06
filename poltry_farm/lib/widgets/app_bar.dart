@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poltry_farm/widgets/text.dart';
 
 class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -14,10 +15,18 @@ class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(title),
-      actions: actions,
-      leading: leading,
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(kToolbarHeight),
+      child: AppBar(
+        title: PfText(
+          text: title,
+          variant: PfTextStyleVariant.labelLarge,
+          fontWeight: FontWeight.bold,
+        ),
+        actions: actions,
+        leading: leading,
+        centerTitle: false,
+      ),
     );
   }
 

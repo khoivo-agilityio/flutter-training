@@ -26,7 +26,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invalid email or password",
     ),
     "loginPageFooter": MessageLookupByLibrary.simpleMessage(
-      "Don\'t have an account? Register Now",
+      "Don\'t have an account?",
+    ),
+    "loginPageFooterAction": MessageLookupByLibrary.simpleMessage(
+      "Register Now",
     ),
     "loginPageLoginButton": MessageLookupByLibrary.simpleMessage("Login"),
     "loginPageSubTitle": MessageLookupByLibrary.simpleMessage("Or Login with"),

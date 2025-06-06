@@ -10,23 +10,33 @@ class PfTheme {
     );
 
     return defaultTheme.copyWith(
-      colorScheme: PfColors.light,
-      brightness: Brightness.light,
-      textTheme: _textTheme,
-      inputDecorationTheme: _inputDecorationTheme,
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: PfPalette.yellow[5],
-          foregroundColor: Colors.white,
-          textStyle: _textTheme.labelLarge?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+        colorScheme: PfColors.light,
+        brightness: Brightness.light,
+        textTheme: _textTheme,
+        inputDecorationTheme: _inputDecorationTheme,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: PfPalette.yellow[5],
+            foregroundColor: Colors.white,
+            textStyle: _textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
         ),
-      ),
-    );
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          foregroundColor: Colors.transparent,
+          scrolledUnderElevation: 0,
+          titleTextStyle: TextStyle(
+            fontFamily: PfTypography.familyBahnschrift,
+            fontSize: PfTypography.fontSizeLabelLarge,
+            fontWeight: FontWeight.w400,
+            color: PfPalette.genericBlack,
+          ),
+        ));
   }
 
   static const _textTheme = TextTheme(

@@ -61,7 +61,7 @@ class PfTextVariant extends StatelessWidget {
       style: baseStyle?.copyWith(
         color: color,
         fontWeight: fontWeight,
-        overflow: overflow,
+        overflow: overflow ?? TextOverflow.ellipsis,
       ),
     );
   }

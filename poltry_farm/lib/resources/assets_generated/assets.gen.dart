@@ -15,6 +15,7 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class Assets {
   const Assets._();
 
+  static const String aEnv = '.env';
   static const SvgGenImage cibApple = SvgGenImage('assets/cib_apple.svg');
   static const SvgGenImage facebookIc = SvgGenImage('assets/facebook_ic.svg');
   static const SvgGenImage googleIc = SvgGenImage('assets/google_ic.svg');
@@ -45,10 +46,14 @@ class Assets {
   static const AssetGenImage imgChicks = AssetGenImage('assets/img_chicks.png');
   static const AssetGenImage imgDucks = AssetGenImage('assets/img_ducks.png');
   static const AssetGenImage imgEggs = AssetGenImage('assets/img_eggs.png');
+  static const AssetGenImage imgHomePoster = AssetGenImage(
+    'assets/img_home_poster.png',
+  );
   static const SvgGenImage profile = SvgGenImage('assets/profile.svg');
 
   /// List of all assets
   static List<dynamic> get values => [
+    aEnv,
     cibApple,
     facebookIc,
     googleIc,
@@ -67,6 +72,7 @@ class Assets {
     imgChicks,
     imgDucks,
     imgEggs,
+    imgHomePoster,
     profile,
   ];
 }
