@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poltry_farm/extensions/context_extension.dart';
 import 'package:poltry_farm/widgets/text.dart';
 
 class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,6 +19,8 @@ class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: const Size.fromHeight(kToolbarHeight),
       child: AppBar(
+        backgroundColor: context.colorScheme.onPrimary,
+        foregroundColor: Colors.transparent,
         title: PfText(
           text: title,
           variant: PfTextStyleVariant.labelLarge,

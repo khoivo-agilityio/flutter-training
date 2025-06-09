@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class PfLazyLoadGridView<T> extends StatefulWidget {
@@ -38,7 +37,7 @@ class _PfLazyLoadGridViewState<T> extends State<PfLazyLoadGridView<T>> {
   @override
   void initState() {
     super.initState();
-    _fetchNextPage();
+    _fetchNextPage(); // Initial load
     _scrollController.addListener(_scrollListener);
   }
 
@@ -51,7 +50,7 @@ class _PfLazyLoadGridViewState<T> extends State<PfLazyLoadGridView<T>> {
     }
   }
 
-  Future<void> _fetchNextPage() async {
+  Future<List<T>> _fetchNextPage() async {
     setState(() => _isLoading = true);
     try {
       final newItems = await widget.fetchPage(_currentPage);
@@ -60,11 +59,10 @@ class _PfLazyLoadGridViewState<T> extends State<PfLazyLoadGridView<T>> {
         _hasMore = newItems.length >= widget.pageSize;
         _currentPage++;
       });
+      return newItems;
     } catch (e) {
-      setState(() {
-        _hasMore = false;
-        log('Error fetching data: $e');
-      });
+      log('Error fetching data: $e');
+      return [];
     } finally {
       setState(() => _isLoading = false);
     }
@@ -78,40 +76,40 @@ class _PfLazyLoadGridViewState<T> extends State<PfLazyLoadGridView<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final itemCount = _items.length +
+        (_hasMore
+            ? (widget.crossAxisCount -
+                        (_items.length % widget.crossAxisCount)) %
+                    widget.crossAxisCount +
+                1
+            : 0);
+
     return GridView.builder(
-        controller: _scrollController,
-        scrollDirection: widget.scrollDirection,
-        padding: EdgeInsets.all(widget.padding),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: widget.crossAxisCount,
-          crossAxisSpacing: widget.spacing,
-          mainAxisSpacing: widget.spacing,
-          childAspectRatio: widget.childAspectRatio,
-        ),
-        itemCount: _items.length +
-            (_hasMore
-                ? (widget.crossAxisCount -
-                            (_items.length % widget.crossAxisCount)) %
-                        widget.crossAxisCount +
-                    1
-                : 0),
-        itemBuilder: (context, index) {
-          if (index < _items.length) {
-            return widget.itemBuilder(context, _items[index]);
-          }
+      controller: _scrollController,
+      scrollDirection: widget.scrollDirection,
+      padding: EdgeInsets.all(widget.padding),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: widget.crossAxisCount,
+        crossAxisSpacing: widget.spacing,
+        mainAxisSpacing: widget.spacing,
+        childAspectRatio: widget.childAspectRatio,
+      ),
+      itemCount: itemCount,
+      itemBuilder: (context, index) {
+        if (index < _items.length) {
+          return widget.itemBuilder(context, _items[index]);
+        }
 
-          // Calculate position to center loading spinner in the last row
-          final remainder = _items.length % widget.crossAxisCount;
-          final emptySlots =
-              remainder == 0 ? 0 : widget.crossAxisCount - remainder;
+        final remainder = _items.length % widget.crossAxisCount;
+        final emptySlots =
+            remainder == 0 ? 0 : widget.crossAxisCount - remainder;
 
-          // Return empty slots first
-          if (index < _items.length + emptySlots) {
-            return const Center(child: CircularProgressIndicator());
-          }
+        if (index < _items.length + emptySlots) {
+          return const SizedBox.shrink();
+        }
 
-          // Center spinner cell
-          return const Center(child: CircularProgressIndicator());
-        });
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
   }
 }

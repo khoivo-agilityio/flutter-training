@@ -29,6 +29,7 @@ class PfElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+            shadowColor: Colors.transparent,
             backgroundColor: fillColor ?? context.colorScheme.primary,
             foregroundColor: textColor ?? context.colorScheme.onPrimary,
             minimumSize: Size(width ?? double.infinity, height ?? 48),
