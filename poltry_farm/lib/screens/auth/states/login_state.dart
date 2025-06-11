@@ -34,7 +34,6 @@ class LoginState extends Equatable {
       email: PfPlainTextFormFieldSubState(
         semanticsLabel: 'Email',
         label: 'Email',
-        hintText: 'Enter your email',
         focusNode: FocusNode(),
         text: '',
         validators: const [
@@ -47,7 +46,6 @@ class LoginState extends Equatable {
       password: PfPlainTextFormFieldSubState(
         semanticsLabel: 'Password',
         label: 'Password',
-        hintText: 'Enter your password',
         focusNode: FocusNode(),
         text: '',
         validators: const [

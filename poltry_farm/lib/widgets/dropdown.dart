@@ -1,209 +1,318 @@
-// LazyDropdownField with search and error + retry
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LazyDropdownField<T> extends StatefulWidget {
-  final Future<List<T>> Function(int page, String query) onLoadItems;
-  final String Function(T item) itemBuilder;
-  final ValueChanged<T?> onChanged;
-  final T? initialValue;
-  final String? hintText;
-  final int pageSize;
-
-  const LazyDropdownField({
-    super.key,
-    required this.onLoadItems,
-    required this.itemBuilder,
-    required this.onChanged,
-    this.initialValue,
-    this.hintText,
-    this.pageSize = 20,
-  });
-
-  @override
-  State<LazyDropdownField<T>> createState() => _LazyDropdownFieldState<T>();
+// Dropdown Item
+class PfDropdownSearchItem<T> {
+  PfDropdownSearchItem({required this.value, required this.label});
+  final T value;
+  final String label;
 }
 
-class _LazyDropdownFieldState<T> extends State<LazyDropdownField<T>> {
-  final LayerLink _layerLink = LayerLink();
+// Dropdown State
+class DropDownSearchState<T> {
+  DropDownSearchState({
+    required this.isTapped,
+    required this.filteredList,
+    required this.subFilteredList,
+    this.selectedItem,
+    this.isLoading = false,
+    this.error,
+  });
+
+  final bool isTapped;
+  final List<PfDropdownSearchItem<T>> filteredList;
+  final List<PfDropdownSearchItem<T>> subFilteredList;
+  final PfDropdownSearchItem<T>? selectedItem;
+  final bool isLoading;
+  final String? error;
+
+  DropDownSearchState<T> copyWith({
+    bool? isTapped,
+    List<PfDropdownSearchItem<T>>? filteredList,
+    List<PfDropdownSearchItem<T>>? subFilteredList,
+    PfDropdownSearchItem<T>? selectedItem,
+    bool? isLoading,
+    String? error,
+  }) {
+    return DropDownSearchState<T>(
+      isTapped: isTapped ?? this.isTapped,
+      filteredList: filteredList ?? this.filteredList,
+      subFilteredList: subFilteredList ?? this.subFilteredList,
+      selectedItem: selectedItem ?? this.selectedItem,
+      isLoading: isLoading ?? this.isLoading,
+      error: error,
+    );
+  }
+}
+
+// Dropdown Cubit
+class DropDownSearchCubit<T> extends Cubit<DropDownSearchState<T>> {
+  DropDownSearchCubit()
+      : super(DropDownSearchState(
+            isTapped: false, filteredList: [], subFilteredList: []));
+
+  void toggleDropdown({bool? isTapped}) =>
+      emit(state.copyWith(isTapped: isTapped ?? false));
+
+  void filterList(String query) {
+    final filtered = state.subFilteredList
+        .where((item) => item.label.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    emit(state.copyWith(filteredList: filtered));
+  }
+
+  void setItems(List<PfDropdownSearchItem<T>> items) {
+    emit(state.copyWith(
+        filteredList: items, subFilteredList: [...items], error: null));
+  }
+
+  Future<void> fetchItems(
+      Future<List<PfDropdownSearchItem<T>>> Function() fetcher) async {
+    emit(state.copyWith(isLoading: true, error: null));
+    try {
+      final items = await fetcher();
+      emit(state.copyWith(
+        filteredList: items,
+        subFilteredList: [...items],
+        isLoading: false,
+        error: null,
+      ));
+    } catch (_) {
+      emit(state.copyWith(
+          isLoading: false, error: 'Failed to load items. Tap to retry.'));
+    }
+  }
+
+  void selectItem(PfDropdownSearchItem<T> item, {bool enableFilter = false}) {
+    final filtered = enableFilter
+        ? state.subFilteredList
+            .where(
+                (i) => i.label.toLowerCase().contains(item.label.toLowerCase()))
+            .toList()
+        : state.subFilteredList;
+    emit(state.copyWith(
+        selectedItem: item, isTapped: false, filteredList: filtered));
+  }
+}
+
+// Dropdown Widget
+class PfDropdownSearch<T> extends StatefulWidget {
+  const PfDropdownSearch({
+    required this.name,
+    this.label,
+    this.placeholder,
+    this.controller,
+    this.focusNode,
+    this.trailingIcon,
+    this.onChanged,
+    this.onSelected,
+    this.onFetchItems,
+    this.keyboardType,
+    this.inputFormatters,
+    this.enable = true,
+    this.required = false,
+    this.enableFilter = false,
+    super.key,
+  });
+
+  final String name;
+  final String? label;
+  final String? placeholder;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final Widget? trailingIcon;
+  final ValueChanged<T?>? onChanged;
+  final ValueChanged<T?>? onSelected;
+  final Future<List<PfDropdownSearchItem<T>>> Function()? onFetchItems;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool? enable;
+  final bool? required;
+  final bool enableFilter;
+
+  @override
+  State<PfDropdownSearch<T>> createState() => _PfDropdownSearchState<T>();
+}
+
+class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
+  late final DropDownSearchCubit<T> cubit;
+  late final TextEditingController _controller;
+  late final FocusNode _focusNode;
   final ScrollController _scrollController = ScrollController();
-  final TextEditingController _searchController = TextEditingController();
-
-  List<T> _items = [];
-  bool _isLoading = false;
-  bool _hasMore = true;
-  int _page = 1;
-  bool _dropdownOpen = false;
-  T? _selectedItem;
-  String _searchQuery = '';
-  String? _error;
-  OverlayEntry? _overlayEntry;
-
-  final _dropdownHeight = 300.0;
+  String? _prevSearchText;
 
   @override
   void initState() {
     super.initState();
-    _selectedItem = widget.initialValue;
-
-    _scrollController.addListener(() {
-      if (_scrollController.position.atEdge &&
-          _scrollController.position.pixels != 0 &&
-          !_isLoading &&
-          _hasMore &&
-          _error == null) {
-        _loadMore();
-      }
-    });
-  }
-
-  Future<void> _openDropdown() async {
-    if (_items.isEmpty && !_isLoading) {
-      _page = 1;
-      _items = [];
-      _hasMore = true;
-      _error = null;
-      await _loadMore();
-    }
-    setState(() => _dropdownOpen = true);
-    _showOverlay();
-  }
-
-  Future<void> _loadMore() async {
-    setState(() {
-      _isLoading = true;
-      _error = null;
-    });
-    try {
-      final result = await widget.onLoadItems(_page, _searchQuery);
-      setState(() {
-        _items.addAll(result);
-        _hasMore = result.length >= widget.pageSize;
-        _isLoading = false;
-        _page += 1;
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _error = 'Failed to load data. Tap to retry.';
-      });
-    }
-  }
-
-  void _showOverlay() {
-    _overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        width: context.size!.width,
-        child: CompositedTransformFollower(
-          link: _layerLink,
-          offset: const Offset(0, 50),
-          showWhenUnlinked: false,
-          child: Material(
-            elevation: 4,
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              height: _dropdownHeight,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        hintText: 'Search...',
-                        isDense: true,
-                      ),
-                      onChanged: (value) async {
-                        _searchQuery = value;
-                        _page = 1;
-                        _items.clear();
-                        _hasMore = true;
-                        await _loadMore();
-                      },
-                    ),
-                  ),
-                  if (_error != null)
-                    GestureDetector(
-                      onTap: _loadMore,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Text(_error!,
-                            style: const TextStyle(color: Colors.red)),
-                      ),
-                    )
-                  else if (_items.isEmpty && !_isLoading)
-                    const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text('No data'),
-                    )
-                  else
-                    Expanded(
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        itemCount: _items.length + (_isLoading ? 1 : 0),
-                        itemBuilder: (context, index) {
-                          if (index >= _items.length) {
-                            return const Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                          }
-                          final item = _items[index];
-                          return ListTile(
-                            title: Text(widget.itemBuilder(item)),
-                            onTap: () {
-                              _selectedItem = item;
-                              widget.onChanged(item);
-                              _overlayEntry?.remove();
-                              setState(() => _dropdownOpen = false);
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-
-    Overlay.of(context).insert(_overlayEntry!);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CompositedTransformTarget(
-      link: _layerLink,
-      child: GestureDetector(
-        onTap: _openDropdown,
-        child: InputDecorator(
-          decoration: InputDecoration(
-            hintText: widget.hintText,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-            suffixIcon: const Icon(Icons.arrow_drop_down),
-          ),
-          child: Text(
-            _selectedItem != null ? widget.itemBuilder(_selectedItem as T) : '',
-          ),
-        ),
-      ),
-    );
+    cubit = DropDownSearchCubit<T>();
+    _controller = widget.controller ?? TextEditingController();
+    _focusNode = widget.focusNode ?? FocusNode();
   }
 
   @override
   void dispose() {
-    _overlayEntry?.remove();
+    if (widget.controller == null) _controller.dispose();
+    if (widget.focusNode == null) _focusNode.dispose();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
+  }
+
+  void _handleDropdownToggle() async {
+    if (!(widget.enable ?? true)) return;
+
+    final isOpened = cubit.state.isTapped;
+    if (!isOpened) {
+      _prevSearchText = _controller.text;
+      _focusNode.requestFocus();
+      if (widget.onFetchItems != null && cubit.state.subFilteredList.isEmpty) {
+        await cubit.fetchItems(widget.onFetchItems!);
+      }
+      cubit.toggleDropdown(isTapped: true);
+    } else {
+      _focusNode.unfocus();
+      cubit.toggleDropdown(isTapped: false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => cubit,
+      child: Focus(
+        onFocusChange: (hasFocus) {
+          if (!hasFocus && cubit.state.isTapped) {
+            cubit.toggleDropdown(isTapped: false);
+          }
+        },
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (widget.label != null)
+                Row(
+                  children: [
+                    Text(widget.label!),
+                    if (widget.required ?? false)
+                      const Text(' *', style: TextStyle(color: Colors.red)),
+                  ],
+                ),
+              Stack(
+                children: [
+                  Semantics(
+                    label:
+                        widget.label ?? widget.placeholder ?? 'Dropdown field',
+                    hint: 'Double tap to interact',
+                    toggled: cubit.state.isTapped,
+                    button: true,
+                    focusable: true,
+                    focused: _focusNode.hasFocus,
+                    child: TextFormField(
+                      controller: _controller,
+                      focusNode: (widget.enable ?? false) ? _focusNode : null,
+                      readOnly: !(widget.enable ?? false),
+                      showCursor: widget.enable ?? false,
+                      keyboardType: widget.keyboardType,
+                      inputFormatters: widget.inputFormatters,
+                      onChanged: (val) {
+                        cubit.filterList(val);
+                        widget.onChanged?.call(val as T?);
+                      },
+                      onTap: _handleDropdownToggle,
+                      decoration: InputDecoration(
+                        hintText: widget.placeholder,
+                        suffixIcon: GestureDetector(
+                          onTap: _handleDropdownToggle,
+                          child: BlocBuilder<DropDownSearchCubit<T>,
+                              DropDownSearchState<T>>(
+                            builder: (_, state) => Icon(
+                              state.isTapped
+                                  ? Icons.arrow_drop_up
+                                  : Icons.arrow_drop_down,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              BlocBuilder<DropDownSearchCubit<T>, DropDownSearchState<T>>(
+                builder: (_, state) {
+                  if (!(widget.enable ?? false) || !state.isTapped) {
+                    return const SizedBox.shrink();
+                  }
+
+                  if (state.isLoading) {
+                    return Semantics(
+                      label: 'Loading items',
+                      child: const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Center(child: CircularProgressIndicator()),
+                      ),
+                    );
+                  }
+
+                  if (state.error != null) {
+                    return Semantics(
+                      label: 'Error loading items. Tap to retry.',
+                      child: GestureDetector(
+                        onTap: () {
+                          if (widget.onFetchItems != null) {
+                            cubit.fetchItems(widget.onFetchItems!);
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Text(state.error!,
+                                  style: const TextStyle(color: Colors.red)),
+                              const SizedBox(height: 8),
+                              const Text('Tap to retry',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+
+                  if (state.filteredList.isEmpty) {
+                    return const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text('No items found'),
+                    );
+                  }
+
+                  return ListView.builder(
+                    itemCount: state.filteredList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (_, index) {
+                      final item = state.filteredList[index];
+                      return ListTile(
+                        title: Text(item.label),
+                        onTap: () {
+                          cubit.selectItem(item,
+                              enableFilter: widget.enableFilter);
+                          _controller.text = item.label;
+                          widget.onSelected?.call(item.value);
+                          _focusNode.unfocus();
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

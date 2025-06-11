@@ -251,7 +251,7 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                                           ),
                                           width: double.infinity,
                                           child: PfAssets.imgChickenFarm(
-                                            height: 90,
+                                            height: 81,
                                             boxfit: BoxFit.cover,
                                           ),
                                         ),

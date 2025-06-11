@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poltry_farm/extensions/context_extension.dart';
 
 class PfTextField extends StatefulWidget {
   const PfTextField({
@@ -56,7 +57,10 @@ class _PfTextFieldState extends State<PfTextField> {
             keyboardType: widget.keyboardType,
             textInputAction: widget.textInputAction,
             validator: widget.validator,
-            decoration: widget.inputDecoration,
+            decoration: InputDecoration(
+              hintText: widget.hintText,
+              labelText: widget.label,
+            ).applyDefaults(context.themeData.inputDecorationTheme),
             onTapOutside: (event) {
               widget.focusNode?.unfocus();
             },
