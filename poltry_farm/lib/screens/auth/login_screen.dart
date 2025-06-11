@@ -37,6 +37,8 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
           bloc: _loginCubit,
           listener: (context, state) {
             if (state.status == LoginStatus.success) {
+              // hide snackbar
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
               context.goNamed(PfPaths.home.name);
             } else if (state.status == LoginStatus.failure) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -12,7 +12,7 @@ import 'package:poltry_farm/shared/notifications/notif_controller.dart';
 import 'package:poltry_farm/shared/notifications/notif_model.dart';
 import 'package:poltry_farm/shared/notifications/notif_setup.dart';
 
-class NotificationsService {
+class PfNotificationsService {
   static NotificationEntity entity = NotificationEntity.initialize();
 
   static AwesomeNotifications awesomeNotifications = AwesomeNotifications();
@@ -24,7 +24,7 @@ class NotificationsService {
     await _setupFCM();
     await getToken(authRepository);
     await awesomeNotifications.setListeners(
-      onActionReceivedMethod: NotificationController.onActionReceivedMethod,
+      onActionReceivedMethod: PfNotificationController.onActionReceivedMethod,
     );
   }
 
@@ -42,7 +42,7 @@ class NotificationsService {
     ]);
   }
 
-  NotificationsService configure({
+  PfNotificationsService configure({
     FutureOr<void> Function(NotificationsResponseEntity)? onMessageOpenedApp,
   }) {
     entity.setHandlers(onMessageOpenedApp: onMessageOpenedApp);
@@ -96,7 +96,7 @@ class NotificationsService {
   }
 }
 
-class NotificationHandler {
+class PfNotificationHandler {
   static void handleTapNavigate(
     Map<String, dynamic> data,
     NotificationEntity entity,
@@ -108,10 +108,19 @@ class NotificationHandler {
       entity.onMessageOpenedApp?.call(
         NotificationsResponseEntity(
           type: type,
-          accountId: response.accountId ?? '',
-          accountName: response.accountName ?? '',
         ),
       );
+    }
+  }
+
+  static void navigate({
+    required NotificationsResponseEntity notification,
+    void Function(NotificationsResponseEntity)? onChatDetailsRedirect,
+  }) {
+    try {
+      onChatDetailsRedirect?.call(notification);
+    } catch (e) {
+      log('Navigation error: $e');
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_ce/hive.dart';
@@ -66,9 +68,18 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 32),
-                _Avatar(_userBox, () {
-                  _cubit.changeAvatar();
-                }),
+                BlocBuilder<PersonalInfoCubit, PersonalInfoState>(
+                  buildWhen: (p, c) => p.avartarImg != c.avartarImg,
+                  builder: (context, state) {
+                    return _Avatar(
+                      userBox: _userBox,
+                      onTap: () {
+                        _cubit.changeAvatar();
+                      },
+                      avartarFile: state.avartarImg,
+                    );
+                  },
+                ),
                 const SizedBox(height: 24),
                 SizedBox(
                   height: 95,
@@ -203,13 +214,15 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
 }
 
 class _Avatar extends StatelessWidget {
-  const _Avatar(
-    this.userBox,
-    this.onTap,
-  );
+  const _Avatar({
+    required this.userBox,
+    required this.onTap,
+    this.avartarFile,
+  });
 
   final Box<UserDbModel> userBox;
   final VoidCallback onTap;
+  final File? avartarFile;
 
   @override
   Widget build(BuildContext context) {
@@ -221,6 +234,7 @@ class _Avatar extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: PfAvatar(
+              imageFile: avartarFile,
               imgUrl: userBox.get('userBox')?.avatarUrl ?? '',
               size: 96,
               onTap: onTap,

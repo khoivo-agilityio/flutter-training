@@ -30,8 +30,6 @@ dependencies:
 
   intl_utils: ^2.8.10
 
-  supabase_flutter: ^2.9.0
-
   flutter_dotenv: ^5.2.1
 
   easy_infinite_pagination: ^0.0.6

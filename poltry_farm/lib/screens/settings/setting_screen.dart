@@ -13,6 +13,7 @@ class PfSettingScreen extends StatelessWidget {
     return Scaffold(
       appBar: const PfAppBar(
         title: 'Farm Settings',
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         color: Colors.white,

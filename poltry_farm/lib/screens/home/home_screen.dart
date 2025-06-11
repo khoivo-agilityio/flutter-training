@@ -90,7 +90,7 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const PfSettingScreen(),
+                      builder: (_) => const PfHomeSellScreen(),
                     ),
                   );
                 },
@@ -165,10 +165,15 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                                               color:
                                                   context.colorScheme.outline,
                                             ),
-                                            child: PfCachedNetworkImage(
-                                              width: 53,
-                                              height: 57,
-                                              url: category?.imageUrl ?? '',
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: PfCachedNetworkImage(
+                                                width: 53,
+                                                height: 57,
+                                                url: category?.imageUrl ?? '',
+                                                boxFit: BoxFit.scaleDown,
+                                              ),
                                             ),
                                           ),
                                         ),

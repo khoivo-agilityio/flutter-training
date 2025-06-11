@@ -24,13 +24,9 @@ class NotificationResponseData {
 class NotificationsResponseEntity {
   NotificationsResponseEntity({
     required this.type,
-    this.accountId = '',
-    this.accountName = '',
   });
 
   final String type;
-  final String accountId;
-  final String accountName;
 }
 
 class ReplyNotification {
@@ -58,8 +54,4 @@ class NotificationEntity {
     this.onReply = onReply ?? this.onReply;
     this.onMessageOpenedApp = onMessageOpenedApp ?? this.onMessageOpenedApp;
   }
-}
-
-class NotificationType {
-  static const String chatDetails = 'chat.details';
 }

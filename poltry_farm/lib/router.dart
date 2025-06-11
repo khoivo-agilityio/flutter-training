@@ -8,6 +8,7 @@ import 'package:poltry_farm/screens/home/home_today_rate_screen.dart';
 import 'package:poltry_farm/screens/settings/personal_info_screen.dart';
 import 'package:poltry_farm/screens/settings/setting_screen.dart';
 import 'package:poltry_farm/screens/settings/view_ad_screen.dart';
+import 'package:poltry_farm/widgets/scaffold.dart';
 
 class PfRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -18,20 +19,25 @@ class PfRouter {
     initialLocation: PfPaths.login.path,
     navigatorKey: rootNavigatorKey,
     routes: [
-      GoRoute(
-        name: PfPaths.home.name,
-        path: PfPaths.home.path,
-        builder: (context, state) => const PfHomeScreen(),
+      ShellRoute(
+        builder: (context, state, child) => ScaffoldWithBottomNav(child: child),
+        routes: [
+          GoRoute(
+            name: PfPaths.home.name,
+            path: PfPaths.home.path,
+            builder: (context, state) => const PfHomeScreen(),
+          ),
+          GoRoute(
+            name: PfPaths.setting.name,
+            path: PfPaths.setting.path,
+            builder: (context, state) => const PfSettingScreen(),
+          ),
+        ],
       ),
       GoRoute(
         name: PfPaths.login.name,
         path: PfPaths.login.path,
         builder: (context, state) => const PfLoginScreen(),
-      ),
-      GoRoute(
-        name: PfPaths.setting.name,
-        path: PfPaths.setting.path,
-        builder: (context, state) => const PfSettingScreen(),
       ),
       GoRoute(
         name: PfPaths.homeSell.name,

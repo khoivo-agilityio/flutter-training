@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:poltry_farm/extensions/context_extension.dart';
 import 'package:poltry_farm/widgets/assets.dart';
@@ -6,11 +7,13 @@ class PfAvatar extends StatelessWidget {
   const PfAvatar({
     super.key,
     required this.imgUrl,
+    this.imageFile,
     this.size = 40.0,
     this.onTap,
   });
 
   final String imgUrl;
+  final File? imageFile;
   final double size;
   final VoidCallback? onTap;
 
@@ -27,36 +30,44 @@ class PfAvatar extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: context.colorScheme.surface,
               child: ClipOval(
-                child: imgUrl == ''
-                    ? Icon(
-                        Icons.person,
-                        size: size,
-                        color: context.colorScheme.onSurface,
-                      )
-                    : PfCachedNetworkImage(
+                child: imageFile != null
+                    ? Image.file(
+                        imageFile!,
                         width: size,
                         height: size,
-                        url: imgUrl,
-                        boxFit: BoxFit.cover,
-                      ),
+                        fit: BoxFit.cover,
+                      )
+                    : imgUrl.isNotEmpty
+                        ? PfCachedNetworkImage(
+                            width: size,
+                            height: size,
+                            url: imgUrl,
+                            boxFit: BoxFit.cover,
+                          )
+                        : Icon(
+                            Icons.person,
+                            size: size,
+                            color: context.colorScheme.onSurface,
+                          ),
               ),
             ),
           ),
-          // positioned edit icon at the bottom right corner
           Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: context.colorScheme.primary,
-                  shape: BoxShape.circle,
-                ),
-                padding: const EdgeInsets.all(4.0),
-                child: Icon(
-                  Icons.edit_rounded,
-                  color: context.colorScheme.onPrimary,
-                ),
-              )),
+            bottom: 0,
+            right: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: context.colorScheme.primary,
+                shape: BoxShape.circle,
+              ),
+              padding: const EdgeInsets.all(4.0),
+              child: Icon(
+                Icons.edit_rounded,
+                color: context.colorScheme.onPrimary,
+                size: 16,
+              ),
+            ),
+          ),
         ]),
       ),
     );
