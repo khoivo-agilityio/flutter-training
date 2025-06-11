@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poltry_farm/extensions/context_extension.dart';
 import 'package:poltry_farm/widgets/text.dart';
 
 class PfCard extends StatelessWidget {
@@ -6,6 +7,7 @@ class PfCard extends StatelessWidget {
     super.key,
     this.title,
     this.subTitle,
+    this.description,
     this.image,
     this.trailingIcon,
     this.onTap,
@@ -14,6 +16,7 @@ class PfCard extends StatelessWidget {
 
   final String? title;
   final String? subTitle;
+  final String? description;
   final Widget? image;
   final Widget? trailingIcon;
   final VoidCallback? onTap;
@@ -48,61 +51,55 @@ class PfCard extends StatelessWidget {
               children: [
                 if (image != null) ...[
                   ExcludeSemantics(
-                    child: image!,
+                    child: SizedBox(width: double.infinity, child: image!),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 11),
                 ] else ...[
                   const Spacer()
                 ],
-                if (title != null || subTitle != null) ...[
-                  PfText(
-                    text: title ?? '',
-                    variant: PfTextStyleVariant.bodyMedium,
-                  ),
-                  if (subTitle != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      subTitle!,
-                      style: Theme.of(context).textTheme.bodySmall,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (title != null ||
+                            subTitle != null ||
+                            description != null) ...[
+                          PfText(
+                            text: title ?? '',
+                            variant: PfTextStyleVariant.bodyMedium,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          if (subTitle != null) ...[
+                            const SizedBox(height: 4),
+                            PfText(
+                              text: subTitle!,
+                              variant: PfTextStyleVariant.bodyMedium,
+                              color: context.colorScheme.onSurface,
+                            ),
+                          ],
+                          if (description != null) ...[
+                            const SizedBox(height: 4),
+                            PfText(
+                              text: description!,
+                              variant: PfTextStyleVariant.bodyMedium,
+                              color: context.colorScheme.onSurface,
+                            ),
+                          ]
+                        ],
+                      ],
                     ),
+                    if (trailingIcon != null) ...[
+                      ExcludeSemantics(
+                        child: trailingIcon!,
+                      ),
+                    ] else ...[
+                      const SizedBox(width: 8),
+                    ],
                   ],
-                ],
-                // if (image != null || trailingIcon != null)
-                //   Row(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       if (image != null)
-                //         Expanded(
-                //           child: ExcludeSemantics(child: image!),
-                //         )
-                //       else
-                //         const Spacer(),
-                //       if (trailingIcon != null)
-                //         ExcludeSemantics(child: trailingIcon!),
-                //     ],
-                //   ),
-                // if (title != null) ...[
-                //   const SizedBox(height: 8),
-                //   Text(
-                //     title!,
-                //     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                //           fontWeight: FontWeight.w600,
-                //         ),
-                //     maxLines: 1,
-                //     overflow: TextOverflow.ellipsis,
-                //   ),
-                // ],
-                // if (subTitle != null) ...[
-                //   const SizedBox(height: 4),
-                //   Text(
-                //     subTitle!,
-                //     style: Theme.of(context).textTheme.bodySmall,
-                //     maxLines: 2,
-                //     overflow: TextOverflow.ellipsis,
-                //   ),
-                // ],
+                ),
               ],
             ),
           ),

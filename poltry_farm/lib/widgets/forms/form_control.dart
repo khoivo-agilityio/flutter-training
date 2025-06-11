@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:poltry_farm/shared/form_models.dart';
 import 'package:poltry_farm/widgets/forms/form_validators.dart';
+import 'package:poltry_farm/widgets/search_textfield.dart';
 import 'package:poltry_farm/widgets/text_field.dart';
 
 BlocSelector<T, V, Z> _baseControl<T extends BlocBase<V>, V, Z>({
@@ -44,6 +45,43 @@ class PfFormControls {
           hintText: formState.hintText,
           onChanged: onChanged,
           textInputAction: formState.textInputAction,
+        );
+      },
+    );
+  }
+
+  static BlocSelector<T, V, PfSearchTextFormFieldSubState>
+      searchTextBloc<T extends BlocBase<V>, V>({
+    required PfSearchTextFormFieldSubState Function(V state) selector,
+    void Function(String?)? onChanged,
+    void Function()? onChangeVisibility,
+    List<TextInputFormatter>? inputFormatters,
+    TextEditingController? controller,
+    FocusNode? focusNode,
+    bool enableErrorMessage = true,
+  }) {
+    final textController = controller ?? TextEditingController();
+
+    return _baseControl<T, V, PfSearchTextFormFieldSubState>(
+      selector: selector,
+      controlBuilder: (context, formState) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (textController.text != formState.text) {
+            textController
+              ..text = formState.text
+              ..selection = TextSelection.collapsed(
+                offset: formState.text.length.clamp(0, formState.text.length),
+              );
+          }
+        });
+
+        return PfSearchTextField(
+          semanticsLabel: formState.semanticsLabel,
+          controller: textController,
+          focusNode: focusNode ?? formState.focusNode,
+          hintText: formState.hintText,
+          onChanged: onChanged,
+          suggestions: formState.suggestions ?? [],
         );
       },
     );

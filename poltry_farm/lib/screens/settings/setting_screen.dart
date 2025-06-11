@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:poltry_farm/screens/settings/personal_info_screen.dart';
 import 'package:poltry_farm/screens/settings/view_ad_screen.dart';
+import 'package:poltry_farm/widgets/app_bar.dart';
 
 class PfSettingScreen extends StatelessWidget {
   const PfSettingScreen({super.key});
@@ -8,6 +9,9 @@ class PfSettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const PfAppBar(
+        title: 'Farm Settings',
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

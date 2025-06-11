@@ -37,9 +37,10 @@ class LoginCubit extends Cubit<LoginState> {
 
     // FIXME: Replace with actual authentication logic
     await Future.delayed(const Duration(seconds: 2)); // mock API call
-
-    if (state.email.text == 'khoi.vo@asnet.com' &&
-        state.password.text == 'abcABC@123') {
+    // Example validation logic
+    if (state.email.text == '' && state.password.text == '') {
+      // if (state.email.text == 'khoi.vo@asnet.com' &&
+      //     state.password.text == 'abcABC@123') {
       emit(state.copyWith(
         status: LoginStatus.success,
       ));

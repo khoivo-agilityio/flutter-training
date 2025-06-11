@@ -6,12 +6,14 @@ class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
   final Widget? leading;
+  final bool? automaticallyImplyLeading;
 
   const PfAppBar({
     super.key,
     required this.title,
     this.actions,
     this.leading,
+    this.automaticallyImplyLeading,
   });
 
   @override
@@ -20,14 +22,21 @@ class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(kToolbarHeight),
       child: AppBar(
         backgroundColor: context.colorScheme.onPrimary,
-        foregroundColor: Colors.transparent,
+        foregroundColor: context.colorScheme.onSurfaceVariant,
         title: PfText(
           text: title,
           variant: PfTextStyleVariant.labelLarge,
           fontWeight: FontWeight.bold,
         ),
         actions: actions,
-        leading: leading,
+        leading: leading ??
+            (automaticallyImplyLeading ?? true
+                ? IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.maybePop(context),
+                  )
+                : null),
+        automaticallyImplyLeading: automaticallyImplyLeading ?? true,
         centerTitle: false,
       ),
     );

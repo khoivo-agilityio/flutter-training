@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poltry_farm/screens/auth/login_screen.dart';
 import 'package:poltry_farm/screens/home/home_screen.dart';
+import 'package:poltry_farm/screens/home/home_sell_screen.dart';
+import 'package:poltry_farm/screens/home/home_today_rate_screen.dart';
+import 'package:poltry_farm/screens/settings/personal_info_screen.dart';
+import 'package:poltry_farm/screens/settings/setting_screen.dart';
+import 'package:poltry_farm/screens/settings/view_ad_screen.dart';
 
 class PfRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -26,27 +31,27 @@ class PfRouter {
       GoRoute(
         name: PfPaths.setting.name,
         path: PfPaths.setting.path,
-        builder: (context, state) => const PfHomeScreen(),
+        builder: (context, state) => const PfSettingScreen(),
       ),
       GoRoute(
         name: PfPaths.homeSell.name,
         path: PfPaths.homeSell.path,
-        builder: (context, state) => const PfHomeScreen(),
+        builder: (context, state) => const PfHomeSellScreen(),
       ),
       GoRoute(
         name: PfPaths.homeTodayRate.name,
         path: PfPaths.homeTodayRate.path,
-        builder: (context, state) => const PfHomeScreen(),
+        builder: (context, state) => const PfHomeTodayRateScreen(),
       ),
       GoRoute(
         name: PfPaths.viewAds.name,
         path: PfPaths.viewAds.path,
-        builder: (context, state) => const PfHomeScreen(),
+        builder: (context, state) => const PfMyAdsScreen(),
       ),
       GoRoute(
         name: PfPaths.personalInfo.name,
         path: PfPaths.personalInfo.path,
-        builder: (context, state) => const PfHomeScreen(),
+        builder: (context, state) => const PfPersonalInfoScreen(),
       ),
     ],
   );

@@ -199,7 +199,7 @@ class PfAssets {
   static Widget Function({double? width, double? height, BoxFit? boxfit})
       icProfile = _PfProfileIcon.new;
   static Widget Function({double? width, double? height, BoxFit? boxfit})
-      imgChickenFarm = _PfChickenImage.new;
+      imgChickenFarm = _PfChickenFarmImage.new;
   static Widget Function({double? width, double? height, BoxFit? boxfit})
       imgHomePoster = _PfHomePosterImage.new;
 }
@@ -438,8 +438,8 @@ class _PfProfileIcon extends StatelessWidget {
   }
 }
 
-class _PfChickenImage extends StatelessWidget {
-  const _PfChickenImage({this.width, this.height, this.boxfit});
+class _PfChickenFarmImage extends StatelessWidget {
+  const _PfChickenFarmImage({this.width, this.height, this.boxfit});
   final double? height;
   final double? width;
   final BoxFit? boxfit;
@@ -448,7 +448,7 @@ class _PfChickenImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PfAssetImage(
       boxFit: boxfit,
-      path: Assets.imgChicken.path,
+      path: Assets.imgChickenFarm.path,
       width: width ?? 57,
       height: height ?? 53,
     );
