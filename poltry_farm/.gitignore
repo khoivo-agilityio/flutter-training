@@ -52,3 +52,8 @@ app.*.map.json
 /DerivedData/
 
 *.env
+
+google-services.json
+firebase.json
+GoogleService-Info.plist
+firebase_options.dart

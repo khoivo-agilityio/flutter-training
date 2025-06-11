@@ -267,9 +267,9 @@ class PfSearchTextFormFieldSubState extends Equatable {
 class PfDropdownFormFieldSubState extends Equatable {
   const PfDropdownFormFieldSubState({
     required this.semanticsLabel,
-    this.label,
-    this.text,
+    required this.text,
     required this.focusNode,
+    required this.label,
     this.validators,
     this.placeholder = '',
     this.keyboardType = const TextInputType.numberWithOptions(
@@ -288,11 +288,12 @@ class PfDropdownFormFieldSubState extends Equatable {
     this.autovalidateMode,
     this.hintText,
     this.items,
+    this.selectedItem,
   });
 
   final String semanticsLabel;
-  final String? label;
-  final String? text;
+  final String label;
+  final String text;
   final String? placeholder;
   final String? initialValue;
   final FocusNode focusNode;
@@ -310,6 +311,7 @@ class PfDropdownFormFieldSubState extends Equatable {
   final AutovalidateMode? autovalidateMode;
   final String? hintText;
   final List<String>? items;
+  final String? selectedItem;
 
   @override
   List<Object?> get props => [
@@ -329,6 +331,7 @@ class PfDropdownFormFieldSubState extends Equatable {
         hasLabelPlaceholder,
         focusNode,
         items,
+        selectedItem,
       ];
 
   PfDropdownFormFieldSubState copyWith({
@@ -351,6 +354,7 @@ class PfDropdownFormFieldSubState extends Equatable {
     AutovalidateMode? autovalidateMode,
     String? hintText,
     List<String>? items,
+    String? selectedItem,
   }) {
     return PfDropdownFormFieldSubState(
       semanticsLabel: semanticsLabel ?? this.semanticsLabel,
@@ -372,6 +376,7 @@ class PfDropdownFormFieldSubState extends Equatable {
       autovalidateMode: autovalidateMode ?? this.autovalidateMode,
       hintText: hintText ?? this.hintText,
       items: items ?? this.items,
+      selectedItem: selectedItem ?? this.selectedItem,
     );
   }
 }

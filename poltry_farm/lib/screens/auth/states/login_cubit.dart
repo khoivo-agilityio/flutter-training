@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:poltry_farm/repositories/auth_repository.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/shared/form_models.dart';
 import 'package:poltry_farm/widgets/forms/form_validators.dart';
@@ -8,7 +9,9 @@ import 'package:poltry_farm/widgets/forms/form_validators.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginState.initial());
+  LoginCubit(this._authRepository) : super(LoginState.initial());
+
+  final AuthRepository _authRepository;
 
   void emailChanged(String? value) {
     emit(
@@ -35,16 +38,16 @@ class LoginCubit extends Cubit<LoginState> {
       status: LoginStatus.loading,
     ));
 
-    // FIXME: Replace with actual authentication logic
-    await Future.delayed(const Duration(seconds: 2)); // mock API call
-    // Example validation logic
-    if (state.email.text == '' && state.password.text == '') {
-      // if (state.email.text == 'khoi.vo@asnet.com' &&
-      //     state.password.text == 'abcABC@123') {
+    try {
+      await _authRepository.signInWithEmailAndPassword(
+        email: state.email.text,
+        password: state.password.text,
+      );
+
       emit(state.copyWith(
         status: LoginStatus.success,
       ));
-    } else {
+    } catch (e) {
       emit(state.copyWith(
         status: LoginStatus.failure,
         errorMessage: S.current.errorInvalidEmailOrPassword,

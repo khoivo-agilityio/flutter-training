@@ -50,6 +50,7 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
           }
         },
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: PfAppBar(
             automaticallyImplyLeading: false,
             title: 'Happy Poultry Farm',

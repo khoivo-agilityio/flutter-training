@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:poltry_farm/repositories/auth_repository.dart';
 import 'package:poltry_farm/screens/settings/states/personal_info_cubit.dart';
 import 'package:poltry_farm/shared/local_database/user_db_model.dart';
 import 'package:poltry_farm/widgets/app_bar.dart';
@@ -19,19 +20,39 @@ class PfPersonalInfoScreen extends StatefulWidget {
 
 class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
   late final PersonalInfoCubit _cubit;
+  late TextEditingController _farmController;
+  late Box<UserDbModel> _userBox;
 
   @override
   void initState() {
-    _cubit = PersonalInfoCubit();
+    _cubit = PersonalInfoCubit(authRepository: context.read<AuthRepository>());
+    _farmController = TextEditingController();
+    _userBox = Hive.box<UserDbModel>('userBox');
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    final hive = Hive.box<UserDbModel>('userBox');
+  void dispose() {
+    _farmController.dispose();
+    super.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => _cubit,
+      create: (context) => _cubit
+        ..initialForm(
+          nameValue: _userBox.get('userBox')?.name ?? '',
+          emailValue: _userBox.get('userBox')?.email ?? '',
+          avatarUrlValue: _userBox.get('userBox')?.avatarUrl ?? '',
+          farmNameValue: _userBox.get('userBox')?.farmName ?? '',
+          countryValue: _userBox.get('userBox')?.country ?? '',
+          stateValue: _userBox.get('userBox')?.state ?? '',
+          cityValue: _userBox.get('userBox')?.city ?? '',
+          villageValue: _userBox.get('userBox')?.village ?? '',
+          farmCapacityValue: _userBox.get('userBox')?.farmCapacity ?? '',
+          farmValue: _userBox.get('userBox')?.farmType ?? '',
+        ),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: const PfAppBar(
@@ -45,7 +66,9 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 32),
-                _Avatar(hive),
+                _Avatar(_userBox, () {
+                  _cubit.changeAvatar();
+                }),
                 const SizedBox(height: 24),
                 SizedBox(
                   height: 95,
@@ -144,9 +167,13 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                     onChanged: (value) => _cubit.farmCapacityFormChanged(value),
                   ),
                 ),
-                PfDropdownSearch<String>(
-                  name: 'Farm',
-                  focusNode: FocusNode(),
+                PfFormControls.dropdownBloc<PersonalInfoCubit,
+                    PersonalInfoState>(
+                  selector: (state) => state.farmForm,
+                  onChanged: (value) {},
+                  onSelected: (value) {
+                    _cubit.farmFormChanged;
+                  },
                   onFetchItems: () async {
                     return await _cubit.loadFarmTypes();
                   },
@@ -176,22 +203,28 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
 }
 
 class _Avatar extends StatelessWidget {
-  const _Avatar(this.hive);
+  const _Avatar(
+    this.userBox,
+    this.onTap,
+  );
 
-  final Box<UserDbModel> hive;
+  final Box<UserDbModel> userBox;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<BoxEvent>(
-      stream: hive.watch(),
+      stream: userBox.watch(),
       builder: (context, snapshot) {
-        final user = hive.get('userBox');
-
         return Hero(
           tag: 'avatar',
           child: Material(
             color: Colors.transparent,
-            child: PfAvatar(imgUrl: user?.avatarUrl ?? '', size: 96),
+            child: PfAvatar(
+              imgUrl: userBox.get('userBox')?.avatarUrl ?? '',
+              size: 96,
+              onTap: onTap,
+            ),
           ),
         );
       },

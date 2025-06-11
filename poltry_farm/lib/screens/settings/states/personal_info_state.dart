@@ -16,6 +16,7 @@ class PersonalInfoState extends Equatable {
   final PfPlainTextFormFieldSubState farmCapacityForm;
   final PfDropdownFormFieldSubState farmForm;
   final List<String> farmTypes;
+  final File? avartarImg;
 
   const PersonalInfoState({
     this.status = PersonalInfoStatus.initial,
@@ -30,6 +31,7 @@ class PersonalInfoState extends Equatable {
     required this.farmForm,
     this.farmTypes = const [],
     this.errorMessage,
+    this.avartarImg,
   });
 
   PersonalInfoState copyWith({
@@ -45,6 +47,7 @@ class PersonalInfoState extends Equatable {
     PfPlainTextFormFieldSubState? farmCapacityForm,
     PfDropdownFormFieldSubState? farmForm,
     List<String>? farmTypes,
+    File? avartarImg,
   }) {
     return PersonalInfoState(
       status: status ?? this.status,
@@ -59,6 +62,7 @@ class PersonalInfoState extends Equatable {
       farmCapacityForm: farmCapacityForm ?? this.farmCapacityForm,
       farmForm: farmForm ?? this.farmForm,
       farmTypes: farmTypes ?? this.farmTypes,
+      avartarImg: avartarImg ?? this.avartarImg,
     );
   }
 
@@ -147,5 +151,6 @@ class PersonalInfoState extends Equatable {
         farmCapacityForm,
         farmForm,
         farmTypes,
+        avartarImg,
       ];
 }

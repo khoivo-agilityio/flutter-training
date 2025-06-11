@@ -51,6 +51,46 @@ class PfFormControls {
     );
   }
 
+  static BlocSelector<T, V, PfDropdownFormFieldSubState>
+      dropdownBloc<T extends BlocBase<V>, V>({
+    required PfDropdownFormFieldSubState Function(V state) selector,
+    ValueChanged<String?>? onChanged,
+    ValueChanged<String?>? onSelected,
+    Future<List<PfDropdownSearchItem<String>>> Function()? onFetchItems,
+    List<TextInputFormatter>? inputFormatters,
+    TextEditingController? controller,
+    FocusNode? focusNode,
+    bool enableErrorMessage = true,
+  }) {
+    final textController = controller ?? TextEditingController();
+
+    return _baseControl<T, V, PfDropdownFormFieldSubState>(
+      selector: selector,
+      controlBuilder: (context, formState) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (textController.text != formState.text) {
+            textController
+              ..text = formState.text
+              ..selection = TextSelection.collapsed(
+                offset: formState.text.length.clamp(0, formState.text.length),
+              );
+          }
+        });
+
+        return PfDropdownSearch<String>(
+          name: formState.label,
+          controller: textController,
+          keyboardType: formState.keyboardType,
+          focusNode: focusNode ?? formState.focusNode,
+          label: formState.label,
+          onChanged: onChanged,
+          onSelected: onSelected,
+          onFetchItems: onFetchItems,
+        );
+      },
+    );
+  }
+
   static BlocSelector<T, V, PfSearchTextFormFieldSubState>
       searchTextBloc<T extends BlocBase<V>, V>({
     required PfSearchTextFormFieldSubState Function(V state) selector,

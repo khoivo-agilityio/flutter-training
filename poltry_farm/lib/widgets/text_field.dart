@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poltry_farm/extensions/context_extension.dart';
+import 'package:poltry_farm/widgets/text.dart';
 
 class PfTextField extends StatefulWidget {
   const PfTextField({
@@ -44,9 +45,9 @@ class _PfTextFieldState extends State<PfTextField> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.label,
-            style: Theme.of(context).textTheme.labelLarge,
+          PfText(
+            text: widget.label,
+            variant: PfTextStyleVariant.labelLarge,
           ),
           const SizedBox(height: 8),
           TextFormField(

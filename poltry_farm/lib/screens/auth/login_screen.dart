@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poltry_farm/extensions/context_extension.dart';
+import 'package:poltry_farm/repositories/auth_repository.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/router.dart';
 
@@ -22,7 +23,7 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
   late final LoginCubit _loginCubit;
   @override
   void initState() {
-    _loginCubit = LoginCubit();
+    _loginCubit = LoginCubit(context.read<AuthRepository>());
     super.initState();
   }
 
@@ -31,6 +32,7 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
     return BlocProvider(
       create: (_) => _loginCubit,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: BlocListener<LoginCubit, LoginState>(
           bloc: _loginCubit,
           listener: (context, state) {

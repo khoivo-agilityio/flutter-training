@@ -31,6 +31,7 @@ class PfAvatar extends StatelessWidget {
                     ? Icon(
                         Icons.person,
                         size: size,
+                        color: context.colorScheme.onSurface,
                       )
                     : PfCachedNetworkImage(
                         width: size,

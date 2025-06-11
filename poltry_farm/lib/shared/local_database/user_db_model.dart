@@ -9,25 +9,49 @@ class UserDbModel extends HiveObject {
   String uid;
 
   @HiveField(1)
-  String fullName;
+  String? name;
 
   @HiveField(2)
-  String email;
+  String? email;
 
   @HiveField(3)
-  String phoneNumber;
+  String? farmName;
 
   @HiveField(4)
-  String? avatarUrl;
+  String? country;
 
   @HiveField(5)
+  String? state;
+
+  @HiveField(6)
+  String? city;
+
+  @HiveField(7)
+  String? village;
+
+  @HiveField(8)
+  String? farmCapacity;
+
+  @HiveField(9)
+  String? farmType;
+
+  @HiveField(10)
+  String? avatarUrl;
+
+  @HiveField(11)
   String? fcmToken;
 
   UserDbModel({
     required this.uid,
-    required this.fullName,
-    required this.email,
-    required this.phoneNumber,
+    this.name,
+    this.email,
+    this.farmName,
+    this.country,
+    this.state,
+    this.city,
+    this.village,
+    this.farmCapacity,
+    this.farmType,
     this.avatarUrl,
     this.fcmToken,
   });
@@ -35,10 +59,17 @@ class UserDbModel extends HiveObject {
   factory UserDbModel.fromUserModel(UserModel userModel) {
     return UserDbModel(
       uid: userModel.uid,
-      fullName: userModel.fullName,
+      name: userModel.name,
       email: userModel.email,
-      phoneNumber: userModel.phoneNumber,
+      farmName: userModel.farmName,
+      country: userModel.country,
+      state: userModel.state,
+      city: userModel.city,
+      village: userModel.village,
+      farmCapacity: userModel.farmCapacity,
+      farmType: userModel.farmType,
       avatarUrl: userModel.avatarUrl,
+      fcmToken: userModel.fcmToken,
     );
   }
 }

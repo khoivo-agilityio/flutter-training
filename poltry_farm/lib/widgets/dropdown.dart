@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:poltry_farm/extensions/context_extension.dart';
+import 'package:poltry_farm/widgets/text.dart';
 
 // Dropdown Item
 class PfDropdownSearchItem<T> {
@@ -100,7 +102,7 @@ class DropDownSearchCubit<T> extends Cubit<DropDownSearchState<T>> {
 class PfDropdownSearch<T> extends StatefulWidget {
   const PfDropdownSearch({
     required this.name,
-    this.label,
+    required this.label,
     this.placeholder,
     this.controller,
     this.focusNode,
@@ -117,7 +119,7 @@ class PfDropdownSearch<T> extends StatefulWidget {
   });
 
   final String name;
-  final String? label;
+  final String label;
   final String? placeholder;
   final TextEditingController? controller;
   final FocusNode? focusNode;
@@ -193,19 +195,21 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (widget.label != null)
-                Row(
-                  children: [
-                    Text(widget.label!),
-                    if (widget.required ?? false)
-                      const Text(' *', style: TextStyle(color: Colors.red)),
-                  ],
-                ),
+              Row(
+                children: [
+                  PfText(
+                    text: widget.label,
+                    variant: PfTextStyleVariant.labelLarge,
+                  ),
+                  if (widget.required ?? false)
+                    const Text(' *', style: TextStyle(color: Colors.red)),
+                ],
+              ),
+              const SizedBox(height: 8),
               Stack(
                 children: [
                   Semantics(
-                    label:
-                        widget.label ?? widget.placeholder ?? 'Dropdown field',
+                    label: widget.label,
                     hint: 'Double tap to interact',
                     toggled: cubit.state.isTapped,
                     button: true,
@@ -224,7 +228,7 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
                       },
                       onTap: _handleDropdownToggle,
                       decoration: InputDecoration(
-                        hintText: widget.placeholder,
+                        labelText: widget.placeholder ?? '',
                         suffixIcon: GestureDetector(
                           onTap: _handleDropdownToggle,
                           child: BlocBuilder<DropDownSearchCubit<T>,
@@ -236,7 +240,7 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
                             ),
                           ),
                         ),
-                      ),
+                      ).applyDefaults(context.themeData.inputDecorationTheme),
                     ),
                   ),
                 ],
@@ -283,29 +287,41 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
                     );
                   }
 
-                  if (state.filteredList.isEmpty) {
+                  if (state.filteredList.isEmpty &&
+                      _controller.text.isNotEmpty) {
                     return const Padding(
                       padding: EdgeInsets.all(16),
                       child: Text('No items found'),
                     );
                   }
 
-                  return ListView.builder(
-                    itemCount: state.filteredList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (_, index) {
-                      final item = state.filteredList[index];
-                      return ListTile(
-                        title: Text(item.label),
-                        onTap: () {
-                          cubit.selectItem(item,
-                              enableFilter: widget.enableFilter);
-                          _controller.text = item.label;
-                          widget.onSelected?.call(item.value);
-                          _focusNode.unfocus();
-                        },
-                      );
-                    },
+                  return ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 200,
+                    ),
+                    child: ListView.builder(
+                      itemCount: state.filteredList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (_, index) {
+                        final item = state.filteredList[index];
+                        return GestureDetector(
+                          onTap: () {
+                            cubit.selectItem(item,
+                                enableFilter: widget.enableFilter);
+                            _controller.text = item.label;
+                            widget.onSelected?.call(item.value);
+                            _focusNode.unfocus();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 16),
+                            child: PfText(
+                                text: item.label,
+                                variant: PfTextStyleVariant.bodyMedium),
+                          ),
+                        );
+                      },
+                    ),
                   );
                 },
               ),

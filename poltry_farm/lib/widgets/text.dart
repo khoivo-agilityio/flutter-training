@@ -8,26 +8,21 @@ class PfBaseText extends StatelessWidget {
     this.style,
     this.textAlign,
     this.maxLines,
-    this.semanticLabel,
   });
 
   final String text;
   final TextStyle? style;
   final TextAlign? textAlign;
   final int? maxLines;
-  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: semanticLabel ?? text,
-      child: Text(
-        text,
-        key: key,
-        maxLines: maxLines,
-        textAlign: textAlign,
-        style: style,
-      ),
+    return Text(
+      text,
+      key: key,
+      maxLines: maxLines,
+      textAlign: textAlign,
+      style: style,
     );
   }
 }
@@ -41,7 +36,6 @@ class PfTextVariant extends StatelessWidget {
     this.textAlign,
     this.fontWeight,
     this.overflow,
-    this.semanticLabel,
   });
 
   final String text;
@@ -50,14 +44,12 @@ class PfTextVariant extends StatelessWidget {
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
   final TextOverflow? overflow;
-  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
     return PfBaseText(
       text: text,
       textAlign: textAlign,
-      semanticLabel: semanticLabel,
       style: baseStyle?.copyWith(
         color: color,
         fontWeight: fontWeight,
@@ -76,7 +68,6 @@ class PfText extends StatelessWidget {
     this.textAlign,
     this.fontWeight,
     this.overflow,
-    this.semanticLabel,
   });
 
   final String text;
@@ -85,7 +76,6 @@ class PfText extends StatelessWidget {
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
   final TextOverflow? overflow;
-  final String? semanticLabel;
 
   TextStyle? _getBaseStyle(BuildContext context) {
     final theme = context.textTheme;
@@ -132,7 +122,6 @@ class PfText extends StatelessWidget {
       textAlign: textAlign,
       fontWeight: fontWeight,
       overflow: overflow,
-      semanticLabel: semanticLabel,
     );
   }
 }

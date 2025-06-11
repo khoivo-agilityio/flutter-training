@@ -5,11 +5,16 @@ abstract class UserBox {
   Future<void> saveUser(UserDbModel user);
   Future<UserDbModel?> getUser();
   Future<void> updateUser({
-    String? fullName,
+    String? name,
     String? email,
-    String? phoneNumber,
+    String? farmName,
+    String? country,
+    String? state,
+    String? city,
+    String? village,
+    String? farmCapacity,
+    String? farmType,
     String? avatarUrl,
-    String? fcmToken,
   });
   Future<void> deleteUser();
   Future<void> clear();
@@ -34,9 +39,15 @@ class UserBoxImpl implements UserBox {
 
   @override
   Future<void> updateUser({
-    String? fullName,
+    String? name,
     String? email,
-    String? phoneNumber,
+    String? farmName,
+    String? country,
+    String? state,
+    String? city,
+    String? village,
+    String? farmCapacity,
+    String? farmType,
     String? avatarUrl,
     String? fcmToken,
   }) async {
@@ -50,8 +61,8 @@ class UserBoxImpl implements UserBox {
 
     bool hasChanged = false;
 
-    if (fullName != null && fullName != user.fullName) {
-      user.fullName = fullName;
+    if (name != null && name != user.name) {
+      user.name = name;
       hasChanged = true;
     }
 
@@ -60,17 +71,39 @@ class UserBoxImpl implements UserBox {
       hasChanged = true;
     }
 
-    if (phoneNumber != null && phoneNumber != user.phoneNumber) {
-      user.phoneNumber = phoneNumber;
+    if (farmName != null && farmName != user.farmName) {
+      user.farmName = farmName;
       hasChanged = true;
     }
-
+    if (country != null && country != user.country) {
+      user.country = country;
+      hasChanged = true;
+    }
+    if (state != null && state != user.state) {
+      user.state = state;
+      hasChanged = true;
+    }
+    if (city != null && city != user.city) {
+      user.city = city;
+      hasChanged = true;
+    }
+    if (village != null && village != user.village) {
+      user.village = village;
+      hasChanged = true;
+    }
+    if (farmCapacity != null && farmCapacity != user.farmCapacity) {
+      user.farmCapacity = farmCapacity;
+      hasChanged = true;
+    }
+    if (farmType != null && farmType != user.farmType) {
+      user.farmType = farmType;
+      hasChanged = true;
+    }
     if (avatarUrl != null && avatarUrl != user.avatarUrl) {
       user.avatarUrl = avatarUrl;
       hasChanged = true;
     }
-
-    if (fcmToken != null && fcmToken != user.avatarUrl) {
+    if (fcmToken != null && fcmToken != user.fcmToken) {
       user.fcmToken = fcmToken;
       hasChanged = true;
     }

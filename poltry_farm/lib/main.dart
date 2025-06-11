@@ -1,22 +1,25 @@
 import 'dart:io';
 
+import 'package:accessibility_tools/accessibility_tools.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:poltry_farm/environments/app_providers.dart';
+import 'package:poltry_farm/firebase_options.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/router.dart';
 import 'package:poltry_farm/shared/local_database/local_database.dart';
 import 'package:poltry_farm/themes/app_theme.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   // Initialize the Flutter binding.
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
 
-  await Supabase.initialize(
-      url: dotenv.env['SUPABASE_URL'] ?? '',
-      anonKey: dotenv.env['SUPABASE_KEY'] ?? '');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // Set up the preferred orientations.
   await SystemChrome.setPreferredOrientations([
@@ -47,7 +50,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   /// Called when the app's lifecycle state changes.
   ///
-  /// We use this callback to hide the keyboard when the app is inactive,
+  /// We use this callback to hide the keyboard when  the app is inactive,
   /// which is when the screen is turned off on Android devices.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -72,25 +75,28 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: PfTheme.light,
+    return AppProvider(
+      child: MaterialApp.router(
+        theme: PfTheme.light,
 
-      themeMode: ThemeMode.dark,
-      debugShowCheckedModeBanner: false,
-      // Locale
-      locale: const Locale('en', 'US'),
+        themeMode: ThemeMode.dark,
+        debugShowCheckedModeBanner: false,
+        // Locale
+        locale: const Locale('en', 'US'),
 
-      localizationsDelegates: const [
-        S.delegate,
-      ],
-      supportedLocales: [
-        ...S.delegate.supportedLocales,
-        const Locale('en', ''),
-      ],
+        localizationsDelegates: const [
+          S.delegate,
+        ],
+        supportedLocales: [
+          ...S.delegate.supportedLocales,
+          const Locale('en', ''),
+        ],
 
-      routeInformationProvider: PfRouter.router.routeInformationProvider,
-      routeInformationParser: PfRouter.router.routeInformationParser,
-      routerDelegate: PfRouter.router.routerDelegate,
+        routeInformationProvider: PfRouter.router.routeInformationProvider,
+        routeInformationParser: PfRouter.router.routeInformationParser,
+        routerDelegate: PfRouter.router.routerDelegate,
+        builder: (context, child) => AccessibilityTools(child: child),
+      ),
     );
   }
 }
