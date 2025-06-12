@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poltry_farm/extensions/context_extension.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/screens/settings/personal_info_screen.dart';
 import 'package:poltry_farm/screens/settings/view_ad_screen.dart';
 import 'package:poltry_farm/widgets/app_bar.dart';
@@ -11,8 +12,8 @@ class PfSettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PfAppBar(
-        title: 'Farm Settings',
+      appBar: PfAppBar(
+        title: S.current.settingPageTitle,
         automaticallyImplyLeading: false,
       ),
       body: Container(
@@ -26,8 +27,8 @@ class PfSettingScreen extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.person),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              title: const PfText(
-                text: 'User Information',
+              title: PfText(
+                text: S.current.settingPageUserInfoTitle,
                 variant: PfTextStyleVariant.labelLarge,
               ),
               onTap: () {
@@ -46,8 +47,8 @@ class PfSettingScreen extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.ads_click),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              title: const PfText(
-                text: 'My Ads',
+              title: PfText(
+                text: S.current.settingPageMyAdsTitle,
                 variant: PfTextStyleVariant.labelLarge,
               ),
               onTap: () {

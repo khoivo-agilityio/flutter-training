@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/shared/category_models.dart';
 import 'package:poltry_farm/shared/form_models.dart';
 import 'package:poltry_farm/shared/product_models.dart';

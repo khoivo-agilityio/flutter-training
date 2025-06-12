@@ -39,6 +39,7 @@ class PfAvatar extends StatelessWidget {
                       )
                     : imgUrl.isNotEmpty
                         ? PfCachedNetworkImage(
+                            semanticLabel: 'User Avatar',
                             width: size,
                             height: size,
                             url: imgUrl,

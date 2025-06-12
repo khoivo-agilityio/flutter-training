@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poltry_farm/extensions/context_extension.dart';
 import 'package:poltry_farm/router.dart';
 
 class ScaffoldWithBottomNav extends StatelessWidget {
@@ -25,17 +26,28 @@ class ScaffoldWithBottomNav extends StatelessWidget {
 
     return Scaffold(
       body: child,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          context.go(_navItems[index].route);
-        },
-        items: _navItems
-            .map((item) => BottomNavigationBarItem(
-                  icon: Icon(item.icon),
-                  label: item.label,
-                ))
-            .toList(),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Divider(
+            height: 1,
+            color: context.colorScheme.outline,
+          ),
+          BottomNavigationBar(
+            backgroundColor: context.colorScheme.onPrimary,
+            currentIndex: currentIndex,
+            onTap: (index) {
+              context.go(_navItems[index].route);
+            },
+            items: _navItems
+                .map((item) => BottomNavigationBarItem(
+                      icon: Icon(item.icon),
+                      label: item.label,
+                    ))
+                .toList(),
+          ),
+        ],
       ),
     );
   }

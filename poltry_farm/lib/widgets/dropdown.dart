@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:poltry_farm/extensions/context_extension.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/widgets/text.dart';
 
 // Dropdown Item
@@ -142,7 +143,6 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
   late final TextEditingController _controller;
   late final FocusNode _focusNode;
   final ScrollController _scrollController = ScrollController();
-  String? _prevSearchText;
 
   @override
   void initState() {
@@ -165,7 +165,6 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
 
     final isOpened = cubit.state.isTapped;
     if (!isOpened) {
-      _prevSearchText = _controller.text;
       _focusNode.requestFocus();
       if (widget.onFetchItems != null && cubit.state.subFilteredList.isEmpty) {
         await cubit.fetchItems(widget.onFetchItems!);
@@ -202,7 +201,11 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
                     variant: PfTextStyleVariant.labelLarge,
                   ),
                   if (widget.required ?? false)
-                    const Text(' *', style: TextStyle(color: Colors.red)),
+                    PfText(
+                      text: ' *',
+                      variant: PfTextStyleVariant.labelLarge,
+                      color: context.colorScheme.error,
+                    ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -210,7 +213,7 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
                 children: [
                   Semantics(
                     label: widget.label,
-                    hint: 'Double tap to interact',
+                    hint: S.current.formDropdownSemanticHint,
                     toggled: cubit.state.isTapped,
                     button: true,
                     focusable: true,
@@ -253,7 +256,7 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
 
                   if (state.isLoading) {
                     return Semantics(
-                      label: 'Loading items',
+                      label: S.current.formDropdownSemanticLoadingItems,
                       child: const Padding(
                         padding: EdgeInsets.all(16),
                         child: Center(child: CircularProgressIndicator()),
@@ -263,7 +266,7 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
 
                   if (state.error != null) {
                     return Semantics(
-                      label: 'Error loading items. Tap to retry.',
+                      label: S.current.formDropdownSemanticErrorFetchItems,
                       child: GestureDetector(
                         onTap: () {
                           if (widget.onFetchItems != null) {
@@ -274,12 +277,16 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
                           padding: const EdgeInsets.all(16),
                           child: Column(
                             children: [
-                              Text(state.error!,
-                                  style: const TextStyle(color: Colors.red)),
+                              PfText(
+                                text: state.error!,
+                                variant: PfTextStyleVariant.bodyMedium,
+                                color: context.colorScheme.error,
+                              ),
                               const SizedBox(height: 8),
-                              const Text('Tap to retry',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              PfText(
+                                text: S.current.formDropdownMenuAction,
+                                variant: PfTextStyleVariant.bodyMedium,
+                              ),
                             ],
                           ),
                         ),
@@ -289,9 +296,12 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
 
                   if (state.filteredList.isEmpty &&
                       _controller.text.isNotEmpty) {
-                    return const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text('No items found'),
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: PfText(
+                        text: S.current.formDropdownEmptyDescription,
+                        variant: PfTextStyleVariant.bodyMedium,
+                      ),
                     );
                   }
 
@@ -314,10 +324,13 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 16),
+                              horizontal: 16,
+                              vertical: 16,
+                            ),
                             child: PfText(
-                                text: item.label,
-                                variant: PfTextStyleVariant.bodyMedium),
+                              text: item.label,
+                              variant: PfTextStyleVariant.bodyMedium,
+                            ),
                           ),
                         );
                       },

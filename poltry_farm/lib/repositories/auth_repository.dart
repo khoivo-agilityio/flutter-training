@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,17 +54,19 @@ class AuthRepository extends BaseRepository {
 
   Future<void> updateUserData({required UserModel user, File? avatar}) async {
     try {
-      // String? avatarUrl;
-      // if (avatar != null) {
-      //   try {
-      //     final ref = firebaseStorage.ref().child('avatars/${user.uid}.jpg');
-      //     final task = await ref.putFile(avatar);
-      //     final url = await task.ref.getDownloadURL();
-      //     avatarUrl = url;
-      //   } catch (e) {
-      //     throw Exception("Failed to upload avatar");
-      //   }
-      // }
+      String? avatarUrl;
+      if (avatar != null) {
+        try {
+          final ref = firebaseStorage.ref().child('avartar/${user.uid}.jpg');
+          final task = await ref.putFile(avatar);
+          final url = await task.ref.getDownloadURL();
+          avatarUrl = url;
+        } on FirebaseException catch (e) {
+          log("Failed to upload avatar: ${e.code} - ${e.message}");
+
+          throw Exception("Failed to upload avatar");
+        }
+      }
 
       final newUserData = UserModel(
         uid: user.uid,
@@ -76,7 +79,7 @@ class AuthRepository extends BaseRepository {
         village: user.village,
         farmCapacity: user.farmCapacity,
         farmType: user.farmType,
-        // avatarUrl: avatarUrl,
+        avatarUrl: avatarUrl,
       );
 
       await firestore
@@ -94,7 +97,7 @@ class AuthRepository extends BaseRepository {
         village: user.village,
         farmCapacity: user.farmCapacity,
         farmType: user.farmType,
-        // avatarUrl: avatarUrl,
+        avatarUrl: avatarUrl,
       );
     } catch (e) {
       throw Exception("Failed to save user data");

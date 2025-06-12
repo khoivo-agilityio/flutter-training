@@ -23,6 +23,7 @@ enum ImageLoaderType { assetPNG, assetSVG, cachedNetwork }
 /// or 'https', as this widget is meant for local asset images only.
 class PfAssetImage extends StatelessWidget {
   PfAssetImage({
+    required this.semanticLabel,
     required this.path,
     super.key,
     this.errorBuilder,
@@ -43,10 +44,12 @@ class PfAssetImage extends StatelessWidget {
   final Color? color;
   final BoxFit? boxFit;
   final ImageLoaderType type;
+  final String semanticLabel;
 
   @override
   Widget build(BuildContext context) {
     return _PfImageLoader(
+      semanticLabel: semanticLabel,
       url: path,
       type: type,
       errorBuilder: errorBuilder,
@@ -68,6 +71,7 @@ class PfAssetImage extends StatelessWidget {
 /// is set to [BoxFit.contain].
 class PfCachedNetworkImage extends StatelessWidget {
   const PfCachedNetworkImage({
+    required this.semanticLabel,
     required this.url,
     this.width = 40,
     this.height = 40,
@@ -76,6 +80,7 @@ class PfCachedNetworkImage extends StatelessWidget {
     super.key,
   });
 
+  final String semanticLabel;
   final String url;
   final Widget? errorBuilder;
   final double? width;
@@ -85,6 +90,7 @@ class PfCachedNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _PfImageLoader(
+      semanticLabel: semanticLabel,
       url: url,
       type: ImageLoaderType.cachedNetwork,
       errorBuilder: errorBuilder,
@@ -101,6 +107,7 @@ class PfCachedNetworkImage extends StatelessWidget {
 /// a custom error widget if the image fails to load and supports custom sizing, color, and fitting options.
 class _PfImageLoader extends StatelessWidget {
   const _PfImageLoader({
+    required this.semanticLabel,
     required this.type,
     required this.url,
     this.errorBuilder,
@@ -110,6 +117,7 @@ class _PfImageLoader extends StatelessWidget {
     this.boxFit = BoxFit.cover,
   });
 
+  final String semanticLabel;
   final ImageLoaderType type;
   final String url;
   final Widget? errorBuilder;
@@ -123,6 +131,7 @@ class _PfImageLoader extends StatelessWidget {
     switch (type) {
       case ImageLoaderType.assetPNG:
         return Image.asset(
+          semanticLabel: semanticLabel,
           url,
           fit: boxFit,
           errorBuilder: (
@@ -139,6 +148,7 @@ class _PfImageLoader extends StatelessWidget {
         );
       case ImageLoaderType.assetSVG:
         return SvgPicture.asset(
+          semanticsLabel: semanticLabel,
           url,
           colorFilter:
               color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
@@ -150,20 +160,24 @@ class _PfImageLoader extends StatelessWidget {
           height: height,
         );
       case ImageLoaderType.cachedNetwork:
-        return CachedNetworkImage(
-          imageUrl: url,
-          fit: boxFit,
-          width: width,
-          height: height,
-          errorWidget: (BuildContext context, String url, dynamic error) {
-            log('Image $url load failed. Error: $error');
-            return errorBuilder ?? Icon(Icons.broken_image, size: width);
-          },
-          imageBuilder:
-              (BuildContext context, ImageProvider<Object> provider) =>
-                  Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(image: provider),
+        return Semantics(
+          image: true,
+          label: semanticLabel,
+          child: CachedNetworkImage(
+            imageUrl: url,
+            fit: boxFit,
+            width: width,
+            height: height,
+            errorWidget: (BuildContext context, String url, dynamic error) {
+              log('Image $url load failed. Error: $error');
+              return errorBuilder ?? Icon(Icons.broken_image, size: width);
+            },
+            imageBuilder:
+                (BuildContext context, ImageProvider<Object> provider) =>
+                    Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(image: provider),
+              ),
             ),
           ),
         );
@@ -213,6 +227,7 @@ class _PfCibAppleImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.cibApple.keyName,
       boxFit: boxfit,
       path: Assets.cibApple.path,
       width: width ?? 27.35,
@@ -231,6 +246,7 @@ class _PfFacebookIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.facebookIc.keyName,
       boxFit: boxfit,
       path: Assets.facebookIc.path,
       width: width ?? 27.35,
@@ -249,6 +265,7 @@ class _PfGoogleIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.googleIc.keyName,
       boxFit: boxfit,
       path: Assets.googleIc.path,
       width: width ?? 27.35,
@@ -267,6 +284,7 @@ class _PfBatchesIc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icBatches.keyName,
       boxFit: boxfit,
       path: Assets.icBatches.path,
       width: width ?? 44,
@@ -285,6 +303,7 @@ class _PfFeedManagementIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icFeedManagement.keyName,
       boxFit: boxfit,
       path: Assets.icFeedManagement.path,
       width: width ?? 44,
@@ -303,6 +322,7 @@ class _PfLogoutIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icLogout.keyName,
       boxFit: boxfit,
       path: Assets.icLogout.path,
       width: width ?? 44,
@@ -321,6 +341,7 @@ class _PfOutlineFileUploadIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icOutlineFileUpload.keyName,
       boxFit: boxfit,
       path: Assets.icOutlineFileUpload.path,
       width: width ?? 44,
@@ -339,6 +360,7 @@ class _PfPhoneIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icPhone.keyName,
       boxFit: boxfit,
       path: Assets.icPhone.path,
       width: width ?? 44,
@@ -357,6 +379,7 @@ class _PfSettingIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icSetting.keyName,
       boxFit: boxfit,
       path: Assets.icSetting.path,
       width: width ?? 44,
@@ -375,6 +398,7 @@ class _PfStoreIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icStore.keyName,
       boxFit: boxfit,
       path: Assets.icStore.path,
       width: width ?? 44,
@@ -393,6 +417,7 @@ class _PfSuccessMarkIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icSuccessMark.keyName,
       boxFit: boxfit,
       path: Assets.icSuccessMark.path,
       width: width ?? 44,
@@ -411,6 +436,7 @@ class _PfThreeDotsIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.icThreeDots.keyName,
       boxFit: boxfit,
       path: Assets.icThreeDots.path,
       width: width ?? 44,
@@ -429,6 +455,7 @@ class _PfProfileIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.profile.keyName,
       boxFit: boxfit,
       path: Assets.profile.path,
       width: width ?? 44,
@@ -447,6 +474,7 @@ class _PfChickenFarmImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.imgChickenFarm.keyName,
       boxFit: boxfit,
       path: Assets.imgChickenFarm.path,
       width: width ?? 57,
@@ -464,6 +492,7 @@ class _PfHomePosterImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
+      semanticLabel: Assets.imgHomePoster.keyName,
       boxFit: boxfit,
       path: Assets.imgHomePoster.path,
       width: width,

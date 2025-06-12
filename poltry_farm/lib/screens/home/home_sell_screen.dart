@@ -2,8 +2,8 @@ import 'package:easy_infinite_pagination/easy_infinite_pagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:poltry_farm/extensions/context_extension.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/screens/home/states/home_sell_cubit.dart';
-import 'package:poltry_farm/screens/settings/view_ad_screen.dart';
 import 'package:poltry_farm/widgets/app_bar.dart';
 import 'package:poltry_farm/widgets/assets.dart';
 import 'package:poltry_farm/widgets/text.dart';
@@ -28,7 +28,7 @@ class _PfHomeSellScreenState extends State<PfHomeSellScreen> {
     return BlocProvider(
       create: (context) => _cubit..fetchCategories(),
       child: Scaffold(
-        appBar: const PfAppBar(title: 'What are you selling?'),
+        appBar: PfAppBar(title: S.current.homeSellPageTitle),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -65,6 +65,7 @@ class _PfHomeSellScreenState extends State<PfHomeSellScreen> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(15),
                                         child: PfCachedNetworkImage(
+                                          semanticLabel: category?.name ?? '',
                                           width: 105,
                                           height: 105,
                                           url: category?.imageUrl ?? '',

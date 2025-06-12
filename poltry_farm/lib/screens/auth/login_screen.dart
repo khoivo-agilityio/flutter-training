@@ -85,7 +85,12 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
                           : () => _loginCubit.logInWithCredentials(),
                       child: hasLoading
                           ? const CircularProgressIndicator()
-                          : Text(S.current.loginPageLoginButton),
+                          : PfText(
+                              text: S.current.loginPageLoginButton,
+                              variant: PfTextStyleVariant.titleMedium,
+                              fontWeight: FontWeight.bold,
+                              color: context.colorScheme.onPrimary,
+                            ),
                     );
                   },
                 ),
@@ -105,7 +110,7 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
                           width: 13,
                         ),
                         PfText(
-                          text: 'Or Login with',
+                          text: S.current.loginPageInstruction,
                           variant: PfTextStyleVariant.labelMedium,
                           color: context.colorScheme.onSurfaceVariant,
                         ),

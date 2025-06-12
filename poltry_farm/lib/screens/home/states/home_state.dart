@@ -39,8 +39,8 @@ class HomeState extends Equatable {
       popularCategories: const [],
       products: const [],
       searchForm: PfSearchTextFormFieldSubState(
-        semanticsLabel: 'Search',
-        hintText: 'Search',
+        semanticsLabel: S.current.formSearchSemanticLabel,
+        hintText: S.current.formSearchHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,

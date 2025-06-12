@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:poltry_farm/repositories/auth_repository.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/shared/form_models.dart';
 import 'package:poltry_farm/shared/user_model.dart';
 import 'package:poltry_farm/widgets/dropdown.dart';
@@ -177,7 +178,9 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
         );
       }
     } catch (e) {
-      emit(state.copyWith(errorMessage: 'Failed to pick image'));
+      emit(state.copyWith(
+          status: PersonalInfoStatus.failure,
+          errorMessage: S.current.errorFailedToPickImage));
     }
   }
 
@@ -209,7 +212,7 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
     } catch (e) {
       emit(state.copyWith(
           status: PersonalInfoStatus.failure,
-          errorMessage: "Failed to update user info"));
+          errorMessage: S.current.errorFailedToUpdateUserInfo));
     }
   }
 

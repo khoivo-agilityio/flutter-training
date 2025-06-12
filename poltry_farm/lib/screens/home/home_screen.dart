@@ -2,10 +2,10 @@ import 'package:easy_infinite_pagination/easy_infinite_pagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:poltry_farm/extensions/context_extension.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/screens/home/home_sell_screen.dart';
 import 'package:poltry_farm/screens/home/home_today_rate_screen.dart';
 import 'package:poltry_farm/screens/home/states/home_cubit.dart';
-import 'package:poltry_farm/screens/settings/setting_screen.dart';
 import 'package:poltry_farm/widgets/app_bar.dart';
 import 'package:poltry_farm/widgets/assets.dart';
 import 'package:poltry_farm/widgets/button.dart';
@@ -40,7 +40,8 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
           if (state.status == HomeStatus.failure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage ?? 'Failed to load data'),
+                content:
+                    Text(state.errorMessage ?? S.current.errorFailedToLoadData),
               ),
             );
           }
@@ -53,12 +54,12 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
           resizeToAvoidBottomInset: false,
           appBar: PfAppBar(
             automaticallyImplyLeading: false,
-            title: 'Happy Poultry Farm',
+            title: S.current.homePageTitle,
             actions: [
               PfElevatedButton(
                 height: 30,
                 width: 78,
-                semanticsLabel: 'Today\'s Rate',
+                semanticsLabel: S.current.homePageAppBarSubActionButton,
                 fillColor: context.colorScheme.onPrimary,
                 textColor: context.colorScheme.primary,
                 onPressed: () {
@@ -70,7 +71,7 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                   );
                 },
                 child: PfText(
-                  text: 'Today\'s Rate',
+                  text: S.current.homePageAppBarSubActionButton,
                   variant: PfTextStyleVariant.bodyLarge,
                   fontWeight: FontWeight.bold,
                   color: context.colorScheme.primary,
@@ -79,9 +80,9 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
               PfElevatedButton(
                 height: 30,
                 width: 78,
-                semanticsLabel: 'Sell',
+                semanticsLabel: S.current.homePageAppBarActionButton,
                 child: PfText(
-                  text: 'Sell',
+                  text: S.current.homePageAppBarActionButton,
                   variant: PfTextStyleVariant.labelLarge,
                   fontWeight: FontWeight.bold,
                   color: context.colorScheme.onPrimary,
@@ -124,8 +125,8 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const PfText(
-                            text: 'Popular Category',
+                          PfText(
+                            text: S.current.homePageBodySubTitle,
                             variant: PfTextStyleVariant.labelSmall,
                             fontWeight: FontWeight.w600,
                           ),
@@ -169,6 +170,8 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                               child: PfCachedNetworkImage(
+                                                semanticLabel:
+                                                    category?.name ?? '',
                                                 width: 53,
                                                 height: 57,
                                                 url: category?.imageUrl ?? '',
@@ -216,9 +219,9 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                       return Expanded(
                         child: CustomScrollView(
                           slivers: [
-                            const SliverToBoxAdapter(
+                            SliverToBoxAdapter(
                               child: PfText(
-                                text: 'Recommendations',
+                                text: S.current.homePageBodyTitle,
                                 variant: PfTextStyleVariant.labelSmall,
                                 fontWeight: FontWeight.w600,
                               ),

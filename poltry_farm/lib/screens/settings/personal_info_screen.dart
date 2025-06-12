@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:poltry_farm/repositories/auth_repository.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/screens/settings/states/personal_info_cubit.dart';
 import 'package:poltry_farm/shared/local_database/user_db_model.dart';
 import 'package:poltry_farm/widgets/app_bar.dart';
 import 'package:poltry_farm/widgets/avartar.dart';
 import 'package:poltry_farm/widgets/button.dart';
-import 'package:poltry_farm/widgets/dropdown.dart';
 import 'package:poltry_farm/widgets/forms/form_control.dart';
 import 'package:poltry_farm/widgets/text.dart';
 
@@ -57,8 +57,8 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
         ),
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: const PfAppBar(
-          title: 'User Infomation',
+        appBar: PfAppBar(
+          title: S.current.userInfomationPageTitle,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -195,12 +195,15 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                       state.status == PersonalInfoStatus.loading,
                   builder: (context, hasLoading) {
                     return PfElevatedButton(
-                      semanticsLabel: 'Save',
+                      semanticsLabel: S.current.generalSave,
                       onPressed:
                           hasLoading ? null : () => _cubit.savePersonalInfo(),
                       child: hasLoading
                           ? const CircularProgressIndicator()
-                          : const Text('Save'),
+                          : PfText(
+                              text: S.current.generalSave,
+                              variant: PfTextStyleVariant.titleMedium,
+                            ),
                     );
                   },
                 ),
