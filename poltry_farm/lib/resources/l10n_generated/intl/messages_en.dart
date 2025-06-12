@@ -115,6 +115,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginPageTitle": MessageLookupByLibrary.simpleMessage(
       "Welcome back! Glad to see you, Again!",
     ),
+    "semanticImgBatches": MessageLookupByLibrary.simpleMessage("Batches"),
+    "semanticImgChickenFarm": MessageLookupByLibrary.simpleMessage(
+      "Chicken Farm",
+    ),
+    "semanticImgFacebook": MessageLookupByLibrary.simpleMessage("FaceBook"),
+    "semanticImgFeedManagement": MessageLookupByLibrary.simpleMessage(
+      "Feed Management",
+    ),
+    "semanticImgFileUpload": MessageLookupByLibrary.simpleMessage(
+      "File Upload",
+    ),
+    "semanticImgGoogle": MessageLookupByLibrary.simpleMessage("Google"),
+    "semanticImgHomePoster": MessageLookupByLibrary.simpleMessage(
+      "Home Poster",
+    ),
+    "semanticImgLogout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "semanticImgPhone": MessageLookupByLibrary.simpleMessage("Phone"),
+    "semanticImgProfile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "semanticImgSetting": MessageLookupByLibrary.simpleMessage("Setting"),
+    "semanticImgStore": MessageLookupByLibrary.simpleMessage("Store"),
+    "semanticImgSuccessMark": MessageLookupByLibrary.simpleMessage(
+      "Success Mark",
+    ),
+    "semanticImgThreeDots": MessageLookupByLibrary.simpleMessage("Three Dots"),
     "settingPageMyAdsTitle": MessageLookupByLibrary.simpleMessage("My Ads"),
     "settingPageTitle": MessageLookupByLibrary.simpleMessage("Farm Settings"),
     "settingPageUserInfoTitle": MessageLookupByLibrary.simpleMessage(

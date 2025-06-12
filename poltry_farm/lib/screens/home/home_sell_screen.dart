@@ -28,6 +28,7 @@ class _PfHomeSellScreenState extends State<PfHomeSellScreen> {
     return BlocProvider(
       create: (context) => _cubit..fetchCategories(),
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: PfAppBar(title: S.current.homeSellPageTitle),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

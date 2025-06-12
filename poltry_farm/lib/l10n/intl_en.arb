@@ -77,6 +77,24 @@
   "settingPageTitle": "Farm Settings",
   "settingPageUserInfoTitle": "User Information",
   "settingPageMyAdsTitle": "My Ads",
+  "@segmentSemantics": {
+    "---------------------------": "---------------------------",
+    "description": "Store translations that are likely to be used in Semantics"
+  },
+  "semanticImgFacebook": "FaceBook",
+  "semanticImgGoogle": "Google",
+  "semanticImgBatches": "Batches",
+  "semanticImgFeedManagement": "Feed Management",
+  "semanticImgLogout": "Logout",
+  "semanticImgFileUpload": "File Upload",
+  "semanticImgPhone": "Phone",
+  "semanticImgSetting": "Setting",
+  "semanticImgStore": "Store",
+  "semanticImgSuccessMark": "Success Mark",
+  "semanticImgThreeDots": "Three Dots",
+  "semanticImgProfile": "Profile",
+  "semanticImgChickenFarm": "Chicken Farm",
+  "semanticImgHomePoster": "Home Poster",
   "@segmentUserInfomation": {
     "---------------------------": "---------------------------",
     "description": "Store translations that are likely to be used in User Infomation flows"

@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:poltry_farm/resources/assets_generated/assets.gen.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 
 ///
 /// An enum defines all supported types of image loader
@@ -246,7 +247,7 @@ class _PfFacebookIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.facebookIc.keyName,
+      semanticLabel: S.current.semanticImgFacebook,
       boxFit: boxfit,
       path: Assets.facebookIc.path,
       width: width ?? 27.35,
@@ -265,7 +266,7 @@ class _PfGoogleIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.googleIc.keyName,
+      semanticLabel: S.current.semanticImgGoogle,
       boxFit: boxfit,
       path: Assets.googleIc.path,
       width: width ?? 27.35,
@@ -284,7 +285,7 @@ class _PfBatchesIc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icBatches.keyName,
+      semanticLabel: S.current.semanticImgBatches,
       boxFit: boxfit,
       path: Assets.icBatches.path,
       width: width ?? 44,
@@ -303,7 +304,7 @@ class _PfFeedManagementIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icFeedManagement.keyName,
+      semanticLabel: S.current.semanticImgFeedManagement,
       boxFit: boxfit,
       path: Assets.icFeedManagement.path,
       width: width ?? 44,
@@ -322,7 +323,7 @@ class _PfLogoutIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icLogout.keyName,
+      semanticLabel: S.current.semanticImgLogout,
       boxFit: boxfit,
       path: Assets.icLogout.path,
       width: width ?? 44,
@@ -341,7 +342,7 @@ class _PfOutlineFileUploadIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icOutlineFileUpload.keyName,
+      semanticLabel: S.current.semanticImgFileUpload,
       boxFit: boxfit,
       path: Assets.icOutlineFileUpload.path,
       width: width ?? 44,
@@ -360,7 +361,7 @@ class _PfPhoneIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icPhone.keyName,
+      semanticLabel: S.current.semanticImgPhone,
       boxFit: boxfit,
       path: Assets.icPhone.path,
       width: width ?? 44,
@@ -379,7 +380,7 @@ class _PfSettingIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icSetting.keyName,
+      semanticLabel: S.current.semanticImgSetting,
       boxFit: boxfit,
       path: Assets.icSetting.path,
       width: width ?? 44,
@@ -398,7 +399,7 @@ class _PfStoreIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icStore.keyName,
+      semanticLabel: S.current.semanticImgStore,
       boxFit: boxfit,
       path: Assets.icStore.path,
       width: width ?? 44,
@@ -417,7 +418,7 @@ class _PfSuccessMarkIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icSuccessMark.keyName,
+      semanticLabel: S.current.semanticImgSuccessMark,
       boxFit: boxfit,
       path: Assets.icSuccessMark.path,
       width: width ?? 44,
@@ -436,7 +437,7 @@ class _PfThreeDotsIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.icThreeDots.keyName,
+      semanticLabel: S.current.semanticImgThreeDots,
       boxFit: boxfit,
       path: Assets.icThreeDots.path,
       width: width ?? 44,
@@ -455,7 +456,7 @@ class _PfProfileIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.profile.keyName,
+      semanticLabel: S.current.semanticImgProfile,
       boxFit: boxfit,
       path: Assets.profile.path,
       width: width ?? 44,
@@ -474,7 +475,7 @@ class _PfChickenFarmImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.imgChickenFarm.keyName,
+      semanticLabel: S.current.semanticImgChickenFarm,
       boxFit: boxfit,
       path: Assets.imgChickenFarm.path,
       width: width ?? 57,
@@ -492,7 +493,7 @@ class _PfHomePosterImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PfAssetImage(
-      semanticLabel: Assets.imgHomePoster.keyName,
+      semanticLabel: S.current.semanticImgHomePoster,
       boxFit: boxfit,
       path: Assets.imgHomePoster.path,
       width: width,

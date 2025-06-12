@@ -524,6 +524,136 @@ class S {
     );
   }
 
+  /// `FaceBook`
+  String get semanticImgFacebook {
+    return Intl.message(
+      'FaceBook',
+      name: 'semanticImgFacebook',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Google`
+  String get semanticImgGoogle {
+    return Intl.message(
+      'Google',
+      name: 'semanticImgGoogle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Batches`
+  String get semanticImgBatches {
+    return Intl.message(
+      'Batches',
+      name: 'semanticImgBatches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feed Management`
+  String get semanticImgFeedManagement {
+    return Intl.message(
+      'Feed Management',
+      name: 'semanticImgFeedManagement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get semanticImgLogout {
+    return Intl.message(
+      'Logout',
+      name: 'semanticImgLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File Upload`
+  String get semanticImgFileUpload {
+    return Intl.message(
+      'File Upload',
+      name: 'semanticImgFileUpload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone`
+  String get semanticImgPhone {
+    return Intl.message('Phone', name: 'semanticImgPhone', desc: '', args: []);
+  }
+
+  /// `Setting`
+  String get semanticImgSetting {
+    return Intl.message(
+      'Setting',
+      name: 'semanticImgSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Store`
+  String get semanticImgStore {
+    return Intl.message('Store', name: 'semanticImgStore', desc: '', args: []);
+  }
+
+  /// `Success Mark`
+  String get semanticImgSuccessMark {
+    return Intl.message(
+      'Success Mark',
+      name: 'semanticImgSuccessMark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Three Dots`
+  String get semanticImgThreeDots {
+    return Intl.message(
+      'Three Dots',
+      name: 'semanticImgThreeDots',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get semanticImgProfile {
+    return Intl.message(
+      'Profile',
+      name: 'semanticImgProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chicken Farm`
+  String get semanticImgChickenFarm {
+    return Intl.message(
+      'Chicken Farm',
+      name: 'semanticImgChickenFarm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home Poster`
+  String get semanticImgHomePoster {
+    return Intl.message(
+      'Home Poster',
+      name: 'semanticImgHomePoster',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `User Infomation`
   String get userInfomationPageTitle {
     return Intl.message(
