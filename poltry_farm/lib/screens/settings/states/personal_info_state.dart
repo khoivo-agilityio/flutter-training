@@ -72,6 +72,7 @@ class PersonalInfoState extends Equatable {
       nameForm: PfPlainTextFormFieldSubState(
         semanticsLabel: S.current.formNameSemanticLabel,
         label: S.current.formNameLabel,
+        hintText: S.current.formNameHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,
@@ -79,6 +80,7 @@ class PersonalInfoState extends Equatable {
       emailForm: PfPlainTextFormFieldSubState(
         semanticsLabel: S.current.formEmailSemanticLabel,
         label: S.current.formEmailLabel,
+        hintText: S.current.formEmailHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,
@@ -86,6 +88,7 @@ class PersonalInfoState extends Equatable {
       farmNameForm: PfPlainTextFormFieldSubState(
         semanticsLabel: S.current.formFarmNameSemanticLabel,
         label: S.current.formFarmNameLabel,
+        hintText: S.current.formFarmNameHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,
@@ -93,6 +96,7 @@ class PersonalInfoState extends Equatable {
       countryForm: PfPlainTextFormFieldSubState(
         semanticsLabel: S.current.formCountrySemanticLabel,
         label: S.current.formCountryLabel,
+        hintText: S.current.formCountryHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,
@@ -100,6 +104,7 @@ class PersonalInfoState extends Equatable {
       stateForm: PfPlainTextFormFieldSubState(
         semanticsLabel: S.current.formStateSemanticLabel,
         label: S.current.formStateLabel,
+        hintText: S.current.formStateHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,
@@ -107,6 +112,7 @@ class PersonalInfoState extends Equatable {
       cityForm: PfPlainTextFormFieldSubState(
         semanticsLabel: S.current.formCitySemanticLabel,
         label: S.current.formCityLabel,
+        hintText: S.current.formCityHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,
@@ -114,6 +120,7 @@ class PersonalInfoState extends Equatable {
       villageForm: PfPlainTextFormFieldSubState(
         semanticsLabel: S.current.formVillageSemanticLabel,
         label: S.current.formVillageLabel,
+        hintText: S.current.formVillageHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,
@@ -121,6 +128,7 @@ class PersonalInfoState extends Equatable {
       farmCapacityForm: PfPlainTextFormFieldSubState(
         semanticsLabel: S.current.formFarmCapacitySemanticLabel,
         label: S.current.formFarmCapacityLabel,
+        hintText: S.current.formFarmCapacityHint,
         focusNode: FocusNode(),
         text: '',
         keyboardType: TextInputType.text,
@@ -128,6 +136,7 @@ class PersonalInfoState extends Equatable {
       farmForm: PfDropdownFormFieldSubState(
         semanticsLabel: S.current.formFarmSemanticLabel,
         label: S.current.formFarmLabel,
+        hintText: S.current.formFarmHint,
         items: const [],
         focusNode: FocusNode(),
         text: '',

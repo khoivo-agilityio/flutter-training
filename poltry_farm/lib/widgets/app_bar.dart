@@ -31,9 +31,16 @@ class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: actions,
         leading: leading ??
             (automaticallyImplyLeading ?? true
-                ? IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.maybePop(context),
+                ? Semantics(
+                    button: true,
+                    label: 'Back',
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        semanticLabel: 'Navigate Back to Previous Screen',
+                      ),
+                      onPressed: () => Navigator.maybePop(context),
+                    ),
                   )
                 : null),
         automaticallyImplyLeading: automaticallyImplyLeading ?? true,

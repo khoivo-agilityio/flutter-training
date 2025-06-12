@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:poltry_farm/extensions/context_extension.dart';
 import 'package:poltry_farm/repositories/auth_repository.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/screens/settings/states/personal_info_cubit.dart';
@@ -203,6 +204,8 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                           : PfText(
                               text: S.current.generalSave,
                               variant: PfTextStyleVariant.titleMedium,
+                              fontWeight: FontWeight.bold,
+                              color: context.colorScheme.onPrimary,
                             ),
                     );
                   },

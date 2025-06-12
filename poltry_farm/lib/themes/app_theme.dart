@@ -137,7 +137,7 @@ class PfTheme {
     fillColor: PfPalette.grey[4],
     prefixIconColor: PfPalette.grey[5],
     suffixIconColor: PfPalette.grey[5],
-    constraints: const BoxConstraints(minHeight: 40),
+    constraints: const BoxConstraints(minHeight: 60),
     isDense: true,
     contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
     hintStyle: TextStyle(

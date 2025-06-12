@@ -494,6 +494,66 @@ class S {
     );
   }
 
+  /// `Enter your email`
+  String get loginFormEmailHint {
+    return Intl.message(
+      'Enter your email',
+      name: 'loginFormEmailHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get loginFormEmailSemanticLabel {
+    return Intl.message(
+      'Email',
+      name: 'loginFormEmailSemanticLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get loginFormEmailLabel {
+    return Intl.message(
+      'Email',
+      name: 'loginFormEmailLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your Password`
+  String get loginFormPasswordHint {
+    return Intl.message(
+      'Enter your Password',
+      name: 'loginFormPasswordHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get loginFormPasswordSemanticLabel {
+    return Intl.message(
+      'Password',
+      name: 'loginFormPasswordSemanticLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get loginFormPasswordLabel {
+    return Intl.message(
+      'Password',
+      name: 'loginFormPasswordLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Farm Settings`
   String get settingPageTitle {
     return Intl.message(

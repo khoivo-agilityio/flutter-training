@@ -101,6 +101,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "homeSellPageTitle": MessageLookupByLibrary.simpleMessage(
       "What are you selling?",
     ),
+    "loginFormEmailHint": MessageLookupByLibrary.simpleMessage(
+      "Enter your email",
+    ),
+    "loginFormEmailLabel": MessageLookupByLibrary.simpleMessage("Email"),
+    "loginFormEmailSemanticLabel": MessageLookupByLibrary.simpleMessage(
+      "Email",
+    ),
+    "loginFormPasswordHint": MessageLookupByLibrary.simpleMessage(
+      "Enter your Password",
+    ),
+    "loginFormPasswordLabel": MessageLookupByLibrary.simpleMessage("Password"),
+    "loginFormPasswordSemanticLabel": MessageLookupByLibrary.simpleMessage(
+      "Password",
+    ),
     "loginPageFooter": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),

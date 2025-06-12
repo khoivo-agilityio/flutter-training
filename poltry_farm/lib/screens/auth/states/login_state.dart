@@ -32,8 +32,9 @@ class LoginState extends Equatable {
   factory LoginState.initial() {
     return LoginState(
       email: PfPlainTextFormFieldSubState(
-        semanticsLabel: 'Email',
-        label: 'Email',
+        semanticsLabel: S.current.loginFormEmailSemanticLabel,
+        label: S.current.loginFormEmailLabel,
+        hintText: S.current.loginFormEmailHint,
         focusNode: FocusNode(),
         text: '',
         validators: const [
@@ -44,8 +45,9 @@ class LoginState extends Equatable {
         textInputAction: TextInputAction.next,
       ),
       password: PfPlainTextFormFieldSubState(
-        semanticsLabel: 'Password',
-        label: 'Password',
+        semanticsLabel: S.current.loginFormPasswordSemanticLabel,
+        label: S.current.loginFormPasswordLabel,
+        hintText: S.current.loginFormPasswordHint,
         focusNode: FocusNode(),
         text: '',
         validators: const [

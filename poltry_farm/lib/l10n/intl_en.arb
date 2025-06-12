@@ -21,6 +21,9 @@
   "formNameHint": "Name",
   "formNameSemanticLabel": "Name",
   "formNameLabel": "Name",
+  "formNameHint": "Name",
+  "formNameSemanticLabel": "Name",
+  "formNameLabel": "Name",
   "formEmailHint": "Email",
   "formEmailSemanticLabel": "Email",
   "formEmailLabel": "Email",
@@ -70,6 +73,12 @@
   "loginPageFooterAction": "Register Now",
   "loginPageLoginButton": "Login",
   "loginPageInstruction": "Or Login with",
+  "loginFormEmailHint": "Enter your email",
+  "loginFormEmailSemanticLabel": "Email",
+  "loginFormEmailLabel": "Email",
+  "loginFormPasswordHint": "Enter your Password",
+  "loginFormPasswordSemanticLabel": "Password",
+  "loginFormPasswordLabel": "Password",
   "@segmentSetting": {
     "---------------------------": "---------------------------",
     "description": "Store translations that are likely to be used in Setting flows"
