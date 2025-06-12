@@ -37,7 +37,6 @@ class PfNotificationsService {
         playSound: true,
         importance: NotificationImportance.High,
         defaultPrivacy: NotificationPrivacy.Private,
-        soundSource: 'resource://raw/notifications',
       ),
     ]);
   }

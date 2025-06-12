@@ -31,18 +31,20 @@ class AppProvider extends StatelessWidget {
           lazy: false,
           create: (context) {
             final service = PfNotificationsService();
-            service.configure(
-              onMessageOpenedApp: (notificationsResponse) {
-                PfNotificationHandler.navigate(
-                  notification: notificationsResponse,
-                  onChatDetailsRedirect: (notifsRes) {
-                    PfRouter.router.pushNamed(
-                      PfPaths.home.name,
-                    );
-                  },
-                );
-              },
-            );
+            service
+              ..configure(
+                onMessageOpenedApp: (notificationsResponse) {
+                  PfNotificationHandler.navigate(
+                    notification: notificationsResponse,
+                    onChatDetailsRedirect: (notifsRes) {
+                      PfRouter.router.pushNamed(
+                        PfPaths.home.name,
+                      );
+                    },
+                  );
+                },
+              )
+              ..initialize(context.read<AuthRepository>());
 
             return service;
           },
