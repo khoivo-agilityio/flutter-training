@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:poltry_farm/shared/local_database/user_db_model.dart';
 
-class UserModel {
-  const UserModel({
+class PfUserModel {
+  const PfUserModel({
     required this.uid,
     this.avatarUrl,
     this.name,
@@ -31,7 +31,7 @@ class UserModel {
   final String? fcmToken;
 
   /// Empty user which represents an unauthenticated user.
-  static const empty = UserModel(
+  static const empty = PfUserModel(
     uid: '',
     avatarUrl: '',
     email: '',
@@ -45,9 +45,9 @@ class UserModel {
     farmType: '',
   );
 
-  factory UserModel.fromFirestore(DocumentSnapshot doc) {
+  factory PfUserModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
-    return UserModel(
+    return PfUserModel(
       uid: doc.id,
       name: data["name"] ?? "",
       email: data["email"] ?? "",
@@ -63,7 +63,7 @@ class UserModel {
     );
   }
 
-  UserModel copyWith({
+  PfUserModel copyWith({
     String? uid,
     String? name,
     String? email,
@@ -77,7 +77,7 @@ class UserModel {
     String? avatarUrl,
     String? fcmToken,
   }) {
-    return UserModel(
+    return PfUserModel(
       uid: uid ?? this.uid,
       name: name ?? this.name,
       email: email ?? this.email,
@@ -93,8 +93,8 @@ class UserModel {
     );
   }
 
-  factory UserModel.fromDB(UserDbModel map) {
-    return UserModel(
+  factory PfUserModel.fromDB(UserDbModel map) {
+    return PfUserModel(
       uid: map.uid,
       name: map.name,
       email: map.email,

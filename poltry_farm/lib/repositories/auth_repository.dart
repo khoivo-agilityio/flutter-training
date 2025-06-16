@@ -1,14 +1,24 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:poltry_farm/repositories/base_repository.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:poltry_farm/shared/local_database/local_database.dart';
 import 'package:poltry_farm/shared/local_database/user_db_model.dart';
 import 'package:poltry_farm/shared/user_model.dart';
 
-class AuthRepository extends BaseRepository {
-  Future<UserModel> signInWithEmailAndPassword({
+class AuthRepository {
+  AuthRepository({
+    required this.auth,
+    required this.firestore,
+    required this.firebaseStorage,
+  });
+  final FirebaseAuth auth;
+  final FirebaseFirestore firestore;
+  final FirebaseStorage firebaseStorage;
+
+  Future<PfUserModel> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -32,7 +42,7 @@ class AuthRepository extends BaseRepository {
     }
   }
 
-  Future<UserModel> getUserData(String uid) async {
+  Future<PfUserModel> getUserData(String uid) async {
     try {
       final doc = await firestore.collection("user").doc(uid).get();
 
@@ -40,7 +50,7 @@ class AuthRepository extends BaseRepository {
         throw Exception("User data not found");
       }
 
-      final user = UserModel.fromFirestore(doc);
+      final user = PfUserModel.fromFirestore(doc);
 
       await HiveLocalDb.instance.userBox.saveUser(
         UserDbModel.fromUserModel(user),
@@ -52,7 +62,7 @@ class AuthRepository extends BaseRepository {
     }
   }
 
-  Future<void> updateUserData({required UserModel user, File? avatar}) async {
+  Future<void> updateUserData({required PfUserModel user, File? avatar}) async {
     try {
       String? avatarUrl;
       if (avatar != null) {
@@ -68,7 +78,7 @@ class AuthRepository extends BaseRepository {
         }
       }
 
-      final newUserData = UserModel(
+      final newUserData = PfUserModel(
         uid: user.uid,
         name: user.name,
         email: user.email,

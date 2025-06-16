@@ -187,7 +187,7 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
   void savePersonalInfo() async {
     emit(state.copyWith(status: PersonalInfoStatus.loading));
     try {
-      final user = UserModel(
+      final user = PfUserModel(
         uid: FirebaseAuth.instance.currentUser?.uid ?? '',
         name: state.nameForm.text,
         email: state.emailForm.text,

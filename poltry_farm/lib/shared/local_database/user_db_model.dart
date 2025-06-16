@@ -56,7 +56,7 @@ class UserDbModel extends HiveObject {
     this.fcmToken,
   });
 
-  factory UserDbModel.fromUserModel(UserModel userModel) {
+  factory UserDbModel.fromUserModel(PfUserModel userModel) {
     return UserDbModel(
       uid: userModel.uid,
       name: userModel.name,
