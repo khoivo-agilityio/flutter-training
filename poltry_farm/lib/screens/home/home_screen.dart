@@ -58,7 +58,8 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
             actions: [
               PfElevatedButton(
                 height: 30,
-                width: 78,
+                width: 48,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 semanticsLabel: S.current.homePageAppBarSubActionButton,
                 fillColor: context.colorScheme.onPrimary,
                 textColor: context.colorScheme.primary,

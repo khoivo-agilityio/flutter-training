@@ -53,7 +53,7 @@ class PfCard extends StatelessWidget {
                   ExcludeSemantics(
                     child: SizedBox(width: double.infinity, child: image!),
                   ),
-                  const SizedBox(height: 11),
+                  const SizedBox(height: 2),
                 ] else ...[
                   const Spacer()
                 ],

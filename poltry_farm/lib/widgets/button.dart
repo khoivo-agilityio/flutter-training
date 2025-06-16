@@ -11,6 +11,7 @@ class PfElevatedButton extends StatelessWidget {
     this.fillColor,
     this.textColor,
     this.onPressed,
+    this.padding,
   });
 
   final String semanticsLabel;
@@ -20,6 +21,7 @@ class PfElevatedButton extends StatelessWidget {
   final Color? fillColor;
   final Color? textColor;
   final VoidCallback? onPressed;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +31,15 @@ class PfElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-            shadowColor: Colors.transparent,
-            backgroundColor: fillColor ?? context.colorScheme.primary,
-            foregroundColor: textColor ?? context.colorScheme.onPrimary,
-            minimumSize: Size(width ?? double.infinity, height ?? 48),
-            textStyle: context.textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            )),
+          shadowColor: Colors.transparent,
+          backgroundColor: fillColor ?? context.colorScheme.primary,
+          foregroundColor: textColor ?? context.colorScheme.onPrimary,
+          minimumSize: Size(width ?? double.infinity, height ?? 48),
+          textStyle: context.textTheme.labelLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+          padding: padding,
+        ),
         child: child,
       ),
     );
