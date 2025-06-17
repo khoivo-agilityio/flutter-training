@@ -86,6 +86,7 @@ class PfFormControls {
           onChanged: onChanged,
           onSelected: onSelected,
           onFetchItems: onFetchItems,
+          placeholder: formState.hintText,
         );
       },
     );

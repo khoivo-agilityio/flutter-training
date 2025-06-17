@@ -232,6 +232,7 @@ class _PfDropdownSearchState<T> extends State<PfDropdownSearch<T>> {
                       onTap: _handleDropdownToggle,
                       decoration: InputDecoration(
                         labelText: widget.placeholder ?? '',
+                        hintText: widget.placeholder ?? '',
                         suffixIcon: GestureDetector(
                           onTap: _handleDropdownToggle,
                           child: BlocBuilder<DropDownSearchCubit<T>,

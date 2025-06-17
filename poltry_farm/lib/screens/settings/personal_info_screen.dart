@@ -182,9 +182,9 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                 PfFormControls.dropdownBloc<PersonalInfoCubit,
                     PersonalInfoState>(
                   selector: (state) => state.farmForm,
-                  onChanged: (value) {},
+                  // onChanged: (value) {},
                   onSelected: (value) {
-                    _cubit.farmFormChanged;
+                    _cubit.farmFormChanged(value);
                   },
                   onFetchItems: () async {
                     return await _cubit.loadFarmTypes();
