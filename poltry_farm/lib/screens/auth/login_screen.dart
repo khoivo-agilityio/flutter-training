@@ -21,6 +21,7 @@ class PfLoginScreen extends StatefulWidget {
 
 class _PfLoginScreenState extends State<PfLoginScreen> {
   late final LoginCubit _loginCubit;
+
   @override
   void initState() {
     _loginCubit = LoginCubit(context.read<AuthRepository>());
@@ -59,20 +60,14 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
                 const SizedBox(
                   height: 64,
                 ),
-                SizedBox(
-                  height: 95,
-                  child: PfFormControls.textBloc<LoginCubit, LoginState>(
-                    selector: (state) => state.email,
-                    onChanged: (value) => _loginCubit.emailChanged(value),
-                  ),
+                PfFormControls.textBloc<LoginCubit, LoginState>(
+                  selector: (state) => state.email,
+                  onChanged: (value) => _loginCubit.emailChanged(value),
                 ),
                 const SizedBox(height: 16),
-                SizedBox(
-                  height: 95,
-                  child: PfFormControls.textBloc<LoginCubit, LoginState>(
-                    selector: (state) => state.password,
-                    onChanged: (value) => _loginCubit.passwordChanged(value),
-                  ),
+                PfFormControls.textBloc<LoginCubit, LoginState>(
+                  selector: (state) => state.password,
+                  onChanged: (value) => _loginCubit.passwordChanged(value),
                 ),
                 const SizedBox(height: 24),
                 BlocSelector<LoginCubit, LoginState, bool>(
@@ -84,7 +79,10 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
                           ? null
                           : () => _loginCubit.logInWithCredentials(),
                       child: hasLoading
-                          ? const CircularProgressIndicator()
+                          ? const Padding(
+                              padding: EdgeInsets.all(2.0),
+                              child: CircularProgressIndicator(),
+                            )
                           : PfText(
                               text: S.current.loginPageLoginButton,
                               variant: PfTextStyleVariant.titleMedium,
@@ -183,8 +181,8 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
                   ],
                 ),
                 const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
+                  alignment: WrapAlignment.center,
                   children: [
                     PfText(
                       text: S.current.loginPageFooter,
@@ -198,6 +196,7 @@ class _PfLoginScreenState extends State<PfLoginScreen> {
                       variant: PfTextStyleVariant.labelLarge,
                       fontWeight: FontWeight.bold,
                       color: context.colorScheme.primary,
+                      overflow: TextOverflow.ellipsis,
                     )
                   ],
                 ),

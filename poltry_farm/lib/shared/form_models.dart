@@ -48,27 +48,6 @@ class PfPlainTextFormFieldSubState extends Equatable {
   final AutovalidateMode? autovalidateMode;
   final String? hintText;
 
-  PfPlainTextFormFieldSubState clear() {
-    return copyWith(text: '');
-  }
-
-  PfPlainTextFormFieldSubState clearvalidators() {
-    return copyWith(
-      text: '',
-      validators: const [],
-    );
-  }
-
-  PfPlainTextFormFieldSubState setEnable({bool isEnabled = true}) {
-    return copyWith(
-      enable: isEnabled,
-    );
-  }
-
-  PfPlainTextFormFieldSubState setValue(String value) {
-    return copyWith(text: value);
-  }
-
   @override
   List<Object?> get props => [
         semanticsLabel,

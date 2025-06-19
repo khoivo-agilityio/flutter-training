@@ -134,8 +134,8 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                           const SizedBox(
                             height: 14,
                           ),
-                          SizedBox(
-                            height: 110,
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(maxHeight: 120),
                             child: RefreshIndicator.adaptive(
                               onRefresh: () async {
                                 await _homeCubit.fetchCategories();

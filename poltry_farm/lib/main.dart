@@ -95,8 +95,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         routeInformationProvider: PfRouter.router.routeInformationProvider,
         routeInformationParser: PfRouter.router.routeInformationParser,
         routerDelegate: PfRouter.router.routerDelegate,
-        builder: (context, child) => AccessibilityTools(child: child),
+        builder: (context, child) => child!,
       ),
     );
   }
 }
+
+// data: MediaQuery.of(context).copyWith(
+//             textScaler: MediaQuery.of(context)
+//                 .textScaler
+//                 .clamp(minScaleFactor: 0.8, maxScaleFactor: 1.4),
+//           ),

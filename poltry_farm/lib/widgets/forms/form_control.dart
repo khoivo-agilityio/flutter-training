@@ -34,13 +34,21 @@ class PfFormControls {
     return _baseControl<T, V, PfPlainTextFormFieldSubState>(
       selector: selector,
       controlBuilder: (context, formState) {
-        _syncControllerWithState(textController, formState);
+        if (textController.text != formState.text) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            textController
+              ..text = formState.text
+              ..selection = TextSelection.collapsed(
+                offset: formState.text.length.clamp(0, formState.text.length),
+              );
+          });
+        }
 
         return PfTextField(
           semanticsLabel: formState.semanticsLabel,
           controller: textController,
           keyboardType: formState.keyboardType,
-          focusNode: focusNode ?? formState.focusNode,
+          focusNode: focusNode,
           validator: PfFormValidators.compose(formState.validators ?? []),
           label: formState.label,
           hintText: formState.hintText,
@@ -127,18 +135,5 @@ class PfFormControls {
         );
       },
     );
-  }
-
-  static void _syncControllerWithState(TextEditingController controller,
-      PfPlainTextFormFieldSubState formState) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (controller.text != formState.text) {
-        controller
-          ..text = formState.text
-          ..selection = TextSelection.collapsed(
-            offset: formState.text.length.clamp(0, formState.text.length),
-          );
-      }
-    });
   }
 }

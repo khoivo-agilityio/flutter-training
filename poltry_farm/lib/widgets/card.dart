@@ -36,19 +36,20 @@ class PfCard extends StatelessWidget {
       button: true,
       enabled: onTap != null,
       hint: onTap != null ? 'Double tap to open' : null,
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 12),
                 if (image != null) ...[
                   ExcludeSemantics(
                     child: SizedBox(width: double.infinity, child: image!),
@@ -100,6 +101,7 @@ class PfCard extends StatelessWidget {
                     ],
                   ],
                 ),
+                const SizedBox(height: 8),
               ],
             ),
           ),

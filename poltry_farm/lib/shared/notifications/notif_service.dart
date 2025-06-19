@@ -69,7 +69,7 @@ class PfNotificationsService {
       String? token = await awesomeFCM.requestFirebaseAppToken();
 
       final user = await authRepository.getUserData(
-        FirebaseAuth.instance.currentUser!.uid,
+        FirebaseAuth.instance.currentUser?.uid ?? '',
       );
 
       await authRepository.updateUserData(user: user.copyWith(fcmToken: token));
