@@ -12,6 +12,7 @@ import 'package:poltry_farm/widgets/app_bar.dart';
 import 'package:poltry_farm/widgets/avartar.dart';
 import 'package:poltry_farm/widgets/button.dart';
 import 'package:poltry_farm/widgets/forms/form_control.dart';
+import 'package:poltry_farm/widgets/scroll_keyboard_manager.dart';
 import 'package:poltry_farm/widgets/text.dart';
 
 class PfPersonalInfoScreen extends StatefulWidget {
@@ -25,6 +26,7 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
   late final PersonalInfoCubit _cubit;
   late TextEditingController _farmController;
   late Box<UserDbModel> _userBox;
+  final FocusNode _farmFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -57,13 +59,17 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
           farmValue: _userBox.get('userBox')?.farmType ?? '',
         ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: PfAppBar(
           title: S.current.userInfomationPageTitle,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: SingleChildScrollView(
+        body: ScrollKeyboardManager(
+          focusNodes: [
+            _farmFocusNode,
+          ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,38 +88,38 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
-                SizedBox(
-                  height: 95,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 96),
                   child: PfFormControls.textBloc<PersonalInfoCubit,
                       PersonalInfoState>(
                     selector: (state) => state.nameForm,
                     onChanged: (value) => _cubit.nameFormChanged(value),
                   ),
                 ),
-                SizedBox(
-                  height: 95,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 96),
                   child: PfFormControls.textBloc<PersonalInfoCubit,
                       PersonalInfoState>(
                     selector: (state) => state.emailForm,
                     onChanged: (value) => _cubit.emailFormChanged(value),
                   ),
                 ),
-                SizedBox(
-                  height: 95,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 96),
                   child: PfFormControls.textBloc<PersonalInfoCubit,
                       PersonalInfoState>(
                     selector: (state) => state.farmNameForm,
                     onChanged: (value) => _cubit.farmNameFormChanged(value),
                   ),
                 ),
-                SizedBox(
-                  height: 95,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 96),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: SizedBox(
-                          height: 95,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: 96),
                           child: PfFormControls.textBloc<PersonalInfoCubit,
                               PersonalInfoState>(
                             selector: (state) => state.countryForm,
@@ -126,8 +132,8 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                         width: 16,
                       ),
                       Expanded(
-                        child: SizedBox(
-                          height: 95,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: 96),
                           child: PfFormControls.textBloc<PersonalInfoCubit,
                               PersonalInfoState>(
                             selector: (state) => state.stateForm,
@@ -139,14 +145,14 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 95,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 96),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: SizedBox(
-                          height: 95,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: 96),
                           child: PfFormControls.textBloc<PersonalInfoCubit,
                               PersonalInfoState>(
                             selector: (state) => state.cityForm,
@@ -158,8 +164,8 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                         width: 16,
                       ),
                       Expanded(
-                        child: SizedBox(
-                          height: 95,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: 96),
                           child: PfFormControls.textBloc<PersonalInfoCubit,
                               PersonalInfoState>(
                             selector: (state) => state.villageForm,
@@ -171,8 +177,8 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 95,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 96),
                   child: PfFormControls.textBloc<PersonalInfoCubit,
                       PersonalInfoState>(
                     selector: (state) => state.farmCapacityForm,
@@ -182,6 +188,7 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                 PfFormControls.dropdownBloc<PersonalInfoCubit,
                     PersonalInfoState>(
                   selector: (state) => state.farmForm,
+                  focusNode: _farmFocusNode,
                   // onChanged: (value) {},
                   onSelected: (value) {
                     _cubit.farmFormChanged(value);
@@ -210,6 +217,7 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                     );
                   },
                 ),
+                const SizedBox(height: 24),
               ],
             ),
           ),

@@ -13,6 +13,7 @@ class PfPalette {
 
   static const MaterialColor grey = MaterialColor(0xFF8391A1, <int, Color>{
     2: Color(0xFFE8ECF4),
+    3: Color(0xFFD9D9D9),
     4: Color(0xFFF7F8F9),
     5: Color(0xFF8391A1),
     10: Color(0xFF000000),

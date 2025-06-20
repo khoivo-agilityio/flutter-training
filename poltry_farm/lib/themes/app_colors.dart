@@ -14,5 +14,6 @@ class PfColors {
     onSurface: PfPalette.grey[5]!,
     onSurfaceVariant: PfPalette.grey[10],
     outline: PfPalette.grey[2]!,
+    surfaceContainer: PfPalette.grey[3]!,
   );
 }

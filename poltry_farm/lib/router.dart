@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poltry_farm/screens/auth/login_screen.dart';
+import 'package:poltry_farm/screens/batches/batches_screen.dart';
+import 'package:poltry_farm/screens/feed_management/feed_management_screen.dart';
 import 'package:poltry_farm/screens/home/home_screen.dart';
 import 'package:poltry_farm/screens/home/home_sell_screen.dart';
 import 'package:poltry_farm/screens/home/home_today_rate_screen.dart';
@@ -20,12 +22,23 @@ class PfRouter {
     navigatorKey: rootNavigatorKey,
     routes: [
       ShellRoute(
-        builder: (context, state, child) => ScaffoldWithBottomNav(child: child),
+        builder: (context, state, child) =>
+            PfScaffoldWithBottomNav(body: child),
         routes: [
           GoRoute(
             name: PfPaths.home.name,
             path: PfPaths.home.path,
             builder: (context, state) => const PfHomeScreen(),
+          ),
+          GoRoute(
+            name: PfPaths.batches.name,
+            path: PfPaths.batches.path,
+            builder: (context, state) => const PfBatchesScreen(),
+          ),
+          GoRoute(
+            name: PfPaths.feedManagement.name,
+            path: PfPaths.feedManagement.path,
+            builder: (context, state) => const PfFeedManagementScreen(),
           ),
           GoRoute(
             name: PfPaths.setting.name,
@@ -91,6 +104,14 @@ enum PfPaths {
   personalInfo(
     name: 'personalInfo',
     path: '/personalInfo',
+  ),
+  batches(
+    name: 'batches',
+    path: '/batches',
+  ),
+  feedManagement(
+    name: 'feedManagement',
+    path: '/feedManagement',
   );
 
   const PfPaths({

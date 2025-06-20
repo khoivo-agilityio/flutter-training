@@ -48,7 +48,7 @@ class PfFormControls {
           semanticsLabel: formState.semanticsLabel,
           controller: textController,
           keyboardType: formState.keyboardType,
-          focusNode: focusNode,
+          focusNode: focusNode ?? formState.focusNode,
           validator: PfFormValidators.compose(formState.validators ?? []),
           label: formState.label,
           hintText: formState.hintText,

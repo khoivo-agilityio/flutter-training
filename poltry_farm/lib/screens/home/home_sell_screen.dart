@@ -78,12 +78,14 @@ class _PfHomeSellScreenState extends State<PfHomeSellScreen> {
                                   const SizedBox(
                                     height: 9,
                                   ),
-                                  PfText(
-                                    text:
-                                        state.popularCategories?[index].name ??
-                                            '',
-                                    variant: PfTextStyleVariant.bodyLarge,
-                                    fontWeight: FontWeight.bold,
+                                  Expanded(
+                                    child: PfText(
+                                      text: state
+                                              .popularCategories?[index].name ??
+                                          '',
+                                      variant: PfTextStyleVariant.bodyLarge,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   )
                                 ],
                               );
