@@ -57,3 +57,15 @@ google-services.json
 firebase.json
 GoogleService-Info.plist
 firebase_options.dart
+
+# Flutter/Dart build
+/build/
+/.dart_tool/
+/.packages
+
+# Coverage output
+/coverage/
+
+# IDEs
+.idea/
+.vscode/
