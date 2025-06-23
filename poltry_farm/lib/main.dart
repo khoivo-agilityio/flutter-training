@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:accessibility_tools/accessibility_tools.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -100,9 +99,3 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     );
   }
 }
-
-// data: MediaQuery.of(context).copyWith(
-//             textScaler: MediaQuery.of(context)
-//                 .textScaler
-//                 .clamp(minScaleFactor: 0.8, maxScaleFactor: 1.4),
-//           ),

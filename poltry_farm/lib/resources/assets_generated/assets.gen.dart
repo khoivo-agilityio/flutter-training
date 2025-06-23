@@ -20,10 +20,14 @@ class Assets {
   static const SvgGenImage facebookIc = SvgGenImage('assets/facebook_ic.svg');
   static const SvgGenImage googleIc = SvgGenImage('assets/google_ic.svg');
   static const SvgGenImage icBatches = SvgGenImage('assets/ic_batches.svg');
+  static const SvgGenImage icBuySell = SvgGenImage('assets/ic_buy_sell.svg');
   static const SvgGenImage icFeedManagement = SvgGenImage(
     'assets/ic_feed_management.svg',
   );
   static const SvgGenImage icLogout = SvgGenImage('assets/ic_logout.svg');
+  static const SvgGenImage icOptimization = SvgGenImage(
+    'assets/ic_optimization.svg',
+  );
   static const SvgGenImage icOutlineFileUpload = SvgGenImage(
     'assets/ic_outline-file-upload.svg',
   );
@@ -36,6 +40,7 @@ class Assets {
   static const SvgGenImage icThreeDots = SvgGenImage(
     'assets/ic_three_dots.svg',
   );
+  static const SvgGenImage icTrolley = SvgGenImage('assets/ic_trolley.svg');
   static const AssetGenImage image1 = AssetGenImage('assets/image 1.png');
   static const AssetGenImage imgChicken = AssetGenImage(
     'assets/img_chicken.png',
@@ -58,14 +63,17 @@ class Assets {
     facebookIc,
     googleIc,
     icBatches,
+    icBuySell,
     icFeedManagement,
     icLogout,
+    icOptimization,
     icOutlineFileUpload,
     icPhone,
     icSetting,
     icStore,
     icSuccessMark,
     icThreeDots,
+    icTrolley,
     image1,
     imgChicken,
     imgChickenFarm,

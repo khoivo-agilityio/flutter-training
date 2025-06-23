@@ -1,33 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:poltry_farm/extensions/context_extension.dart';
+import 'package:poltry_farm/themes/typography.dart';
 import 'package:poltry_farm/widgets/text.dart';
 
 class PfTextField extends StatefulWidget {
   const PfTextField({
-    super.key,
-    required this.label,
-    required this.controller,
+    required this.semanticsLabel,
     this.obscureText = false,
-    this.keyboardType = TextInputType.text,
+    this.readOnly = false,
+    this.autofocus = false,
+    this.hasValidation = true,
+    this.enabled = true,
+    this.errorMessage,
+    this.title,
     this.hintText,
-    this.validator,
-    this.focusNode,
-    this.semanticsLabel,
-    this.inputDecoration,
+    this.suffixIcon,
+    this.prefixIcon,
     this.onChanged,
+    this.onSubmitted,
+    this.keyboardType,
+    this.focusNode,
+    this.onTapOutside,
+    this.onTap,
+    this.controller,
+    this.initValue,
     this.textInputAction,
+    super.key,
   });
 
-  final String label;
-  final TextEditingController controller;
-  final bool obscureText;
-  final TextInputType keyboardType;
+  final String semanticsLabel;
+
+  final String? title;
+
   final String? hintText;
-  final String? Function(String?)? validator;
+
+  final String? errorMessage;
+
+  final Widget? suffixIcon;
+
+  final Widget? prefixIcon;
+
+  final ValueChanged<String>? onChanged;
+
+  final ValueChanged<String>? onSubmitted;
+
+  final TextInputType? keyboardType;
+
   final FocusNode? focusNode;
-  final String? semanticsLabel;
-  final InputDecoration? inputDecoration;
-  final void Function(String)? onChanged;
+
+  final VoidCallback? onTapOutside;
+
+  final bool obscureText;
+
+  final bool readOnly;
+
+  final bool autofocus;
+
+  final VoidCallback? onTap;
+
+  final TextEditingController? controller;
+
+  final bool hasValidation;
+
+  final bool enabled;
+
+  final String? initValue;
+
   final TextInputAction? textInputAction;
 
   @override
@@ -35,7 +73,30 @@ class PfTextField extends StatefulWidget {
 }
 
 class _PfTextFieldState extends State<PfTextField> {
-  final _fieldKey = GlobalKey<FormFieldState>();
+  late final FocusNode? _focusNode;
+  late final TextEditingController? _controller;
+
+  @override
+  void initState() {
+    _focusNode = widget.focusNode ?? FocusNode();
+    _controller = widget.controller ?? TextEditingController();
+
+    if (widget.initValue != null && widget.controller == null) {
+      _controller?.text = widget.initValue!;
+    }
+    _focusNode?.addListener(() {
+      if (!_focusNode.hasFocus) {
+        widget.onTapOutside?.call();
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _focusNode?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,29 +106,64 @@ class _PfTextFieldState extends State<PfTextField> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PfText(
-            text: widget.label,
-            variant: PfTextStyleVariant.labelLarge,
-          ),
-          const SizedBox(height: 8),
-          TextFormField(
-            key: _fieldKey,
+          if (widget.title != null) ...[
+            PfText(
+              text: widget.title!,
+              variant: PfTextStyleVariant.labelLarge,
+            ),
+            const SizedBox(height: 8),
+          ],
+          TextField(
             focusNode: widget.focusNode,
-            controller: widget.controller,
+            controller: _controller,
             obscureText: widget.obscureText,
-            keyboardType: widget.keyboardType,
-            textInputAction: widget.textInputAction,
-            validator: widget.validator,
+            readOnly: widget.readOnly,
+            enabled: widget.enabled,
+            autofocus: widget.autofocus,
             decoration: InputDecoration(
+              fillColor: context.colorScheme.surface,
               hintText: widget.hintText,
-              labelText: widget.label,
-            ).applyDefaults(context.themeData.inputDecorationTheme),
-            onTapOutside: (event) {
-              widget.focusNode?.unfocus();
-            },
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+              errorText: widget.errorMessage == null ? null : '',
+              suffixIcon: widget.suffixIcon,
+              prefixIcon: widget.prefixIcon,
+            )..applyDefaults(context.themeData.inputDecorationTheme),
+            style: TextStyle(
+              fontFamily: PfTypography.familyBahnschrift,
+              fontSize: PfTypography.fontSizeLabelLarge,
+              fontWeight: FontWeight.w400,
+              color: context.colorScheme.onSurfaceVariant,
+            ),
             onChanged: widget.onChanged,
+            onSubmitted: widget.onSubmitted,
+            keyboardType: widget.keyboardType,
+            onTap: widget.onTap,
+            textInputAction: widget.textInputAction,
           ),
+          if (widget.hasValidation) ...[
+            if (widget.errorMessage != null) ...[
+              const SizedBox(
+                height: 4,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  Expanded(
+                    child: PfText(
+                      text: widget.errorMessage!,
+                      color: context.colorScheme.error,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      variant: PfTextStyleVariant.bodyLarge,
+                    ),
+                  ),
+                ],
+              ),
+            ] else
+              const SizedBox(height: 20),
+          ],
         ],
       ),
     );

@@ -63,6 +63,7 @@ class _PfHomeSellScreenState extends State<PfHomeSellScreen> {
                                         borderRadius: BorderRadius.circular(15),
                                         color: context.colorScheme.outline,
                                       ),
+                                      padding: const EdgeInsets.all(8),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(15),
                                         child: PfCachedNetworkImage(
@@ -70,7 +71,7 @@ class _PfHomeSellScreenState extends State<PfHomeSellScreen> {
                                           width: 105,
                                           height: 105,
                                           url: category?.imageUrl ?? '',
-                                          boxFit: BoxFit.scaleDown,
+                                          boxFit: BoxFit.cover,
                                         ),
                                       ),
                                     ),

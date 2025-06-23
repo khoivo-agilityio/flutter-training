@@ -1,3 +1,8 @@
-<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="22.2616" cy="21.9539" r="21.3231" fill="#D9D9D9"/>
+<svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="1.39526" y1="0.19165" x2="1.39526" y2="20.8075" stroke="black" stroke-opacity="0.5" stroke-width="2"/>
+<line x1="19.9541" y1="21.7197" x2="0.395521" y2="21.7197" stroke="black" stroke-opacity="0.5" stroke-width="2"/>
+<circle cx="5.94579" cy="17.812" r="1.32153" fill="black" fill-opacity="0.5"/>
+<circle cx="6.2099" cy="9.61884" r="2.11444" fill="black" fill-opacity="0.5"/>
+<circle cx="13.0819" cy="13.3185" r="1.58583" fill="black" fill-opacity="0.5"/>
+<circle cx="13.875" cy="5.65409" r="1.85014" fill="black" fill-opacity="0.5"/>
 </svg>

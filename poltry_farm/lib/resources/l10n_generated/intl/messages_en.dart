@@ -55,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "formDropdownSemanticLoadingItems": MessageLookupByLibrary.simpleMessage(
       "Loading items",
     ),
-    "formEmailHint": MessageLookupByLibrary.simpleMessage("Email"),
+    "formEmailHint": MessageLookupByLibrary.simpleMessage("Enter your Email"),
     "formEmailLabel": MessageLookupByLibrary.simpleMessage("Email"),
     "formEmailSemanticLabel": MessageLookupByLibrary.simpleMessage("Email"),
     "formFarmCapacityHint": MessageLookupByLibrary.simpleMessage(
@@ -115,6 +115,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginFormPasswordSemanticLabel": MessageLookupByLibrary.simpleMessage(
       "Password",
     ),
+    "loginFormValidateEmail": MessageLookupByLibrary.simpleMessage(
+      "Please enter valid Email",
+    ),
+    "loginFormValidatePassword": MessageLookupByLibrary.simpleMessage(
+      "Please enter valid Password",
+    ),
     "loginPageFooter": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
@@ -129,6 +135,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginPageTitle": MessageLookupByLibrary.simpleMessage(
       "Welcome back! Glad to see you, Again!",
     ),
+    "semanticIcBuySell": MessageLookupByLibrary.simpleMessage("Buy Sell"),
+    "semanticIcOptimization": MessageLookupByLibrary.simpleMessage(
+      "Optimization",
+    ),
+    "semanticIcTrolley": MessageLookupByLibrary.simpleMessage("Trolley"),
     "semanticImgBatches": MessageLookupByLibrary.simpleMessage("Batches"),
     "semanticImgChickenFarm": MessageLookupByLibrary.simpleMessage(
       "Chicken Farm",

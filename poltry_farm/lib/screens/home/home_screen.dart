@@ -10,9 +10,11 @@ import 'package:poltry_farm/widgets/app_bar.dart';
 import 'package:poltry_farm/widgets/assets.dart';
 import 'package:poltry_farm/widgets/button.dart';
 import 'package:poltry_farm/widgets/card.dart';
-import 'package:poltry_farm/widgets/forms/form_control.dart';
+import 'package:poltry_farm/widgets/forms/form_input.dart';
 
 import 'package:poltry_farm/widgets/text.dart';
+import 'package:poltry_farm/widgets/text_field.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class PfHomeScreen extends StatefulWidget {
   const PfHomeScreen({super.key});
@@ -108,12 +110,9 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 60),
-                  child: PfFormControls.searchTextBloc<HomeCubit, HomeState>(
-                    selector: (state) => state.searchForm,
-                    onChanged: (value) => _homeCubit.searchFormChanged(value),
-                  ),
+                _SearchInput(FocusNode()),
+                const SizedBox(
+                  height: 16,
                 ),
                 BlocBuilder<HomeCubit, HomeState>(
                   bloc: _homeCubit,
@@ -141,6 +140,18 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                             child: InfiniteListView.separated(
                               scrollDirection: Axis.horizontal,
                               delegate: PaginationDelegate(
+                                loadMoreLoadingBuilder: (context) => Shimmer(
+                                  child: const PfCard(),
+                                ),
+                                firstPageLoadingBuilder: (context) =>
+                                    ListView.builder(
+                                        itemCount: 6,
+                                        itemBuilder: (context, index) {
+                                          return Shimmer(
+                                            color: Colors.red,
+                                            child: const PfCard(),
+                                          );
+                                        }),
                                 isLoading: state.status == HomeStatus.loading,
                                 hasError: state.status == HomeStatus.failure,
                                 itemCount: state.popularCategories?.length ?? 0,
@@ -163,16 +174,19 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                                                 BorderRadius.circular(15),
                                             color: context.colorScheme.outline,
                                           ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            child: PfCachedNetworkImage(
-                                              semanticLabel:
-                                                  category?.name ?? '',
-                                              width: 53,
-                                              height: 57,
-                                              url: category?.imageUrl ?? '',
-                                              boxFit: BoxFit.scaleDown,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: PfCachedNetworkImage(
+                                                semanticLabel:
+                                                    category?.name ?? '',
+                                                width: 53,
+                                                height: 57,
+                                                url: category?.imageUrl ?? '',
+                                                boxFit: BoxFit.scaleDown,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -233,6 +247,29 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                               },
                               child: InfiniteGridView(
                                 delegate: PaginationDelegate(
+                                  loadMoreLoadingBuilder: (context) {
+                                    return Shimmer(
+                                      child: const PfCard(),
+                                    );
+                                  },
+                                  firstPageLoadingBuilder: (context) {
+                                    return SizedBox(
+                                      height: 200,
+                                      child: GridView.builder(
+                                        itemCount: 6,
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 10.0,
+                                        ),
+                                        itemBuilder: (context, index) =>
+                                            Shimmer(
+                                          child: const PfCard(),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   isLoading: state.status == HomeStatus.loading,
                                   hasError: state.status == HomeStatus.failure,
                                   itemCount: state.products?.length ?? 0,
@@ -254,9 +291,11 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                                           ),
                                         ),
                                         width: double.infinity,
-                                        child: PfAssets.imgChickenFarm(
-                                          height: 81,
-                                          boxfit: BoxFit.cover,
+                                        child: PfCachedNetworkImage(
+                                          semanticLabel: category?.name ?? '',
+                                          height: 85,
+                                          url: category?.imageUrl ?? '',
+                                          boxFit: BoxFit.scaleDown,
                                         ),
                                       ),
                                       onTap: () {},
@@ -285,6 +324,35 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _SearchInput extends StatelessWidget {
+  const _SearchInput(this.focusNode);
+
+  final FocusNode focusNode;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<HomeCubit, HomeState, PfProducts>(
+      selector: (state) => state.searchForm,
+      builder: (context, farmCapacity) {
+        return PfTextField(
+          key: const Key('HomeForm_SearchInput_textField'),
+          semanticsLabel: S.current.formSearchSemanticLabel,
+          keyboardType: TextInputType.text,
+          focusNode: focusNode,
+          onChanged: (value) {},
+          hintText: S.of(context).formSearchHint,
+          hasValidation: false,
+          textInputAction: TextInputAction.next,
+          initValue: farmCapacity.value,
+          prefixIcon: const Icon(
+            Icons.search,
+          ),
+        );
+      },
     );
   }
 }

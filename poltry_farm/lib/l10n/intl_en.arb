@@ -21,10 +21,7 @@
   "formNameHint": "Name",
   "formNameSemanticLabel": "Name",
   "formNameLabel": "Name",
-  "formNameHint": "Name",
-  "formNameSemanticLabel": "Name",
-  "formNameLabel": "Name",
-  "formEmailHint": "Email",
+  "formEmailHint": "Enter your Email",
   "formEmailSemanticLabel": "Email",
   "formEmailLabel": "Email",
   "formFarmNameHint": "Farm Name",
@@ -79,6 +76,8 @@
   "loginFormPasswordHint": "Enter your Password",
   "loginFormPasswordSemanticLabel": "Password",
   "loginFormPasswordLabel": "Password",
+  "loginFormValidateEmail": "Please enter valid Email",
+  "loginFormValidatePassword": "Please enter valid Password",
   "@segmentSetting": {
     "---------------------------": "---------------------------",
     "description": "Store translations that are likely to be used in Setting flows"
@@ -104,6 +103,9 @@
   "semanticImgProfile": "Profile",
   "semanticImgChickenFarm": "Chicken Farm",
   "semanticImgHomePoster": "Home Poster",
+  "semanticIcBuySell": "Buy Sell",
+  "semanticIcOptimization": "Optimization",
+  "semanticIcTrolley": "Trolley",
   "@segmentUserInfomation": {
     "---------------------------": "---------------------------",
     "description": "Store translations that are likely to be used in User Infomation flows"

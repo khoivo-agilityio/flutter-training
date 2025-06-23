@@ -7,11 +7,11 @@ class HomeState extends Equatable {
   final String? errorMessage;
   final List<PfProductModel>? products;
   final List<PfCategoryModel>? popularCategories;
-  final PfSearchTextFormFieldSubState searchForm;
+  final PfProducts searchForm;
 
   const HomeState({
     this.status = HomeStatus.initial,
-    required this.searchForm,
+    this.searchForm = const PfProducts.pure(),
     this.products = const [],
     this.popularCategories,
     this.errorMessage,
@@ -22,7 +22,7 @@ class HomeState extends Equatable {
     String? errorMessage,
     List<PfProductModel>? products,
     List<PfCategoryModel>? popularCategories,
-    PfSearchTextFormFieldSubState? searchForm,
+    PfProducts? searchForm,
   }) {
     return HomeState(
       status: status ?? this.status,
@@ -30,22 +30,6 @@ class HomeState extends Equatable {
       products: products ?? this.products,
       popularCategories: popularCategories ?? this.popularCategories,
       searchForm: searchForm ?? this.searchForm,
-    );
-  }
-
-  factory HomeState.initial() {
-    return HomeState(
-      status: HomeStatus.initial,
-      popularCategories: const [],
-      products: const [],
-      searchForm: PfSearchTextFormFieldSubState(
-        semanticsLabel: S.current.formSearchSemanticLabel,
-        hintText: S.current.formSearchHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.search,
-      ),
     );
   }
 

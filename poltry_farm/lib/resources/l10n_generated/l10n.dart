@@ -134,9 +134,14 @@ class S {
     return Intl.message('Name', name: 'formNameLabel', desc: '', args: []);
   }
 
-  /// `Email`
+  /// `Enter your Email`
   String get formEmailHint {
-    return Intl.message('Email', name: 'formEmailHint', desc: '', args: []);
+    return Intl.message(
+      'Enter your Email',
+      name: 'formEmailHint',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Email`
@@ -554,6 +559,26 @@ class S {
     );
   }
 
+  /// `Please enter valid Email`
+  String get loginFormValidateEmail {
+    return Intl.message(
+      'Please enter valid Email',
+      name: 'loginFormValidateEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter valid Password`
+  String get loginFormValidatePassword {
+    return Intl.message(
+      'Please enter valid Password',
+      name: 'loginFormValidatePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Farm Settings`
   String get settingPageTitle {
     return Intl.message(
@@ -709,6 +734,36 @@ class S {
     return Intl.message(
       'Home Poster',
       name: 'semanticImgHomePoster',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buy Sell`
+  String get semanticIcBuySell {
+    return Intl.message(
+      'Buy Sell',
+      name: 'semanticIcBuySell',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Optimization`
+  String get semanticIcOptimization {
+    return Intl.message(
+      'Optimization',
+      name: 'semanticIcOptimization',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trolley`
+  String get semanticIcTrolley {
+    return Intl.message(
+      'Trolley',
+      name: 'semanticIcTrolley',
       desc: '',
       args: [],
     );

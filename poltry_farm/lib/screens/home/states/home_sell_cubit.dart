@@ -15,9 +15,9 @@ class HomeSellCubit extends Cubit<HomeSellState> {
       final categories = List.generate(
         15,
         (i) => PfCategoryModel(
-            name: 'Owl $i',
+            name: 'Cow $i',
             imageUrl:
-                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                'https://ik.imagekit.io/stoxduoxkg/pngtree-holstein-cow-png-image_15744446.png?updatedAt=1750698006671'),
       );
       final result = state.popularCategories == null
           ? categories
