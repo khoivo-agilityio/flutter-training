@@ -38,35 +38,16 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
   }) {
     emit(
       state.copyWith(
-          // nameForm: state.nameForm.copyWith(
-          //   text: nameValue,
-          // ),
-          // emailForm: state.emailForm.copyWith(
-          //   text: emailValue,
-          // ),
-          // farmNameForm: state.farmNameForm.copyWith(
-          //   text: farmNameValue,
-          // ),
-          // countryForm: state.countryForm.copyWith(
-          //   text: countryValue,
-          // ),
-          // stateForm: state.stateForm.copyWith(
-          //   text: stateValue,
-          // ),
-          // cityForm: state.cityForm.copyWith(
-          //   text: cityValue,
-          // ),
-          // villageForm: state.villageForm.copyWith(
-          //   text: villageValue,
-          // ),
-          // farmCapacityForm: state.farmCapacityForm.copyWith(
-          //   text: farmCapacityValue,
-          // ),
-          // farmForm: state.farmForm.copyWith(
-          //   selectedItem: farmValue,
-          //   text: farmValue,
-          // ),
-          ),
+        name: PfNameInput.pure(nameValue ?? ''),
+        email: PfEmailInput.pure(emailValue ?? ''),
+        farmName: PfFarmNameInput.pure(farmNameValue ?? ''),
+        country: PfCountryInput.pure(countryValue ?? ''),
+        state: PfStateInput.pure(stateValue ?? ''),
+        city: PfCityInput.pure(cityValue ?? ''),
+        village: PfVillageInput.pure(villageValue ?? ''),
+        farmCapacity: PfFarmCapacityInput.pure(farmCapacityValue ?? ''),
+        farm: PfFarmInput.pure(farmValue ?? ''),
+      ),
     );
   }
 
@@ -147,90 +128,10 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
     emit(
       state.copyWith(
         farm: PfFarmInput.pure(value),
+        selectedFarm: value,
       ),
     );
   }
-
-  // void emailFormChanged(String? value) {
-  //   emit(
-  //     state.copyWith(
-  //       emailForm: state.emailForm.copyWith(
-  //         text: value,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // void farmNameFormChanged(String? value) {
-  //   emit(
-  //     state.copyWith(
-  //       farmNameForm: state.farmNameForm.copyWith(
-  //         text: value,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // void countryFormChanged(String? value) {
-  //   emit(
-  //     state.copyWith(
-  //       countryForm: state.countryForm.copyWith(
-  //         text: value,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // void stateFormChanged(String? value) {
-  //   emit(
-  //     state.copyWith(
-  //       stateForm: state.stateForm.copyWith(
-  //         text: value,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // void cityFormChanged(String? value) {
-  //   emit(
-  //     state.copyWith(
-  //       cityForm: state.cityForm.copyWith(
-  //         text: value,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // void villageFormChanged(String? value) {
-  //   emit(
-  //     state.copyWith(
-  //       villageForm: state.villageForm.copyWith(
-  //         text: value,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // void farmCapacityFormChanged(String? value) {
-  //   emit(
-  //     state.copyWith(
-  //       farmCapacityForm: state.farmCapacityForm.copyWith(
-  //         text: value,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // void farmFormChanged(String? value) {
-  //   emit(
-  //     state.copyWith(
-  //       farmForm: state.farmForm.copyWith(
-  //         text: value,
-  //         selectedItem: value,
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Future<void> changeAvatar() async {
     try {
@@ -294,7 +195,7 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
   Future<List<PfDropdownSearchItem<String>>> loadFarmTypes() async {
     emit(state.copyWith(status: PersonalInfoStatus.loading));
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 3000));
       final farmType = List.generate(
         6,
         (i) => 'Farm Type $i',

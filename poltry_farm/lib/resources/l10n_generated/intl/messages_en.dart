@@ -135,6 +135,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginPageTitle": MessageLookupByLibrary.simpleMessage(
       "Welcome back! Glad to see you, Again!",
     ),
+    "semanticIcBuySell": MessageLookupByLibrary.simpleMessage("Buy Sell"),
+    "semanticIcOptimization": MessageLookupByLibrary.simpleMessage(
+      "Optimization",
+    ),
+    "semanticIcTrolley": MessageLookupByLibrary.simpleMessage("Trolley"),
     "semanticImgBatches": MessageLookupByLibrary.simpleMessage("Batches"),
     "semanticImgChickenFarm": MessageLookupByLibrary.simpleMessage(
       "Chicken Farm",

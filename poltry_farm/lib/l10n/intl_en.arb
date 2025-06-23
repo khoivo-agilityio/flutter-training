@@ -103,6 +103,9 @@
   "semanticImgProfile": "Profile",
   "semanticImgChickenFarm": "Chicken Farm",
   "semanticImgHomePoster": "Home Poster",
+  "semanticIcBuySell": "Buy Sell",
+  "semanticIcOptimization": "Optimization",
+  "semanticIcTrolley": "Trolley",
   "@segmentUserInfomation": {
     "---------------------------": "---------------------------",
     "description": "Store translations that are likely to be used in User Infomation flows"

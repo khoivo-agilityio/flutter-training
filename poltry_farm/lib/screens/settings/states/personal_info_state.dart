@@ -22,6 +22,7 @@ class PersonalInfoState extends Equatable {
   final PfFarmCapacityInput farmCapacity;
   final PfFarmInput farm;
   final List<String> farmTypes;
+  final String? selectedFarm;
   final File? avartarImg;
 
   const PersonalInfoState({
@@ -37,6 +38,7 @@ class PersonalInfoState extends Equatable {
     this.farm = const PfFarmInput.pure(),
     this.farmTypes = const [],
     this.errorMessage,
+    this.selectedFarm,
     this.avartarImg,
   });
 
@@ -53,6 +55,7 @@ class PersonalInfoState extends Equatable {
     PfFarmCapacityInput? farmCapacity,
     PfFarmInput? farm,
     List<String>? farmTypes,
+    String? selectedFarm,
     File? avartarImg,
   }) {
     return PersonalInfoState(
@@ -68,6 +71,7 @@ class PersonalInfoState extends Equatable {
       farmCapacity: farmCapacity ?? this.farmCapacity,
       farm: farm ?? this.farm,
       farmTypes: farmTypes ?? this.farmTypes,
+      selectedFarm: selectedFarm ?? this.selectedFarm,
       avartarImg: avartarImg ?? this.avartarImg,
     );
   }
@@ -86,6 +90,7 @@ class PersonalInfoState extends Equatable {
         farmCapacity,
         farm,
         farmTypes,
+        selectedFarm,
         avartarImg,
       ];
 }

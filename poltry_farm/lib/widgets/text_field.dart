@@ -15,12 +15,13 @@ class PfTextField extends StatefulWidget {
     this.title,
     this.hintText,
     this.suffixIcon,
+    this.prefixIcon,
     this.onChanged,
     this.onSubmitted,
     this.keyboardType,
     this.focusNode,
     this.onTapOutside,
-    this.ontap,
+    this.onTap,
     this.controller,
     this.initValue,
     this.textInputAction,
@@ -36,6 +37,8 @@ class PfTextField extends StatefulWidget {
   final String? errorMessage;
 
   final Widget? suffixIcon;
+
+  final Widget? prefixIcon;
 
   final ValueChanged<String>? onChanged;
 
@@ -53,7 +56,7 @@ class PfTextField extends StatefulWidget {
 
   final bool autofocus;
 
-  final VoidCallback? ontap;
+  final VoidCallback? onTap;
 
   final TextEditingController? controller;
 
@@ -122,6 +125,7 @@ class _PfTextFieldState extends State<PfTextField> {
               hintText: widget.hintText,
               errorText: widget.errorMessage == null ? null : '',
               suffixIcon: widget.suffixIcon,
+              prefixIcon: widget.prefixIcon,
             )..applyDefaults(context.themeData.inputDecorationTheme),
             style: TextStyle(
               fontFamily: PfTypography.familyBahnschrift,
@@ -132,7 +136,7 @@ class _PfTextFieldState extends State<PfTextField> {
             onChanged: widget.onChanged,
             onSubmitted: widget.onSubmitted,
             keyboardType: widget.keyboardType,
-            onTap: widget.ontap,
+            onTap: widget.onTap,
             textInputAction: widget.textInputAction,
           ),
           if (widget.hasValidation) ...[

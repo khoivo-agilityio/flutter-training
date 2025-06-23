@@ -11,6 +11,7 @@ import 'package:poltry_farm/shared/local_database/user_db_model.dart';
 import 'package:poltry_farm/widgets/app_bar.dart';
 import 'package:poltry_farm/widgets/avartar.dart';
 import 'package:poltry_farm/widgets/button.dart';
+import 'package:poltry_farm/widgets/dropdown.dart';
 import 'package:poltry_farm/widgets/forms/form_control.dart';
 import 'package:poltry_farm/widgets/forms/form_input.dart';
 import 'package:poltry_farm/widgets/scroll_keyboard_manager.dart';
@@ -113,21 +114,8 @@ class _PfPersonalInfoScreenState extends State<PfPersonalInfoScreen> {
                 _VillageInput(_villageFocusNode),
                 const SizedBox(height: 24),
                 _FarmCapacityInput(_farmCapacityFocusNode),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
                 _FarmInput(_farmFocusNode),
-
-                // PfFormControls.dropdownBloc<PersonalInfoCubit,
-                //     PersonalInfoState>(
-                //   selector: (state) => state.farmForm,
-                //   focusNode: _farmFocusNode,
-                //   // onChanged: (value) {},
-                //   onSelected: (value) {
-                //     _cubit.farmFormChanged(value);
-                //   },
-                //   onFetchItems: () async {
-                //     return await _cubit.loadFarmTypes();
-                //   },
-                // ),
                 const SizedBox(height: 24),
                 BlocSelector<PersonalInfoCubit, PersonalInfoState, bool>(
                   selector: (state) =>
@@ -421,19 +409,27 @@ class _FarmInput extends StatelessWidget {
     return BlocSelector<PersonalInfoCubit, PersonalInfoState, PfFarmInput>(
       selector: (state) => state.farm,
       builder: (context, farm) {
-        return PfTextField(
+        return PfDropdownSearch<String>(
           key: const Key('personalInfoForm_FarmInput_textField'),
-          semanticsLabel: S.current.formFarmSemanticLabel,
+          name: S.current.formFarmSemanticLabel,
+          hintText: S.current.formFarmHint,
           keyboardType: TextInputType.text,
           focusNode: focusNode,
-          onChanged: (value) =>
-              context.read<PersonalInfoCubit>().farmChanged(value),
-          hintText: S.of(context).formFarmHint,
-          hasValidation: false,
-          textInputAction: TextInputAction.next,
-          initValue: farm.value,
+          onChanged: (value) {},
+          onSelected: (value) {
+            context.read<PersonalInfoCubit>().farmChanged(value ?? '');
+          },
+          onFetchItems: () async {
+            return await context.read<PersonalInfoCubit>().loadFarmTypes();
+          },
+          initialValue: PfDropdownSearchItem(
+            value: farm.value,
+            label: farm.value,
+          ),
         );
       },
     );
   }
 }
+
+

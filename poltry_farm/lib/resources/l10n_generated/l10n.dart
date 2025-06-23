@@ -739,6 +739,36 @@ class S {
     );
   }
 
+  /// `Buy Sell`
+  String get semanticIcBuySell {
+    return Intl.message(
+      'Buy Sell',
+      name: 'semanticIcBuySell',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Optimization`
+  String get semanticIcOptimization {
+    return Intl.message(
+      'Optimization',
+      name: 'semanticIcOptimization',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trolley`
+  String get semanticIcTrolley {
+    return Intl.message(
+      'Trolley',
+      name: 'semanticIcTrolley',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `User Infomation`
   String get userInfomationPageTitle {
     return Intl.message(

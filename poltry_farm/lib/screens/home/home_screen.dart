@@ -10,9 +10,10 @@ import 'package:poltry_farm/widgets/app_bar.dart';
 import 'package:poltry_farm/widgets/assets.dart';
 import 'package:poltry_farm/widgets/button.dart';
 import 'package:poltry_farm/widgets/card.dart';
-import 'package:poltry_farm/widgets/forms/form_control.dart';
+import 'package:poltry_farm/widgets/forms/form_input.dart';
 
 import 'package:poltry_farm/widgets/text.dart';
+import 'package:poltry_farm/widgets/text_field.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class PfHomeScreen extends StatefulWidget {
@@ -109,13 +110,10 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // ConstrainedBox(
-                //   constraints: const BoxConstraints(minHeight: 60),
-                //   child: PfFormControls.searchTextBloc<HomeCubit, HomeState>(
-                //     selector: (state) => state.searchForm,
-                //     onChanged: (value) => _homeCubit.searchFormChanged(value),
-                //   ),
-                // ),
+                _SearchInput(FocusNode()),
+                const SizedBox(
+                  height: 16,
+                ),
                 BlocBuilder<HomeCubit, HomeState>(
                   bloc: _homeCubit,
                   buildWhen: (p, c) =>
@@ -176,16 +174,19 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                                                 BorderRadius.circular(15),
                                             color: context.colorScheme.outline,
                                           ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            child: PfCachedNetworkImage(
-                                              semanticLabel:
-                                                  category?.name ?? '',
-                                              width: 53,
-                                              height: 57,
-                                              url: category?.imageUrl ?? '',
-                                              boxFit: BoxFit.scaleDown,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: PfCachedNetworkImage(
+                                                semanticLabel:
+                                                    category?.name ?? '',
+                                                width: 53,
+                                                height: 57,
+                                                url: category?.imageUrl ?? '',
+                                                boxFit: BoxFit.scaleDown,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -290,9 +291,11 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                                           ),
                                         ),
                                         width: double.infinity,
-                                        child: PfAssets.imgChickenFarm(
-                                          height: 81,
-                                          boxfit: BoxFit.cover,
+                                        child: PfCachedNetworkImage(
+                                          semanticLabel: category?.name ?? '',
+                                          height: 85,
+                                          url: category?.imageUrl ?? '',
+                                          boxFit: BoxFit.scaleDown,
                                         ),
                                       ),
                                       onTap: () {},
@@ -321,6 +324,35 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _SearchInput extends StatelessWidget {
+  const _SearchInput(this.focusNode);
+
+  final FocusNode focusNode;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<HomeCubit, HomeState, PfProducts>(
+      selector: (state) => state.searchForm,
+      builder: (context, farmCapacity) {
+        return PfTextField(
+          key: const Key('HomeForm_SearchInput_textField'),
+          semanticsLabel: S.current.formSearchSemanticLabel,
+          keyboardType: TextInputType.text,
+          focusNode: focusNode,
+          onChanged: (value) {},
+          hintText: S.of(context).formSearchHint,
+          hasValidation: false,
+          textInputAction: TextInputAction.next,
+          initValue: farmCapacity.value,
+          prefixIcon: const Icon(
+            Icons.search,
+          ),
+        );
+      },
     );
   }
 }

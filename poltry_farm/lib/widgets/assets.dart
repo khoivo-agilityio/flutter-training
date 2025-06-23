@@ -193,10 +193,17 @@ class PfAssets {
       facebookIc = _PfFacebookIcon.new;
   static Widget Function({double? width, double? height, BoxFit? boxfit})
       googleIc = _PfGoogleIcon.new;
-  static Widget Function({double? width, double? height, BoxFit? boxfit})
-      icBatches = _PfBatchesIc.new;
-  static Widget Function({double? width, double? height, BoxFit? boxfit})
-      icFeedManagement = _PfFeedManagementIcon.new;
+  static Widget Function({
+    double? width,
+    double? height,
+    BoxFit? boxfit,
+    Color? color,
+  }) icBatches = _PfBatchesIc.new;
+  static Widget Function({
+    double? width,
+    double? height,
+    BoxFit? boxfit,
+  }) icFeedManagement = _PfFeedManagementIcon.new;
   static Widget Function({double? width, double? height, BoxFit? boxfit})
       icLogout = _PfLogoutIcon.new;
   static Widget Function({double? width, double? height, BoxFit? boxfit})
@@ -217,6 +224,27 @@ class PfAssets {
       imgChickenFarm = _PfChickenFarmImage.new;
   static Widget Function({double? width, double? height, BoxFit? boxfit})
       imgHomePoster = _PfHomePosterImage.new;
+
+  static Widget Function({
+    double? width,
+    double? height,
+    BoxFit? boxfit,
+    Color? color,
+  }) icBuySell = _PfBuySellIcon.new;
+
+  static Widget Function({
+    double? width,
+    double? height,
+    BoxFit? boxfit,
+    Color? color,
+  }) icOptimization = _PfOptimizationIcon.new;
+
+  static Widget Function({
+    double? width,
+    double? height,
+    BoxFit? boxfit,
+    Color? color,
+  }) icTrolley = _PfTrolleyIcon.new;
 }
 
 class _PfCibAppleImage extends StatelessWidget {
@@ -277,10 +305,16 @@ class _PfGoogleIcon extends StatelessWidget {
 }
 
 class _PfBatchesIc extends StatelessWidget {
-  const _PfBatchesIc({this.width, this.height, this.boxfit});
+  const _PfBatchesIc({
+    this.width,
+    this.height,
+    this.boxfit,
+    this.color,
+  });
   final double? height;
   final double? width;
   final BoxFit? boxfit;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -288,9 +322,10 @@ class _PfBatchesIc extends StatelessWidget {
       semanticLabel: S.current.semanticImgBatches,
       boxFit: boxfit,
       path: Assets.icBatches.path,
-      width: width ?? 44,
-      height: height ?? 44,
+      width: width ?? 24,
+      height: height ?? 24,
       type: ImageLoaderType.assetSVG,
+      color: color,
     );
   }
 }
@@ -498,6 +533,87 @@ class _PfHomePosterImage extends StatelessWidget {
       path: Assets.imgHomePoster.path,
       width: width,
       height: height,
+    );
+  }
+}
+
+class _PfBuySellIcon extends StatelessWidget {
+  const _PfBuySellIcon({
+    this.width,
+    this.height,
+    this.boxfit,
+    this.color,
+  });
+
+  final double? height;
+  final double? width;
+  final BoxFit? boxfit;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return PfAssetImage(
+      type: ImageLoaderType.assetSVG,
+      semanticLabel: S.current.semanticIcBuySell,
+      boxFit: boxfit,
+      path: Assets.icBuySell.path,
+      width: width ?? 24,
+      height: height ?? 24,
+      color: color,
+    );
+  }
+}
+
+class _PfOptimizationIcon extends StatelessWidget {
+  const _PfOptimizationIcon({
+    this.width,
+    this.height,
+    this.boxfit,
+    this.color,
+  });
+
+  final double? height;
+  final double? width;
+  final BoxFit? boxfit;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return PfAssetImage(
+      type: ImageLoaderType.assetSVG,
+      semanticLabel: S.current.semanticIcOptimization,
+      boxFit: boxfit,
+      path: Assets.icOptimization.path,
+      width: width ?? 24,
+      height: height ?? 24,
+      color: color,
+    );
+  }
+}
+
+class _PfTrolleyIcon extends StatelessWidget {
+  const _PfTrolleyIcon({
+    this.width,
+    this.height,
+    this.boxfit,
+    this.color,
+  });
+
+  final double? height;
+  final double? width;
+  final BoxFit? boxfit;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return PfAssetImage(
+      type: ImageLoaderType.assetSVG,
+      semanticLabel: S.current.semanticIcTrolley,
+      boxFit: boxfit,
+      path: Assets.icTrolley.path,
+      width: width ?? 24,
+      height: height ?? 24,
+      color: color,
     );
   }
 }

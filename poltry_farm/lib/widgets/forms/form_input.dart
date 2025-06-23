@@ -121,3 +121,14 @@ class PfFarmInput extends FormzInput<String, ValidationError> {
     return null;
   }
 }
+
+class PfProducts extends FormzInput<String, ValidationError> {
+  const PfProducts.pure([super.value = '']) : super.pure();
+
+  const PfProducts.dirty([super.value = '']) : super.dirty();
+
+  @override
+  ValidationError? validator(String? value) {
+    return null;
+  }
+}
