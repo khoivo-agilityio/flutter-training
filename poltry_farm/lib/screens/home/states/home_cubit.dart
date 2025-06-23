@@ -70,13 +70,13 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void searchFormChanged(String? value) {
-    emit(
-      state.copyWith(
-        searchForm: state.searchForm.copyWith(
-          text: value,
-        ),
-      ),
-    );
-  }
+  // void searchFormChanged(String? value) {
+  //   emit(
+  //     state.copyWith(
+  //       searchForm: state.searchForm.copyWith(
+  //         text: value,
+  //       ),
+  //     ),
+  //   );
+  // }
 }

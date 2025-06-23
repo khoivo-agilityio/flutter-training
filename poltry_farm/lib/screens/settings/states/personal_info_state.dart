@@ -1,34 +1,40 @@
 part of 'personal_info_cubit.dart';
 
-enum PersonalInfoStatus { initial, loading, success, failure }
+enum PersonalInfoStatus {
+  initial,
+  loading,
+  success,
+  failure,
+  saveSuccess,
+}
 
 class PersonalInfoState extends Equatable {
   final PersonalInfoStatus status;
   final String? errorMessage;
 
-  final PfPlainTextFormFieldSubState nameForm;
-  final PfPlainTextFormFieldSubState emailForm;
-  final PfPlainTextFormFieldSubState farmNameForm;
-  final PfPlainTextFormFieldSubState countryForm;
-  final PfPlainTextFormFieldSubState stateForm;
-  final PfPlainTextFormFieldSubState cityForm;
-  final PfPlainTextFormFieldSubState villageForm;
-  final PfPlainTextFormFieldSubState farmCapacityForm;
-  final PfDropdownFormFieldSubState farmForm;
+  final PfNameInput name;
+  final PfEmailInput email;
+  final PfFarmNameInput farmName;
+  final PfCountryInput country;
+  final PfStateInput state;
+  final PfCityInput city;
+  final PfVillageInput village;
+  final PfFarmCapacityInput farmCapacity;
+  final PfFarmInput farm;
   final List<String> farmTypes;
   final File? avartarImg;
 
   const PersonalInfoState({
     this.status = PersonalInfoStatus.initial,
-    required this.nameForm,
-    required this.emailForm,
-    required this.farmNameForm,
-    required this.countryForm,
-    required this.stateForm,
-    required this.cityForm,
-    required this.villageForm,
-    required this.farmCapacityForm,
-    required this.farmForm,
+    this.name = const PfNameInput.pure(),
+    this.email = const PfEmailInput.pure(),
+    this.farmName = const PfFarmNameInput.pure(),
+    this.country = const PfCountryInput.pure(),
+    this.state = const PfStateInput.pure(),
+    this.city = const PfCityInput.pure(),
+    this.village = const PfVillageInput.pure(),
+    this.farmCapacity = const PfFarmCapacityInput.pure(),
+    this.farm = const PfFarmInput.pure(),
     this.farmTypes = const [],
     this.errorMessage,
     this.avartarImg,
@@ -37,112 +43,32 @@ class PersonalInfoState extends Equatable {
   PersonalInfoState copyWith({
     PersonalInfoStatus? status,
     String? errorMessage,
-    PfPlainTextFormFieldSubState? nameForm,
-    PfPlainTextFormFieldSubState? emailForm,
-    PfPlainTextFormFieldSubState? farmNameForm,
-    PfPlainTextFormFieldSubState? countryForm,
-    PfPlainTextFormFieldSubState? stateForm,
-    PfPlainTextFormFieldSubState? cityForm,
-    PfPlainTextFormFieldSubState? villageForm,
-    PfPlainTextFormFieldSubState? farmCapacityForm,
-    PfDropdownFormFieldSubState? farmForm,
+    PfNameInput? name,
+    PfEmailInput? email,
+    PfFarmNameInput? farmName,
+    PfCountryInput? country,
+    PfStateInput? state,
+    PfCityInput? city,
+    PfVillageInput? village,
+    PfFarmCapacityInput? farmCapacity,
+    PfFarmInput? farm,
     List<String>? farmTypes,
     File? avartarImg,
   }) {
     return PersonalInfoState(
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
-      nameForm: nameForm ?? this.nameForm,
-      emailForm: emailForm ?? this.emailForm,
-      farmNameForm: farmNameForm ?? this.farmNameForm,
-      countryForm: countryForm ?? this.countryForm,
-      stateForm: stateForm ?? this.stateForm,
-      cityForm: cityForm ?? this.cityForm,
-      villageForm: villageForm ?? this.villageForm,
-      farmCapacityForm: farmCapacityForm ?? this.farmCapacityForm,
-      farmForm: farmForm ?? this.farmForm,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      farmName: farmName ?? this.farmName,
+      country: country ?? this.country,
+      state: state ?? this.state,
+      city: city ?? this.city,
+      village: village ?? this.village,
+      farmCapacity: farmCapacity ?? this.farmCapacity,
+      farm: farm ?? this.farm,
       farmTypes: farmTypes ?? this.farmTypes,
       avartarImg: avartarImg ?? this.avartarImg,
-    );
-  }
-
-  factory PersonalInfoState.initial() {
-    return PersonalInfoState(
-      status: PersonalInfoStatus.initial,
-      nameForm: PfPlainTextFormFieldSubState(
-        semanticsLabel: S.current.formNameSemanticLabel,
-        label: S.current.formNameLabel,
-        hintText: S.current.formNameHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      emailForm: PfPlainTextFormFieldSubState(
-        semanticsLabel: S.current.formEmailSemanticLabel,
-        label: S.current.formEmailLabel,
-        hintText: S.current.formEmailHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      farmNameForm: PfPlainTextFormFieldSubState(
-        semanticsLabel: S.current.formFarmNameSemanticLabel,
-        label: S.current.formFarmNameLabel,
-        hintText: S.current.formFarmNameHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      countryForm: PfPlainTextFormFieldSubState(
-        semanticsLabel: S.current.formCountrySemanticLabel,
-        label: S.current.formCountryLabel,
-        hintText: S.current.formCountryHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      stateForm: PfPlainTextFormFieldSubState(
-        semanticsLabel: S.current.formStateSemanticLabel,
-        label: S.current.formStateLabel,
-        hintText: S.current.formStateHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      cityForm: PfPlainTextFormFieldSubState(
-        semanticsLabel: S.current.formCitySemanticLabel,
-        label: S.current.formCityLabel,
-        hintText: S.current.formCityHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      villageForm: PfPlainTextFormFieldSubState(
-        semanticsLabel: S.current.formVillageSemanticLabel,
-        label: S.current.formVillageLabel,
-        hintText: S.current.formVillageHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      farmCapacityForm: PfPlainTextFormFieldSubState(
-        semanticsLabel: S.current.formFarmCapacitySemanticLabel,
-        label: S.current.formFarmCapacityLabel,
-        hintText: S.current.formFarmCapacityHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      farmForm: PfDropdownFormFieldSubState(
-        semanticsLabel: S.current.formFarmSemanticLabel,
-        label: S.current.formFarmLabel,
-        hintText: S.current.formFarmHint,
-        items: const [],
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-      ),
-      farmTypes: const [],
     );
   }
 
@@ -150,15 +76,15 @@ class PersonalInfoState extends Equatable {
   List<Object?> get props => [
         status,
         errorMessage,
-        nameForm,
-        emailForm,
-        farmNameForm,
-        countryForm,
-        stateForm,
-        cityForm,
-        villageForm,
-        farmCapacityForm,
-        farmForm,
+        name,
+        email,
+        farmName,
+        country,
+        state,
+        city,
+        village,
+        farmCapacity,
+        farm,
         farmTypes,
         avartarImg,
       ];

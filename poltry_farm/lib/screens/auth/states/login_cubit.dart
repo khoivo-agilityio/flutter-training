@@ -1,34 +1,60 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:poltry_farm/repositories/auth_repository.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
-import 'package:poltry_farm/shared/form_models.dart';
-import 'package:poltry_farm/widgets/forms/form_validators.dart';
+import 'package:poltry_farm/widgets/forms/form_input.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._authRepository) : super(LoginState.initial());
+  LoginCubit(this._authRepository) : super(const LoginState());
 
   final AuthRepository _authRepository;
 
-  void emailChanged(String? value) {
+  void emailChanged(String email) {
+    final newEmail = PfEmailInput.pure(email);
+
     emit(
       state.copyWith(
-        email: state.email.copyWith(
-          text: value,
-        ),
+        email: newEmail,
+        status: LoginStatus.success,
       ),
     );
   }
 
-  void passwordChanged(String? value) {
+  void emailValidation(String email) {
     emit(
       state.copyWith(
-        password: state.password.copyWith(
-          text: value,
-        ),
+        email: PfEmailInput.dirty(email),
+        status: LoginStatus.success,
+      ),
+    );
+  }
+
+  void passwordChanged(String password) {
+    emit(
+      state.copyWith(
+        password: PfPasswordInput.dirty(password),
+        status: LoginStatus.success,
+      ),
+    );
+  }
+
+  void passwordValidation(String password) {
+    emit(
+      state.copyWith(
+        password: PfPasswordInput.dirty(password),
+        status: LoginStatus.success,
+      ),
+    );
+  }
+
+  void passwordVisibilityChanged() {
+    emit(
+      state.copyWith(
+        isObscured: !state.isObscured,
+        status: LoginStatus.success,
       ),
     );
   }
@@ -40,12 +66,12 @@ class LoginCubit extends Cubit<LoginState> {
 
     try {
       await _authRepository.signInWithEmailAndPassword(
-        email: state.email.text,
-        password: state.password.text,
+        email: state.email.value,
+        password: state.password.value,
       );
 
       emit(state.copyWith(
-        status: LoginStatus.success,
+        status: LoginStatus.loginedSuccess,
       ));
     } catch (e) {
       emit(state.copyWith(

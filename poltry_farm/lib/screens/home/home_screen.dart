@@ -13,6 +13,7 @@ import 'package:poltry_farm/widgets/card.dart';
 import 'package:poltry_farm/widgets/forms/form_control.dart';
 
 import 'package:poltry_farm/widgets/text.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class PfHomeScreen extends StatefulWidget {
   const PfHomeScreen({super.key});
@@ -108,13 +109,13 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 60),
-                  child: PfFormControls.searchTextBloc<HomeCubit, HomeState>(
-                    selector: (state) => state.searchForm,
-                    onChanged: (value) => _homeCubit.searchFormChanged(value),
-                  ),
-                ),
+                // ConstrainedBox(
+                //   constraints: const BoxConstraints(minHeight: 60),
+                //   child: PfFormControls.searchTextBloc<HomeCubit, HomeState>(
+                //     selector: (state) => state.searchForm,
+                //     onChanged: (value) => _homeCubit.searchFormChanged(value),
+                //   ),
+                // ),
                 BlocBuilder<HomeCubit, HomeState>(
                   bloc: _homeCubit,
                   buildWhen: (p, c) =>
@@ -141,6 +142,18 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                             child: InfiniteListView.separated(
                               scrollDirection: Axis.horizontal,
                               delegate: PaginationDelegate(
+                                loadMoreLoadingBuilder: (context) => Shimmer(
+                                  child: const PfCard(),
+                                ),
+                                firstPageLoadingBuilder: (context) =>
+                                    ListView.builder(
+                                        itemCount: 6,
+                                        itemBuilder: (context, index) {
+                                          return Shimmer(
+                                            color: Colors.red,
+                                            child: const PfCard(),
+                                          );
+                                        }),
                                 isLoading: state.status == HomeStatus.loading,
                                 hasError: state.status == HomeStatus.failure,
                                 itemCount: state.popularCategories?.length ?? 0,
@@ -233,6 +246,29 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                               },
                               child: InfiniteGridView(
                                 delegate: PaginationDelegate(
+                                  loadMoreLoadingBuilder: (context) {
+                                    return Shimmer(
+                                      child: const PfCard(),
+                                    );
+                                  },
+                                  firstPageLoadingBuilder: (context) {
+                                    return SizedBox(
+                                      height: 200,
+                                      child: GridView.builder(
+                                        itemCount: 6,
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 10.0,
+                                        ),
+                                        itemBuilder: (context, index) =>
+                                            Shimmer(
+                                          child: const PfCard(),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   isLoading: state.status == HomeStatus.loading,
                                   hasError: state.status == HomeStatus.failure,
                                   itemCount: state.products?.length ?? 0,

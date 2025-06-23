@@ -55,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "formDropdownSemanticLoadingItems": MessageLookupByLibrary.simpleMessage(
       "Loading items",
     ),
-    "formEmailHint": MessageLookupByLibrary.simpleMessage("Email"),
+    "formEmailHint": MessageLookupByLibrary.simpleMessage("Enter your Email"),
     "formEmailLabel": MessageLookupByLibrary.simpleMessage("Email"),
     "formEmailSemanticLabel": MessageLookupByLibrary.simpleMessage("Email"),
     "formFarmCapacityHint": MessageLookupByLibrary.simpleMessage(
@@ -114,6 +114,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginFormPasswordLabel": MessageLookupByLibrary.simpleMessage("Password"),
     "loginFormPasswordSemanticLabel": MessageLookupByLibrary.simpleMessage(
       "Password",
+    ),
+    "loginFormValidateEmail": MessageLookupByLibrary.simpleMessage(
+      "Please enter valid Email",
+    ),
+    "loginFormValidatePassword": MessageLookupByLibrary.simpleMessage(
+      "Please enter valid Password",
     ),
     "loginPageFooter": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",

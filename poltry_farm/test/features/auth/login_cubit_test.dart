@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:poltry_farm/screens/auth/states/login_cubit.dart';
 import 'package:poltry_farm/shared/user_model.dart';
 import 'package:poltry_farm/shared/form_models.dart';
-import 'package:poltry_farm/widgets/forms/form_validators.dart';
+import 'package:poltry_farm/widgets/forms/form_input.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 
 import 'auth_mocks.mocks.dart';

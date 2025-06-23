@@ -7,11 +7,11 @@ class HomeState extends Equatable {
   final String? errorMessage;
   final List<PfProductModel>? products;
   final List<PfCategoryModel>? popularCategories;
-  final PfSearchTextFormFieldSubState searchForm;
+  // final PfSearchTextFormFieldSubState searchForm;
 
   const HomeState({
     this.status = HomeStatus.initial,
-    required this.searchForm,
+    // required this.searchForm,
     this.products = const [],
     this.popularCategories,
     this.errorMessage,
@@ -22,30 +22,30 @@ class HomeState extends Equatable {
     String? errorMessage,
     List<PfProductModel>? products,
     List<PfCategoryModel>? popularCategories,
-    PfSearchTextFormFieldSubState? searchForm,
+    // PfSearchTextFormFieldSubState? searchForm,
   }) {
     return HomeState(
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
       products: products ?? this.products,
       popularCategories: popularCategories ?? this.popularCategories,
-      searchForm: searchForm ?? this.searchForm,
+      // searchForm: searchForm ?? this.searchForm,
     );
   }
 
   factory HomeState.initial() {
-    return HomeState(
+    return const HomeState(
       status: HomeStatus.initial,
-      popularCategories: const [],
-      products: const [],
-      searchForm: PfSearchTextFormFieldSubState(
-        semanticsLabel: S.current.formSearchSemanticLabel,
-        hintText: S.current.formSearchHint,
-        focusNode: FocusNode(),
-        text: '',
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.search,
-      ),
+      popularCategories: [],
+      products: [],
+      // searchForm: PfSearchTextFormFieldSubState(
+      //   semanticsLabel: S.current.formSearchSemanticLabel,
+      //   hintText: S.current.formSearchHint,
+      //   focusNode: FocusNode(),
+      //   text: '',
+      //   keyboardType: TextInputType.text,
+      //   textInputAction: TextInputAction.search,
+      // ),
     );
   }
 

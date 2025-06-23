@@ -58,6 +58,10 @@ dependencies:
 
   awesome_notifications_fcm: ^0.10.1 # Firebase Cloud Messaging integration for Awesome Notifications
 
+  shimmer_animation: ^2.2.2 # This shimmer animation widget can help you bring simple yet beautiful skeleton loaders to your project with ease.
+
+  formz: ^0.8.0 # A unified form representation in Dart which aims to simplify form representation and validation in a generic way.
+
 dev_dependencies:
   flutter_test:
     sdk: flutter # Unit and widget testing support
@@ -83,6 +87,7 @@ flutter:
   generate: true
   assets:
     - assets/ # Folder for static assets (images, JSON, etc.)
+    - .env
 
 flutter_intl:
   enabled: true

@@ -36,6 +36,7 @@ class PfTextVariant extends StatelessWidget {
     this.textAlign,
     this.fontWeight,
     this.overflow,
+    this.maxLines,
   });
 
   final String text;
@@ -44,6 +45,8 @@ class PfTextVariant extends StatelessWidget {
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
   final TextOverflow? overflow;
+
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,7 @@ class PfTextVariant extends StatelessWidget {
         fontWeight: fontWeight,
         overflow: overflow ?? TextOverflow.ellipsis,
       ),
+      maxLines: maxLines,
     );
   }
 }
@@ -68,6 +72,7 @@ class PfText extends StatelessWidget {
     this.textAlign,
     this.fontWeight,
     this.overflow,
+    this.maxLines,
   });
 
   final String text;
@@ -76,6 +81,7 @@ class PfText extends StatelessWidget {
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
   final TextOverflow? overflow;
+  final int? maxLines;
 
   TextStyle? _getBaseStyle(BuildContext context) {
     final theme = context.textTheme;
@@ -122,6 +128,7 @@ class PfText extends StatelessWidget {
       textAlign: textAlign,
       fontWeight: fontWeight,
       overflow: overflow,
+      maxLines: maxLines,
     );
   }
 }

@@ -137,9 +137,9 @@ class PfTheme {
     fillColor: PfPalette.grey[4],
     prefixIconColor: PfPalette.grey[5],
     suffixIconColor: PfPalette.grey[5],
-    constraints: const BoxConstraints(minHeight: 60),
-    isDense: true,
-    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+    constraints: BoxConstraints.tight(const Size.fromHeight(48)),
+    suffixIconConstraints: const BoxConstraints(minWidth: 24, minHeight: 24),
     hintStyle: TextStyle(
       fontFamily: PfTypography.familyBahnschrift,
       fontSize: PfTypography.fontSizeLabelLarge,
@@ -151,7 +151,6 @@ class PfTheme {
       fontFamily: PfTypography.familyBahnschrift,
       fontSize: PfTypography.fontSizeLabelLarge,
       fontWeight: FontWeight.w400,
-      height: 1.14,
       color: PfPalette.grey[5],
     ),
     border: OutlineInputBorder(
@@ -198,12 +197,6 @@ class PfTheme {
         Radius.circular(8),
       ),
     ),
-    errorStyle: const TextStyle(
-      fontFamily: PfTypography.familyBahnschrift,
-      fontSize: PfTypography.fontSizeLabelLarge,
-      fontWeight: FontWeight.w400,
-      height: 1.14,
-      color: PfPalette.red,
-    ),
+    errorStyle: const TextStyle(height: -1),
   );
 }

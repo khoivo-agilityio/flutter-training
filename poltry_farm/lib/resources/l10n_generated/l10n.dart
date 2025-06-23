@@ -134,9 +134,14 @@ class S {
     return Intl.message('Name', name: 'formNameLabel', desc: '', args: []);
   }
 
-  /// `Email`
+  /// `Enter your Email`
   String get formEmailHint {
-    return Intl.message('Email', name: 'formEmailHint', desc: '', args: []);
+    return Intl.message(
+      'Enter your Email',
+      name: 'formEmailHint',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Email`
@@ -549,6 +554,26 @@ class S {
     return Intl.message(
       'Password',
       name: 'loginFormPasswordLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter valid Email`
+  String get loginFormValidateEmail {
+    return Intl.message(
+      'Please enter valid Email',
+      name: 'loginFormValidateEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter valid Password`
+  String get loginFormValidatePassword {
+    return Intl.message(
+      'Please enter valid Password',
+      name: 'loginFormValidatePassword',
       desc: '',
       args: [],
     );
