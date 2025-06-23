@@ -1,120 +1,107 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:bloc_test/bloc_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
+import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/screens/auth/states/login_cubit.dart';
 import 'package:poltry_farm/shared/user_model.dart';
-import 'package:poltry_farm/shared/form_models.dart';
 import 'package:poltry_farm/widgets/forms/form_input.dart';
-import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
-
 import 'auth_mocks.mocks.dart';
 
-class FakeFormField extends PfPlainTextFormFieldSubState {
-  FakeFormField({
-    required super.text,
-  }) : super(
-          label: 'label',
-          hintText: 'hint',
-          semanticsLabel: 'semantic',
-          focusNode: FocusNode(),
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.done,
-          validators: const [PfFormValidators.required],
-        );
-}
-
 void main() {
+  late LoginCubit loginCubit;
   late MockAuthRepository mockAuthRepository;
 
   setUp(() {
     mockAuthRepository = MockAuthRepository();
+    loginCubit = LoginCubit(mockAuthRepository);
+    S.load(const Locale('en'));
   });
 
-  const dummyUser = PfUserModel(
-    uid: '123',
-    name: 'Test User',
-    email: 'test@example.com',
-    farmName: '',
-    country: '',
-    state: '',
-    city: '',
-    village: '',
-    farmCapacity: '',
-    farmType: '',
-    avatarUrl: '',
-  );
+  tearDown(() {
+    loginCubit.close();
+  });
 
   group('LoginCubit', () {
-    setUpAll(() async {
-      TestWidgetsFlutterBinding.ensureInitialized();
-
-      // fake the localization delegate
-      S.load(const Locale('en'));
-    });
-
     test('initial state is correct', () {
-      final cubit = LoginCubit(mockAuthRepository);
-      expect(cubit.state.status, LoginStatus.initial);
-      expect(cubit.state.email.text, '');
-      expect(cubit.state.password.text, '');
+      expect(loginCubit.state, const LoginState());
     });
 
     blocTest<LoginCubit, LoginState>(
-      'emits updated email when emailChanged is called',
-      build: () => LoginCubit(mockAuthRepository),
+      'emits [email updated, success] when emailChanged is called',
+      build: () => loginCubit,
       act: (cubit) => cubit.emailChanged('test@example.com'),
       expect: () => [
         isA<LoginState>()
-            .having((s) => s.email.text, 'email.text', 'test@example.com'),
+            .having((s) => s.email.value, 'email', 'test@example.com')
+            .having((s) => s.status, 'status', LoginStatus.success),
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
-      'emits updated password when passwordChanged is called',
-      build: () => LoginCubit(mockAuthRepository),
-      act: (cubit) => cubit.passwordChanged('password123'),
+      'emits [password updated, success] when passwordChanged is called',
+      build: () => loginCubit,
+      act: (cubit) => cubit.passwordChanged('Abc12345!'),
       expect: () => [
         isA<LoginState>()
-            .having((s) => s.password.text, 'password.text', 'password123'),
+            .having((s) => s.password.value, 'password', 'Abc12345!')
+            .having((s) => s.status, 'status', LoginStatus.success),
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
-      'emits [loading, success] on successful login',
+      'toggles password visibility',
+      build: () => loginCubit,
+      act: (cubit) => cubit.passwordVisibilityChanged(),
+      expect: () => [
+        isA<LoginState>()
+            .having((s) => s.isObscured, 'isObscured', false)
+            .having((s) => s.status, 'status', LoginStatus.success),
+      ],
+    );
+
+    const testUser = PfUserModel(uid: '123', email: 'test@example.com');
+
+    blocTest<LoginCubit, LoginState>(
+      'emits [loading, loginedSuccess] when login succeeds',
       build: () {
         when(mockAuthRepository.signInWithEmailAndPassword(
           email: anyNamed('email'),
           password: anyNamed('password'),
-        )).thenAnswer((_) async => dummyUser);
+        )).thenAnswer((_) async => testUser);
+
+        when(mockAuthRepository.getUserData(any))
+            .thenAnswer((_) async => testUser);
+
         return LoginCubit(mockAuthRepository);
       },
-      seed: () => LoginState.initial().copyWith(
-        email: FakeFormField(text: 'test@example.com'),
-        password: FakeFormField(text: 'password123'),
+      seed: () => const LoginState(
+        email: PfEmailInput.dirty('khoi.vo@asnet.com.vn'),
+        password: PfPasswordInput.dirty('abcABC@123'),
       ),
       act: (cubit) => cubit.logInWithCredentials(),
       expect: () => [
         isA<LoginState>()
             .having((s) => s.status, 'status', LoginStatus.loading),
         isA<LoginState>()
-            .having((s) => s.status, 'status', LoginStatus.success),
+            .having((s) => s.status, 'status', LoginStatus.loginedSuccess),
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
-      'emits [loading, failure] on login error',
+      'emits [loading, failure] when login fails',
       build: () {
         when(mockAuthRepository.signInWithEmailAndPassword(
-          email: anyNamed('email'),
-          password: anyNamed('password'),
-        )).thenThrow(Exception('Login failed'));
+          email: 'test@example.com',
+          password: 'wrongPass1!!',
+        )).thenThrow(Exception('Failed'));
+
         return LoginCubit(mockAuthRepository);
       },
-      seed: () => LoginState.initial().copyWith(
-        email: FakeFormField(text: 'fail@example.com'),
-        password: FakeFormField(text: 'wrongpass'),
+      seed: () => const LoginState(
+        email: PfEmailInput.dirty('test@example.com'),
+        password: PfPasswordInput.dirty('wrongPass1!'),
       ),
       act: (cubit) => cubit.logInWithCredentials(),
       expect: () => [
@@ -127,5 +114,3 @@ void main() {
     );
   });
 }
-
-///
