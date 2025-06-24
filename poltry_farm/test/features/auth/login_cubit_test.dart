@@ -24,12 +24,17 @@ void main() {
   });
 
   group('LoginCubit', () {
+    const testUser = PfUserModel(uid: '123', email: 'test@example.com');
+
     test('initial state is correct', () {
       expect(loginCubit.state, const LoginState());
     });
 
     blocTest<LoginCubit, LoginState>(
-      'emits [email updated, success] when emailChanged is called',
+      '''Scenario: Test LoginCubit email change
+      Given LoginCubit instance
+      When emailChanged is called with a valid email
+      Then it should emit updated email and status success''',
       build: () => loginCubit,
       act: (cubit) => cubit.emailChanged('test@example.com'),
       expect: () => [
@@ -40,7 +45,10 @@ void main() {
     );
 
     blocTest<LoginCubit, LoginState>(
-      'emits [password updated, success] when passwordChanged is called',
+      '''Scenario: Test LoginCubit password change
+      Given LoginCubit instance
+      When passwordChanged is called with a valid password
+      Then it should emit updated password and status success''',
       build: () => loginCubit,
       act: (cubit) => cubit.passwordChanged('Abc12345!'),
       expect: () => [
@@ -51,7 +59,10 @@ void main() {
     );
 
     blocTest<LoginCubit, LoginState>(
-      'toggles password visibility',
+      '''Scenario: Test LoginCubit toggle password visibility
+      Given LoginCubit instance
+      When passwordVisibilityChanged is triggered
+      Then it should emit state with isObscured set to false and status success''',
       build: () => loginCubit,
       act: (cubit) => cubit.passwordVisibilityChanged(),
       expect: () => [
@@ -61,10 +72,11 @@ void main() {
       ],
     );
 
-    const testUser = PfUserModel(uid: '123', email: 'test@example.com');
-
     blocTest<LoginCubit, LoginState>(
-      'emits [loading, loginedSuccess] when login succeeds',
+      '''Scenario: Test LoginCubit login success
+      Given LoginCubit with valid email and password
+      When logInWithCredentials is called
+      Then it should emit loading and then loginedSuccess''',
       build: () {
         when(mockAuthRepository.signInWithEmailAndPassword(
           email: anyNamed('email'),
@@ -90,7 +102,10 @@ void main() {
     );
 
     blocTest<LoginCubit, LoginState>(
-      'emits [loading, failure] when login fails',
+      '''Scenario: Test LoginCubit login failure
+      Given LoginCubit with incorrect email or password
+      When logInWithCredentials is called
+      Then it should emit loading and then failure with error message''',
       build: () {
         when(mockAuthRepository.signInWithEmailAndPassword(
           email: 'test@example.com',

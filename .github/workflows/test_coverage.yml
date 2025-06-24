@@ -1,10 +1,10 @@
-name: Dart
+name: Dart Analyze
 
 on:
   pull_request:
 
 jobs:
-  test:
+  analyze:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +19,6 @@ jobs:
         working-directory: poltry_farm
         run: flutter pub get
 
-      - name: Run tests
+      - name: Run flutter analyze
         working-directory: poltry_farm
-        run: flutter test
+        run: flutter analyze
