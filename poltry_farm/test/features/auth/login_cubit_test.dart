@@ -23,7 +23,7 @@ void main() {
     loginCubit.close();
   });
 
-  group('LoginCubit', () {
+  group('Unit Test for LoginCubit', () {
     const testUser = PfUserModel(uid: '123', email: 'test@example.com');
 
     test('initial state is correct', () {
