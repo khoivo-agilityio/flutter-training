@@ -64,6 +64,8 @@ dependencies:
 
   collection: ^1.18.0 # Collections and utilities functions and classes related to collections.
 
+  flutter_native_splash: ^2.4.6 # Customize Flutter's default white native splash screen with background color and splash image. Supports dark mode, full screen, and more.
+
 dev_dependencies:
   flutter_test:
     sdk: flutter # Unit and widget testing support
@@ -84,6 +86,8 @@ dev_dependencies:
 
   coverage: ^1.6.3 # Collects test coverage reports
 
+  flutter_launcher_icons: ^0.14.4 # A package which simplifies the task of updating your Flutter app's launcher icon.
+
 flutter:
   uses-material-design: true
   generate: true
@@ -101,3 +105,9 @@ flutter_gen:
   output: lib/resources/assets_generated/ # Output location for generated asset references
   integrations:
     flutter_svg: true # Enable SVG support in generated assets
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
