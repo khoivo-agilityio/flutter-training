@@ -285,16 +285,13 @@ class _PasswordInput extends StatelessWidget {
               .passwordValidation(state.password.value),
           onChanged: (password) =>
               context.read<LoginCubit>().passwordChanged(password),
-          suffixIcon: Semantics(
-            button: true,
-            child: IconButton(
-              onPressed: context.read<LoginCubit>().passwordVisibilityChanged,
-              icon: Icon(
-                !state.isObscured
-                    ? Icons.visibility_outlined
-                    : Icons.visibility_off_outlined,
-                color: context.colorScheme.onSurface,
-              ),
+          suffixIcon: IconButton(
+            onPressed: context.read<LoginCubit>().passwordVisibilityChanged,
+            icon: Icon(
+              !state.isObscured
+                  ? Icons.visibility_outlined
+                  : Icons.visibility_off_outlined,
+              color: context.colorScheme.onSurface,
             ),
           ),
         );

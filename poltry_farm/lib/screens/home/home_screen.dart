@@ -183,7 +183,7 @@ class _PfHomeScreenState extends State<PfHomeScreen> {
                                         width: double.infinity,
                                         child: PfCachedNetworkImage(
                                           semanticLabel: category?.name ?? '',
-                                          height: 85,
+                                          height: 81,
                                           url: category?.imageUrl ?? '',
                                           boxFit: BoxFit.scaleDown,
                                         ),
