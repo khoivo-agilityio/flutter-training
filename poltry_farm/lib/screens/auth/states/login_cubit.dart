@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:poltry_farm/repositories/auth_repository.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
-import 'package:poltry_farm/widgets/forms/form_input.dart';
+import 'package:poltry_farm/widgets/form_input.dart';
 
 part 'login_state.dart';
 

@@ -12,8 +12,7 @@ import 'package:poltry_farm/widgets/app_bar.dart';
 import 'package:poltry_farm/widgets/avartar.dart';
 import 'package:poltry_farm/widgets/button.dart';
 import 'package:poltry_farm/widgets/dropdown.dart';
-import 'package:poltry_farm/widgets/forms/form_control.dart';
-import 'package:poltry_farm/widgets/forms/form_input.dart';
+import 'package:poltry_farm/widgets/form_input.dart';
 import 'package:poltry_farm/widgets/scroll_keyboard_manager.dart';
 import 'package:poltry_farm/widgets/text.dart';
 import 'package:poltry_farm/widgets/text_field.dart';
@@ -431,5 +430,3 @@ class _FarmInput extends StatelessWidget {
     );
   }
 }
-
-

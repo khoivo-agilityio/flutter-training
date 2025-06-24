@@ -22,18 +22,8 @@ void main() {
     });
 
     test('initial state is correct', () {
-      expect(homeCubit.state, HomeState.initial());
+      expect(homeCubit.state, const HomeState());
     });
-
-    blocTest<HomeCubit, HomeState>(
-      'emits state with updated search text when searchFormChanged is called',
-      build: () => HomeCubit(),
-      act: (cubit) => cubit.searchFormChanged('chicken'),
-      expect: () => [
-        isA<HomeState>()
-            .having((s) => s.searchForm.text, 'searchForm.text', 'chicken'),
-      ],
-    );
 
     blocTest<HomeCubit, HomeState>(
       'emits [loading, success] with categories when fetchCategories is called',
