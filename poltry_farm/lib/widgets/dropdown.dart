@@ -141,21 +141,52 @@ class PfDropdownSearch<T> extends StatefulWidget {
     super.key,
   });
 
+  // The unique name or key for the dropdown (used for semantics or form identification)
   final String name;
+
+  // The label text displayed above the dropdown
   final String? label;
+
+  // The placeholder text shown when no value is selected
   final String? placeholder;
+
+  // The controller for managing the dropdown's text input
   final TextEditingController? controller;
+
+  // The focus node for managing focus state of the dropdown
   final FocusNode? focusNode;
+
+  // An optional widget displayed at the end (right side) of the dropdown, such as an icon
   final Widget? trailingIcon;
+
+  // Callback when the dropdown value changes
   final ValueChanged<T?>? onChanged;
+
+  // Callback when an item is selected from the dropdown
   final ValueChanged<T?>? onSelected;
+
+  // Async function to fetch dropdown items
   final Future<List<PfDropdownSearchItem<T>>> Function()? onFetchItems;
+
+  // The keyboard type for the dropdown's text input
   final TextInputType? keyboardType;
+
+  // List of input formatters for the dropdown's text input
   final List<TextInputFormatter>? inputFormatters;
+
+  // Whether the dropdown is enabled (can be interacted with)
   final bool? enable;
+
+  // Whether the dropdown selection is required
   final bool? required;
+
+  // Whether to enable filtering/searching in the dropdown
   final bool enableFilter;
+
+  // The hint text shown inside the dropdown's text field
   final String? hintText;
+
+  // The initial value to be selected when the dropdown is first displayed
   final PfDropdownSearchItem<T>? initialValue;
 
   @override

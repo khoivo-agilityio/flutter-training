@@ -14,13 +14,28 @@ class PfElevatedButton extends StatelessWidget {
     this.padding,
   });
 
+  // The semantic label for accessibility (screen readers)
   final String semanticsLabel;
+
+  // The widget displayed as the button's content (usually text or icon)
   final Widget child;
+
+  // The width of the button
   final double? width;
+
+  // The height of the button
   final double? height;
+
+  // The background color of the button
   final Color? fillColor;
+
+  // The text color of the button's child
   final Color? textColor;
+
+  // The callback function to execute when the button is pressed
   final VoidCallback? onPressed;
+
+  // The padding inside the button
   final EdgeInsetsGeometry? padding;
 
   @override

@@ -28,44 +28,64 @@ class PfTextField extends StatefulWidget {
     super.key,
   });
 
+  // The semantic label for accessibility (screen readers)
   final String semanticsLabel;
 
+  // The title text displayed above the text field
   final String? title;
 
+  // The hint text shown inside the text field when it is empty
   final String? hintText;
 
+  // The error message displayed below the text field
   final String? errorMessage;
 
+  // An optional widget displayed at the end (right side) of the text field, such as an icon
   final Widget? suffixIcon;
 
+  // An optional widget displayed at the start (left side) of the text field, such as an icon
   final Widget? prefixIcon;
 
+  // Callback when the text in the field changes
   final ValueChanged<String>? onChanged;
 
+  // Callback when the user submits the text (e.g., presses enter)
   final ValueChanged<String>? onSubmitted;
 
+  // The type of keyboard to use for the text field
   final TextInputType? keyboardType;
 
+  // The focus node for managing focus state of the text field
   final FocusNode? focusNode;
 
+  // Callback when the user taps outside the text field
   final VoidCallback? onTapOutside;
 
+  // Whether to obscure the text (e.g., for passwords)
   final bool obscureText;
 
+  // Whether the text field is read-only
   final bool readOnly;
 
+  // Whether the text field should autofocus when the widget is built
   final bool autofocus;
 
+  // Callback when the text field is tapped
   final VoidCallback? onTap;
 
+  // The controller for managing the text field's value
   final TextEditingController? controller;
 
+  // Whether the text field should show validation feedback
   final bool hasValidation;
 
+  // Whether the text field is enabled (can be interacted with)
   final bool enabled;
 
+  // The initial value to display in the text field
   final String? initValue;
 
+  // The action button to use for the keyboard (e.g., next, done)
   final TextInputAction? textInputAction;
 
   @override

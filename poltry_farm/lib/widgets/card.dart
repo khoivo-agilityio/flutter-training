@@ -14,12 +14,25 @@ class PfCard extends StatelessWidget {
     this.semanticLabel,
   });
 
+  // The main title text displayed on the card
   final String? title;
+
+  // The subtitle text displayed below the title
   final String? subTitle;
+
+  // The description text providing more details about the card
   final String? description;
+
+  // The widget displayed as the main image or icon on the card
   final Widget? image;
+
+  // An optional widget displayed at the end (right side) of the card, such as an icon
   final Widget? trailingIcon;
+
+  // The callback function to execute when the card is tapped
   final VoidCallback? onTap;
+
+  // The semantic label for accessibility (screen readers)
   final String? semanticLabel;
 
   @override

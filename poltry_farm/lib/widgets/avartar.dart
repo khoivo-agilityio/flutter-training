@@ -12,9 +12,16 @@ class PfAvatar extends StatelessWidget {
     this.onTap,
   });
 
+  // The URL of the avatar image to display
   final String imgUrl;
+
+  // An optional local image file to display as the avatar
   final File? imageFile;
+
+  // The size (width and height) of the avatar widget
   final double size;
+
+  // Optional callback when the avatar is tapped
   final VoidCallback? onTap;
 
   @override

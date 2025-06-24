@@ -3,11 +3,6 @@ import 'package:poltry_farm/extensions/context_extension.dart';
 import 'package:poltry_farm/widgets/text.dart';
 
 class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  final List<Widget>? actions;
-  final Widget? leading;
-  final bool? automaticallyImplyLeading;
-
   const PfAppBar({
     super.key,
     required this.title,
@@ -15,6 +10,18 @@ class PfAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.automaticallyImplyLeading,
   });
+
+  // The title text displayed in the app bar
+  final String title;
+
+  // Optional widgets displayed at the end (right side) of the app bar, such as action buttons
+  final List<Widget>? actions;
+
+  // Optional widget displayed at the start (left side) of the app bar, such as a back button or menu icon
+  final Widget? leading;
+
+  // Whether the leading widget should be automatically implied (e.g., back button)
+  final bool? automaticallyImplyLeading;
 
   @override
   Widget build(BuildContext context) {
