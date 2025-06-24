@@ -8,7 +8,7 @@ import 'package:poltry_farm/repositories/auth_repository.dart';
 import 'package:poltry_farm/resources/l10n_generated/l10n.dart';
 import 'package:poltry_farm/shared/user_model.dart';
 import 'package:poltry_farm/widgets/dropdown.dart';
-import 'package:poltry_farm/widgets/forms/form_input.dart';
+import 'package:poltry_farm/widgets/form_input.dart';
 
 part 'personal_info_state.dart';
 

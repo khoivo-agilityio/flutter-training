@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:poltry_farm/shared/category_models.dart';
 import 'package:poltry_farm/shared/product_models.dart';
-import 'package:poltry_farm/widgets/forms/form_input.dart';
+import 'package:poltry_farm/widgets/form_input.dart';
 
 part 'home_state.dart';
 
